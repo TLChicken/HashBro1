@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class MapControllerScript : MonoBehaviour
 {
 
+    public Grid mainGrid;
     public Tilemap TM_FixedCollider;
     public Tilemap TM_Walkable;
     
@@ -23,12 +24,22 @@ public class MapControllerScript : MonoBehaviour
     }
 
     public bool canGo(Vector3 position) {
-        return true;
+        
+        return !this.checkFixedCollider(position);
     }
 
-    public bool checkFixedCollider(Vector3Int position) {
-        TileBase currFixedTile = TM_FixedCollider.GetTile(position);
-        return false;
+    public bool checkFixedCollider(Vector3 position) {
+        //Convert coordinates to Integer Values
+        TileBase currFixedTile = TM_FixedCollider.GetTile(mainGrid.WorldToCell(position));
+        if (currFixedTile == null) {
+            Debug.Log("null!!!");
+            return false;
+        }
+
+        //The name of the tile is the same as the name of the sprite.
+        Debug.Log(currFixedTile.name);
+
+        return LevelMasterSingleton.LM.isFixedCollidable(currFixedTile.name);
     }
 
 
