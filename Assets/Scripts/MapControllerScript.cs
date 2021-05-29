@@ -9,12 +9,33 @@ public class MapControllerScript : MonoBehaviour
     public Grid mainGrid;
     public Tilemap TM_FixedCollider;
     public Tilemap TM_Walkable;
+    public GameObject wallMainPrefab;
     
 
     // Start is called before the first frame update
     void Start()
     {
-          
+        //Create 3D Objects from tilemaps
+        Tilemap currTilemap = TM_FixedCollider;
+
+        Vector3 tmOrigin = currTilemap.origin;
+        Vector3 tmSize = currTilemap.size;
+
+        for (int x = Mathf.RoundToInt(tmOrigin.x); x < tmOrigin.x + tmSize.x; x++) {
+            for (int y = Mathf.RoundToInt(tmOrigin.y); y < tmOrigin.y + tmSize.y; y++) {
+                TileBase currTile = currTilemap.GetTile(mainGrid.WorldToCell(new Vector3(x, 0, -y)));
+
+                if (currTile == null) {
+                    continue;
+                }
+
+                if (currTile.name == "wallPlaceholder") {
+                    Instantiate(wallMainPrefab, new Vector3(x, 0, -y), Quaternion.identity);
+                }
+
+            }
+        }
+        
     }
 
     // Update is called once per frame
