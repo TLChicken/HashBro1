@@ -12,12 +12,17 @@ public class MapControllerScript : MonoBehaviour
     public GameObject blocks3DContainer;
     public GameObject wallMainPrefab;
     public GameObject lvlExitPrefab;
+
+    // A 2D array containing the 3D objects instantiated in the level so that we can find them easily with coordinates.
+    public GameObject[,] lvlObjRef;
     
     
 
     // Start is called before the first frame update
     void Start()
     {
+        //Initialise Array
+        lvlObjRef = new GameObject[LevelMasterSingleton.LM.levelLength, LevelMasterSingleton.LM.levelWidth];
 
         /**
             This part of the script initialises the 3D gameObjects based on the tilemaps in the level.
@@ -44,16 +49,21 @@ public class MapControllerScript : MonoBehaviour
                     continue;
                 }
 
+                GameObject currInstantiatedObj = null;
+
                 //Wall Generator
                 if (currTile.name == "wallPlaceholder") {
-                    GameObject currWall = Instantiate(wallMainPrefab, new Vector3(x, 0, y), Quaternion.identity);
-                    currWall.transform.parent = blocks3DContainer.transform;
+                    currInstantiatedObj = Instantiate(wallMainPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    currInstantiatedObj.transform.parent = blocks3DContainer.transform;
                 }
 
                 if (currTile.name == "exitTile") {
-                    GameObject currWall = Instantiate(lvlExitPrefab, new Vector3(x, 0, y), Quaternion.identity);
-                    currWall.transform.parent = blocks3DContainer.transform;
+                    currInstantiatedObj = Instantiate(lvlExitPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    currInstantiatedObj.transform.parent = blocks3DContainer.transform;
                 }
+
+
+                lvlObjRef[x, y] = currInstantiatedObj;
 
             }
         }
@@ -71,7 +81,7 @@ public class MapControllerScript : MonoBehaviour
         The purpose is to check whether HashBro is able to go to that position.
     */
     public bool canGo(Vector3 position) {
-        
+        Debug.Log(lvlObjRef[Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)]);
         return !this.checkFixedCollider(position);
     }
 
