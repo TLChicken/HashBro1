@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ee343c4b7911c439a3a4c069abe956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fixedColliderEventTiles: []
   levelLength: 25
   levelWidth: 25
 --- !u!4 &73797140
@@ -279,7 +280,7 @@ Transform:
   - {fileID: 1516751701}
   - {fileID: 921184598}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &468433214
 GameObject:
@@ -496,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 760056249}
   m_Layer: 0
-  m_Name: 3D Stuff
+  m_Name: Other 3D Stuff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -519,7 +520,7 @@ Transform:
   - {fileID: 468433219}
   - {fileID: 1966540387}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &916492863
 GameObject:
@@ -567,7 +568,9 @@ MonoBehaviour:
   mainGrid: {fileID: 462609387}
   TM_FixedCollider: {fileID: 1181464760}
   TM_Walkable: {fileID: 2042437227}
+  blocks3DContainer: {fileID: 916492863}
   wallMainPrefab: {fileID: 4394891582324798338, guid: c3660e91af418f44b8a0eb9883d1c9de, type: 3}
+  lvlExitPrefab: {fileID: 1867277572833508599, guid: 5a70be7409ce2594c8ea95f05f418221, type: 3}
 --- !u!1 &921184597
 GameObject:
   m_ObjectHideFlags: 0
