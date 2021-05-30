@@ -46,7 +46,7 @@ public class MapControllerScript : MonoBehaviour
 
     public bool canGo(Vector3 position) {
         
-        return !this.checkFixedCollider(position);
+        return !this.checkFixedCollider(position) && !this.checkObjectCollider(position);
     }
 
     public bool checkFixedCollider(Vector3 position) {
@@ -63,5 +63,18 @@ public class MapControllerScript : MonoBehaviour
         return LevelMasterSingleton.LM.isFixedCollidable(currFixedTile.name);
     }
 
-
+    public bool checkObjectCollider(Vector3 position) {
+        TileBase currentTile = TM_FixedCollider.GetTile(mainGrid.WorldToCell(position));
+        if (currentTile == null) {
+            Debug.Log("null");
+            return false;
+        }
+        
+        // if it is a box, must be pushable 
+        if (currentTile.name == "box2") {
+            Debug.Log("test");
+            return false;
+        }
+        return true;
+    }
 }

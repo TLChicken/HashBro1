@@ -16,8 +16,6 @@ public class HashBroMover : MonoBehaviour
     public MapControllerScript mapControllerObj;
     public Transform moveToThisSpot;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
