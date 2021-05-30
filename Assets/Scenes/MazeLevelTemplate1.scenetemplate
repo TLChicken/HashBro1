@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: MazeLevelTemplate1
+  m_EditorClassIdentifier: 
+  templateScene: {fileID: 102900000, guid: e986fa4e7df812547b4f0af90b149ecc, type: 3}
+  templateName: Level Template 1
+  description: Create a very basic level with HB, Walls, Water and Ground.
+  preview: {fileID: 0}
+  dependencies:
+  - dependency: {fileID: 2100000, guid: 64496f49f9319df45b395cb8fada5dd1, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 1867277572833508599, guid: 5a70be7409ce2594c8ea95f05f418221, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 11400000, guid: f2900a5375e105a43853d8a12c6495e5, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 2800000, guid: ac7bcc55a2facd745a3f1a46c04cd122, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: 2fd6421f253b4ef1a19526541f9ffc0c, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 4394891582324798338, guid: c3660e91af418f44b8a0eb9883d1c9de, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 2100000, guid: eb9646f254d1ab949ae16a1aaa741745, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: 2d7f07d765dcd5245a733e029a824863, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: ee148e281f3c41c5b4ff5f8a5afe5a6c, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 11400000, guid: 84ee8412ca0e05d46a6ca45b17ac27fd, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: a049b85b98e296c4e8757b8fc0b4ce7c, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: f74deedae96b4694a96f3d50af727ad8, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 2800000, guid: a333563072b869442867872ddc8e27c2, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 2800000, guid: be85340d405e2f54db594de9b4b1900f, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 919132149155446097, guid: 02cf8a6eae3e8cc4ab550c18aa5d633f, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    instantiationMode: 1
+  templatePipeline: {fileID: 0}
+  addToDefaults: 0
