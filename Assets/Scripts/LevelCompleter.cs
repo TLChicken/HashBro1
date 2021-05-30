@@ -30,4 +30,19 @@ public class LevelCompleter : MonoBehaviour
     {
         
     }
+
+    /** True = Collidable (When HT not completed yet). */
+    public bool isCollidable() {
+        return !hashTableCompleted;
+    }
+
+    public void openExit() {
+        hashTableCompleted = true;
+        indicatorGameObj.GetComponent<Renderer>().material = exitOpenMaterial;
+    }
+
+    public void onHBEnter() {
+        
+    }
+
 }
