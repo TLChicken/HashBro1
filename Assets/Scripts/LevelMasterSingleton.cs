@@ -9,6 +9,8 @@ public class LevelMasterSingleton : MonoBehaviour
     public static LevelMasterSingleton LM;
 
     private string[] fixedCollidableSpriteNames = {"wallPlaceholder", "water1"};
+    public int levelLength;
+    public int levelWidth;
 
     void Start()
     {
@@ -40,6 +42,14 @@ public class LevelMasterSingleton : MonoBehaviour
         }
 
         return false;
+    }
+
+    public float[] getLvlCornerCoors() {
+        float btmLeftX = LM.transform.position.x;
+        float btmLeftY = LM.transform.position.y;
+        float[] returnThis = {btmLeftX, btmLeftY};
+
+        return returnThis;
     }
 
 

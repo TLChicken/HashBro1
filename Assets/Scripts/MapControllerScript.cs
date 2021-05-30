@@ -18,19 +18,27 @@ public class MapControllerScript : MonoBehaviour
         //Create 3D Objects from tilemaps
         Tilemap currTilemap = TM_FixedCollider;
 
-        Vector3 tmOrigin = currTilemap.origin;
-        Vector3 tmSize = currTilemap.size;
+        // Vector3 tmOrigin = currTilemap.origin;
+        // Vector3 tmSize = currTilemap.size;
+        float[] lvlCornerCoors = LevelMasterSingleton.LM.getLvlCornerCoors();
+        int btmLeftX = Mathf.RoundToInt(lvlCornerCoors[0]);
+        int btmLeftY = Mathf.RoundToInt(lvlCornerCoors[1]);
 
-        for (int x = Mathf.RoundToInt(tmOrigin.x); x < tmOrigin.x + tmSize.x; x++) {
-            for (int y = Mathf.RoundToInt(tmOrigin.y); y < tmOrigin.y + tmSize.y; y++) {
-                TileBase currTile = currTilemap.GetTile(mainGrid.WorldToCell(new Vector3(x, 0, -y)));
+        // for (int x = Mathf.RoundToInt(tmOrigin.x); x < tmOrigin.x + tmSize.x; x++) {
+        //     for (int y = Mathf.RoundToInt(tmOrigin.y); y < tmOrigin.y + tmSize.y; y++) {
+        for (int x = btmLeftX; x < btmLeftX + LevelMasterSingleton.LM.levelLength; x++) {
+            for (int y = btmLeftY; y < btmLeftY + LevelMasterSingleton.LM.levelWidth; y++) {
+                TileBase currTile = currTilemap.GetTile(mainGrid.WorldToCell(new Vector3(x, 0, y)));
 
+                // Debug.Log(new Vector3(x, 0, y));
+                
                 if (currTile == null) {
                     continue;
                 }
 
+                //Wall Generator
                 if (currTile.name == "wallPlaceholder") {
-                    Instantiate(wallMainPrefab, new Vector3(x, 0, -y), Quaternion.identity);
+                    Instantiate(wallMainPrefab, new Vector3(x, 0, y), Quaternion.identity);
                 }
 
             }
