@@ -9,12 +9,20 @@ public class MapControllerScript : MonoBehaviour
     public Grid mainGrid;
     public Tilemap TM_FixedCollider;
     public Tilemap TM_Walkable;
+    public GameObject blocks3DContainer;
     public GameObject wallMainPrefab;
+    public GameObject lvlExitPrefab;
+    
     
 
     // Start is called before the first frame update
     void Start()
     {
+
+        /**
+            This part of the script initialises the 3D gameObjects based on the tilemaps in the level.
+        */
+
         //Create 3D Objects from tilemaps
         Tilemap currTilemap = TM_FixedCollider;
 
@@ -38,7 +46,13 @@ public class MapControllerScript : MonoBehaviour
 
                 //Wall Generator
                 if (currTile.name == "wallPlaceholder") {
-                    Instantiate(wallMainPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    GameObject currWall = Instantiate(wallMainPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    currWall.transform.parent = blocks3DContainer.transform;
+                }
+
+                if (currTile.name == "exitTile") {
+                    GameObject currWall = Instantiate(lvlExitPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    currWall.transform.parent = blocks3DContainer.transform;
                 }
 
             }
@@ -52,11 +66,20 @@ public class MapControllerScript : MonoBehaviour
         
     }
 
+    /**
+        This function is called by HashBro after the player supplies input telling it to go somewhere.
+        The purpose is to check whether HashBro is able to go to that position.
+    */
     public bool canGo(Vector3 position) {
         
         return !this.checkFixedCollider(position);
     }
 
+
+    /**
+        This function is for checking a fixed collider is present at the location "position",
+        and if it is present, whether HashBro CANNOT walk into it. (true for cannot, false for can)
+    */
     public bool checkFixedCollider(Vector3 position) {
         //Convert coordinates to Integer Values
         TileBase currFixedTile = TM_FixedCollider.GetTile(mainGrid.WorldToCell(position));
@@ -68,7 +91,10 @@ public class MapControllerScript : MonoBehaviour
         //The name of the tile is the same as the name of the sprite.
         Debug.Log(currFixedTile.name);
 
-        return LevelMasterSingleton.LM.isFixedCollidable(currFixedTile.name);
+        bool isFixedCollider = LevelMasterSingleton.LM.isFixedCollidable(currFixedTile.name);
+        bool checkFixedTileEvent = LevelMasterSingleton.LM.fixedColliderTileEvent(currFixedTile.name);
+
+        return isFixedCollider || checkFixedTileEvent;
     }
 
 
