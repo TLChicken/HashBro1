@@ -107,5 +107,18 @@ public class MapControllerScript : MonoBehaviour
         return isFixedCollider || checkFixedTileEvent;
     }
 
-
+    // public bool checkObjectCollider(Vector3 position) {
+    //     TileBase currentTile = TM_FixedCollider.GetTile(mainGrid.WorldToCell(position));
+    //     if (currentTile == null) {
+    //         Debug.Log("null");
+    //         return false;
+    //     }
+        
+    //     // if it is a box, must be pushable 
+    //     if (currentTile.name == "box2") {
+    //         Debug.Log("test");
+    //         return false;
+    //     }
+    //     return true;
+    // }
 }
