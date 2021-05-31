@@ -60,10 +60,12 @@ public class MapControllerScript : MonoBehaviour
                 if (currTile.name == "exitTile") {
                     currInstantiatedObj = Instantiate(lvlExitPrefab, new Vector3(x, 0, y), Quaternion.identity);
                     currInstantiatedObj.transform.parent = blocks3DContainer.transform;
+                    Debug.Log("Lvl Complete At: " + x + " " + y);
                 }
 
 
                 lvlObjRef[x, y] = currInstantiatedObj;
+                
 
             }
         }
@@ -76,12 +78,29 @@ public class MapControllerScript : MonoBehaviour
         
     }
 
+    /** Runs when HB walks into the tile at position. */
+    public void onHBEnterTile(Vector3 destPosition) {
+        GameObject objAtDest = lvlObjRef[Mathf.RoundToInt(destPosition.x), Mathf.RoundToInt(destPosition.z)];
+        if (objAtDest == null) {
+            return;
+        }
+
+        
+        TileBlockInterface tbiAtDest = objAtDest.GetComponent<TileBlockInterface>();
+        if (tbiAtDest == null) {
+            return;
+        }
+        tbiAtDest.onHBEnter();
+
+        Debug.Log("entered:");
+    }
+
     /**
         This function is called by HashBro after the player supplies input telling it to go somewhere.
         The purpose is to check whether HashBro is able to go to that position.
     */
     public bool canGo(Vector3 position) {
-        Debug.Log(lvlObjRef[Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)]);
+        Debug.Log(lvlObjRef[Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.z)]);
         return !this.checkFixedCollider(position);
     }
 
@@ -94,7 +113,6 @@ public class MapControllerScript : MonoBehaviour
         //Convert coordinates to Integer Values
         TileBase currFixedTile = TM_FixedCollider.GetTile(mainGrid.WorldToCell(position));
         if (currFixedTile == null) {
-            Debug.Log("null!!!");
             return false;
         }
 

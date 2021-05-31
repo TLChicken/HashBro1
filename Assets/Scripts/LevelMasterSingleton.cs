@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class LevelMasterSingleton : MonoBehaviour
 {
@@ -9,10 +10,14 @@ public class LevelMasterSingleton : MonoBehaviour
 
     public static LevelMasterSingleton LM;
 
-    private string[] fixedCollidableSpriteNames = {"wallPlaceholder", "water1"};
+    private string[] fixedCollidableSpriteNames = {"wallPlaceholder", "water1", "waterAnime"};
     public TileBase[] fixedColliderEventTiles;
     public int levelLength;
     public int levelWidth;
+
+    public GameObject HashBroPlayer;
+    //Canvases
+    public Canvas UI_levelComplete;
 
     void Start()
     {
@@ -32,7 +37,16 @@ public class LevelMasterSingleton : MonoBehaviour
         } else {
             LM = this;
         }
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
+    }
+
+    public void restartLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void quitGame() {
+        Debug.Log("Game Quitting...");
+        Application.Quit();
     }
 
 
@@ -52,10 +66,17 @@ public class LevelMasterSingleton : MonoBehaviour
     }
 
     /**
-        Checks if there is any event to run if HB wants to move to a spot with this fixed collider.
+        Checks if there is any event to run if HB wants to move to a spot with this fixed collider, BEFORE HB moves there.
         Returns whether HB CANNOT walk into the tile.
     */
-    public bool fixedColliderTileEvent(string name) {
+    public bool fixedColliderTileEvent(string currTileName) {
+        foreach (TileBase fixedColTileWEvent in fixedColliderEventTiles) {
+            if (fixedColTileWEvent.name.Equals(currTileName)) {
+                //WIP
+                return false;
+            }
+        }
+
         return false;
     }
 

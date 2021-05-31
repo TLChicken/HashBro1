@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelCompleter : MonoBehaviour
+public class LevelCompleter : MonoBehaviour, TileBlockInterface
 {
     // Start is called before the first frame update
 
@@ -13,6 +13,7 @@ public class LevelCompleter : MonoBehaviour
     public Material exitOpenMaterial;
 
     public bool hashTableCompleted;
+    
 
     
 
@@ -43,6 +44,8 @@ public class LevelCompleter : MonoBehaviour
 
     public void onHBEnter() {
         
+        LevelMasterSingleton.LM.UI_levelComplete.gameObject.SetActive(true);
+        Destroy(LevelMasterSingleton.LM.HashBroPlayer.GetComponent<HashBroMover>());
     }
 
 }

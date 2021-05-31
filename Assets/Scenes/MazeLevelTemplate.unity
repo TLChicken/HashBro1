@@ -2134,7 +2134,7 @@ MonoBehaviour:
   movementWidth: 4.5
   flyMode: 1
   creativeMode: 0
-  mapControllerObj: {fileID: 0}
+  mapControllerObj: {fileID: 751166124}
   moveToThisSpot: {fileID: 1512264169}
 --- !u!143 &1047631500
 CharacterController:

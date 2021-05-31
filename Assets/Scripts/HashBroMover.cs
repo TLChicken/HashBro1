@@ -56,6 +56,7 @@ public class HashBroMover : MonoBehaviour
                 //Tell MapController that HB wants to go there, checks whether HB can go there or not
                 if (mapControllerObj.canGo(destPosition)) {
                     moveToThisSpot.position = destPosition;
+                    mapControllerObj.onHBEnterTile(destPosition);
                 }
 
             } else if (Mathf.Abs(Input.GetAxis("Vertical")) >= 0.05) {
@@ -67,6 +68,7 @@ public class HashBroMover : MonoBehaviour
                 //Tell MapController that HB wants to go there, checks whether HB can go there or not
                 if (mapControllerObj.canGo(destPosition)) {
                     moveToThisSpot.position = destPosition;
+                    mapControllerObj.onHBEnterTile(destPosition);
                 }
 
             }
