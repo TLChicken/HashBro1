@@ -44,6 +44,15 @@ public class LevelMasterSingleton : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    /**
+        Loads Scene at index 0 if u are at the last scene, otherwise loads the scene at the next build index.
+    */
+    public void nextLevel() {
+        int currSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int totalNoOfScene = SceneManager.sceneCountInBuildSettings;
+        SceneManager.LoadScene(currSceneIndex + 1 >= totalNoOfScene ? 0 : currSceneIndex + 1);
+    }
+
     public void quitGame() {
         Debug.Log("Game Quitting...");
         Application.Quit();
