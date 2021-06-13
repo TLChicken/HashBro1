@@ -15,6 +15,8 @@ public class LevelMasterSingleton : MonoBehaviour
     public int levelLength;
     public int levelWidth;
 
+    public HexItem[] itemsInLevelList;
+
     public GameObject HashBroPlayer;
     //Canvases
     public Canvas UI_levelComplete;
