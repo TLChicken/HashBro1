@@ -3,26 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InvItemSlotController : MonoBehaviour
-{
+public class InvItemSlotController : MonoBehaviour {
     //The GameObject that contains the graphic to show that this item is selected
     public GameObject selectedIndicatorObj;
+
+    //The GameObject that contains the image of the item in the inventory
+    public Image itemImg;
+
+    //The GameObject that contains the wood panel holding the full name of the item
+    public Image fullNameWoodPanelImg;
 
     //Reference to the inventory manager, filled in by the inventory mangaer's Start() function
     [HideInInspector]
     public UI_InventoryManager invMgr;
-    
+
+    //The text that is on the item graphic
+    public Text graphicTextObj;
+
+    //The text that is below the item that should contain item full names
+    public Text fullNameTextObj;
+
+    //The item that this slot contains
+    public HexItem currHexItem;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
+    }
+
+    /**
+        CODE RELATED to the Item's information in this slot
+    */
+
+    //Checks if slot is empty
+    public bool isEmpty() {
+        return currHexItem == null;
     }
 
 
@@ -33,6 +53,11 @@ public class InvItemSlotController : MonoBehaviour
     //Clicking on the item will trigger this function
     //This will call the inventory manager to select this item and deselect all other items
     public void onSlotClicked() {
+        if (this.isEmpty()) {
+            //If empty then don't allow selection
+            return;
+        }
+
         invMgr.selectItem(this);
     }
 
@@ -42,6 +67,31 @@ public class InvItemSlotController : MonoBehaviour
 
     public void deselectThisItemSlot() {
         this.selectedIndicatorObj.SetActive(false);
+    }
+
+    /**
+        CODE RELATED to the Item Manipulation (Adding and removing items etc)
+    */
+
+    // Add item to this slot
+    //      Updates the 2 text components and turns on the item slot image
+    public bool addItem(HexItem itemToAdd) {
+        if (currHexItem != null) {
+            Debug.Log("Trying to add a new item into a slot that is already filled. ERROR.");
+            return false;
+        }
+
+
+        currHexItem = itemToAdd;
+
+        this.graphicTextObj.text = itemToAdd.itemName;
+        this.fullNameTextObj.text = itemToAdd.fullName;
+
+        //Turns on the game object containing the hexagonal item sprite
+        this.itemImg.gameObject.SetActive(true);
+        this.fullNameWoodPanelImg.gameObject.SetActive(true);
+
+        return true;
     }
 
 }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HexItem : MonoBehaviour
-{
+public class HexItem : MonoBehaviour {
     // Start is called before the first frame update
 
     //The short name of the item to display inside the item graphic itself
@@ -19,19 +18,34 @@ public class HexItem : MonoBehaviour
     //Reference to the text gameObject in game to display the itemName on
     public Text itemTextInGame;
 
-    void Start()
-    {
+    private LevelMasterSingleton LM;
+    private UI_InventoryManager invMgr;
+
+    void Start() {
         itemTextInGame.text = itemName;
+        LM = LevelMasterSingleton.LM;
+        invMgr = LM.invMgr;
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 
 
+    //Runs when HashBro enters the tile with the item
+    public void onHBEnter() {
+        bool successfullyAdded = invMgr.addItemToInventory(this);
+
+        Debug.Log("Successfully Added: " + successfullyAdded);
+
+        //If added successfully then remove the item from the world (SetActive(false))
+        if (successfullyAdded) {
+            this.gameObject.SetActive(false);
+        }
+
+    }
 
 
-    
 }

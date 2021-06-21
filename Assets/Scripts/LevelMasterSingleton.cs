@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 
-public class LevelMasterSingleton : MonoBehaviour
-{
+public class LevelMasterSingleton : MonoBehaviour {
     // Start is called before the first frame update
 
     public static LevelMasterSingleton LM;
 
-    private string[] fixedCollidableSpriteNames = {"wallPlaceholder", "water1", "waterAnime"};
+    private string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime" };
     public TileBase[] fixedColliderEventTiles;
     public int levelLength;
     public int levelWidth;
@@ -21,15 +20,38 @@ public class LevelMasterSingleton : MonoBehaviour
     //Canvases
     public Canvas UI_levelComplete;
 
-    void Start()
-    {
-        
+    public UI_InventoryManager invMgr;
+
+    void Start() {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+        int hbX = Mathf.RoundToInt(HashBroPlayer.transform.position.x);
+        int hbY = Mathf.RoundToInt(HashBroPlayer.transform.position.z);
+
+
+        //Check if hb came into contact with any of the HexItems
+        foreach (HexItem currItem in itemsInLevelList) {
+            //Debug.Log("HB POS: " + HashBroPlayer.transform.position + "Item pos being checked: " + currItem.transform.position);
+            int itemX = Mathf.RoundToInt(currItem.transform.position.x);
+            int itemY = Mathf.RoundToInt(currItem.transform.position.z);
+
+            if (hbX == itemX && hbY == itemY) {
+                Debug.Log("HB POS: " + HashBroPlayer.transform.position + "Item pos being checked: " + currItem.transform.position);
+
+                if (currItem.gameObject.activeSelf) {
+                    //HB walking into the item
+                    currItem.onHBEnter();
+                }
+
+                //Stop checking
+                return; //Remove if one tile can contain more than 1 item
+            }
+
+        }
+
     }
 
     //Singleton Design
@@ -99,10 +121,14 @@ public class LevelMasterSingleton : MonoBehaviour
     public float[] getLvlCornerCoors() {
         float btmLeftX = LM.transform.position.x;
         float btmLeftY = LM.transform.position.y;
-        float[] returnThis = {btmLeftX, btmLeftY};
+        float[] returnThis = { btmLeftX, btmLeftY };
 
         return returnThis;
     }
 
+
+    public UI_InventoryManager getCurrInventory() {
+        return invMgr;
+    }
 
 }
