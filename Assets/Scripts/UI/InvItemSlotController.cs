@@ -89,7 +89,11 @@ public class InvItemSlotController : MonoBehaviour {
 
         //Turns on the game object containing the hexagonal item sprite
         this.itemImg.gameObject.SetActive(true);
-        this.fullNameWoodPanelImg.gameObject.SetActive(true);
+
+        if (itemToAdd.fullName != "") {
+            //If the item has a full name, then display the wood panel with the full name text
+            this.fullNameWoodPanelImg.gameObject.SetActive(true);
+        }
 
         return true;
     }
