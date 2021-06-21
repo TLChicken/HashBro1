@@ -11,7 +11,7 @@ public class UI_HashFunctionPanel_Mover : MonoBehaviour
     private Vector2 openPosition;
 
     private Vector2 closedPosition;
-    private bool currOpen;
+    public bool currOpen;
     void Start () {
         rt = GetComponent<RectTransform>();
         if (openedMarker == null) {
@@ -23,7 +23,6 @@ public class UI_HashFunctionPanel_Mover : MonoBehaviour
         closedPosition = closedMarker.GetComponent<Transform>().localPosition;
         Debug.Log(closedMarker.GetComponent<Transform>().localPosition);
         Debug.Log(closedMarker.GetComponent<Transform>().position);
-        currOpen = true;
         
     }
     public void Toggle () {
