@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 196001446929459882}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4461318191824396049}
+        m_TargetAssemblyTypeName: InvItemSlotController, Assembly-CSharp
+        m_MethodName: onSlotClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &196001447479206078
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +220,7 @@ GameObject:
   - component: {fileID: 196001448154819987}
   - component: {fileID: 196001448154819984}
   - component: {fileID: 196001448154819985}
+  - component: {fileID: 4461318191824396049}
   m_Layer: 5
   m_Name: ItemSlot
   m_TagString: Untagged
@@ -319,6 +332,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4461318191824396049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196001448154819999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b97bb940020a5044a93da1af1ccc5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedIndicatorObj: {fileID: 196001447479206078}
+  invMgr: {fileID: 0}
 --- !u!1 &196001448516759707
 GameObject:
   m_ObjectHideFlags: 0
