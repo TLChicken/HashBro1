@@ -26,12 +26,8 @@ public class InvItemSlotController : UI_Slot {
     */
 
     //Clicking on the item will trigger this function
-    //This will call the inventory manager to select this item and deselect all other items
+    //This will call the logic manager to select this item
     public new void onSlotClicked() {
-        if (this.isEmpty()) {
-            //If empty then don't allow selection
-            return;
-        }
 
         this.logicMgr.selectItem(this);
     }

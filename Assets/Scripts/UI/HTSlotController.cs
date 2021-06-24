@@ -16,4 +16,18 @@ public class HTSlotController : UI_Slot {
     void Update() {
 
     }
+
+    /**
+        CODE FOR Selecting and Deselecting Items
+    */
+
+    //Clicking on the item will trigger this function
+    //This will call the logic manager to select this item
+    public new void onSlotClicked() {
+
+        this.logicMgr.selectItem(this);
+    }
+
+
+
 }

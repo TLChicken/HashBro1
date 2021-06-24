@@ -52,14 +52,18 @@ public class UI_Slot : MonoBehaviour {
     */
 
     //Clicking on the item will trigger this function
-    //This will call the inventory manager to select this item and deselect all other items
-    public void onSlotClicked() {
+    //This will call the logic manager to select this item
+    public virtual void onSlotClicked() {
         if (this.isEmpty()) {
             //If empty then don't allow selection
             return;
         }
 
         logicMgr.selectItem(this);
+    }
+
+    public void onSelectedSlotClicked() {
+        logicMgr.deselectItem();
     }
 
     public void selectThisItemSlot() {
@@ -80,6 +84,9 @@ public class UI_Slot : MonoBehaviour {
         if (currHexItem != null) {
             Debug.Log("Trying to add a new item into a slot that is already filled. ERROR.");
             return false;
+        } else if (itemToAdd == null) {
+            Debug.Log("Adding null item into slot. ERROR.");
+            return false;
         }
 
 
@@ -98,4 +105,50 @@ public class UI_Slot : MonoBehaviour {
 
         return true;
     }
+
+    //Removes an item from the slot
+    //Returns true if the slot is empty in the end, false otherwise
+    //(It won't return false currently because the item will always get removed when this is called.)
+    public bool removeItem() {
+        if (currHexItem != null) {
+            Debug.Log("Trying to remove an item from a slot that is empty.");
+            return true;
+        }
+
+        //Deselect item
+        currHexItem = null;
+        //Deactivate item image
+        this.itemImg.gameObject.SetActive(false);
+        //Deactivate full name panel if it was already activated
+        if (this.fullNameWoodPanelImg.gameObject.activeInHierarchy) {
+            this.fullNameWoodPanelImg.gameObject.SetActive(false);
+        }
+
+        return true;
+    }
+
+    public HexItem getItemInSlot() {
+        return currHexItem;
+    }
+
+    // Pass in a HexItem into this function to replace the current item with it, then
+    // returns the item that was previously already in the slot
+    public HexItem replaceItemWithThis(HexItem replaceWithThis) {
+        HexItem returnThis = currHexItem;
+
+        //Even if the slot is empty u can still run removeItem on it
+        this.removeItem();
+        this.addItem(replaceWithThis);
+
+        return returnThis;
+    }
+
+    //Swaps the items in the 2 slots
+    public bool swapItems(UI_Slot secondSlot) {
+        HexItem secondItem = secondSlot.replaceItemWithThis(this.currHexItem);
+        bool successfulness = this.removeItem();
+        successfulness = successfulness && this.addItem(secondItem);
+        return successfulness;
+    }
+
 }
