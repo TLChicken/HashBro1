@@ -22,6 +22,8 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public UI_InventoryManager invMgr;
 
+    public UI_HashTableManager htMgr;
+
     void Start() {
 
     }

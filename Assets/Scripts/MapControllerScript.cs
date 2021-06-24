@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MapControllerScript : MonoBehaviour
-{
+// A class to define the logic of what happens when HashBro interacts with physical tiles in the level
+// Also does other things related to the physical tiles and tilemaps in the level
+// Generates 3D objects based on what tiles are on the tilemap
+// Also checks whenever HashBro walks into a tile from the fixed collider tilemap.
+public class MapControllerScript : MonoBehaviour {
 
     public Grid mainGrid;
     public Tilemap TM_FixedCollider;
@@ -15,12 +18,11 @@ public class MapControllerScript : MonoBehaviour
 
     // A 2D array containing the 3D objects instantiated in the level so that we can find them easily with coordinates.
     public GameObject[,] lvlObjRef;
-    
-    
+
+
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         //Initialise Array
         lvlObjRef = new GameObject[LevelMasterSingleton.LM.levelLength, LevelMasterSingleton.LM.levelWidth];
 
@@ -44,7 +46,7 @@ public class MapControllerScript : MonoBehaviour
                 TileBase currTile = currTilemap.GetTile(mainGrid.WorldToCell(new Vector3(x, 0, y)));
 
                 // Debug.Log(new Vector3(x, 0, y));
-                
+
                 if (currTile == null) {
                     continue;
                 }
@@ -65,17 +67,16 @@ public class MapControllerScript : MonoBehaviour
 
 
                 lvlObjRef[x, y] = currInstantiatedObj;
-                
+
 
             }
         }
-        
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 
     /** Runs when HB walks into the tile at position. */
@@ -85,7 +86,7 @@ public class MapControllerScript : MonoBehaviour
             return;
         }
 
-        
+
         TileBlockInterface tbiAtDest = objAtDest.GetComponent<TileBlockInterface>();
         if (tbiAtDest == null) {
             return;
@@ -131,7 +132,7 @@ public class MapControllerScript : MonoBehaviour
     //         Debug.Log("null");
     //         return false;
     //     }
-        
+
     //     // if it is a box, must be pushable 
     //     if (currentTile.name == "box2") {
     //         Debug.Log("test");

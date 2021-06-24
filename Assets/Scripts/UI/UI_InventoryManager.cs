@@ -5,7 +5,7 @@ using UnityEngine;
 public class UI_InventoryManager : MonoBehaviour {
     public InvItemSlotController[] inventorySlotsList;
 
-    private InvItemSlotController selectedInvSlot;
+
 
     // Start is called before the first frame update
     void Start() {
@@ -23,16 +23,7 @@ public class UI_InventoryManager : MonoBehaviour {
     }
 
 
-    // Called by item slots after they are clicked
-    //      Selects an item and deselects the previously selected item
-    //      Updates the current selectedInvSlot
-    public void selectItem(InvItemSlotController selectThisSlot) {
-        selectThisSlot.selectThisItemSlot();
-        if (selectedInvSlot != null) {
-            selectedInvSlot.deselectThisItemSlot();
-        }
-        selectedInvSlot = selectThisSlot;
-    }
+
 
     // Returns the next inventory slot that is empty
     //      Returns null if all slots are full
