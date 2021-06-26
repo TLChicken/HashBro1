@@ -30,4 +30,12 @@ public class UI_HashTableManager : MonoBehaviour {
     void Update() {
 
     }
+
+    public void blockSlots() {
+        HTSlotsBlocker.SetActive(true);
+    }
+
+    public void unblockSlots() {
+        HTSlotsBlocker.SetActive(false);
+    }
 }

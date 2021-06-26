@@ -37,7 +37,9 @@ public class LogicEventController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        if (inHTRange) {
+            //In HT Range Effects
+        }
     }
 
     // Called by item slots after they are clicked
@@ -69,8 +71,10 @@ public class LogicEventController : MonoBehaviour {
     }
 
     public void deselectItem() {
-        selectedInvSlot.deselectThisItemSlot();
-        selectedInvSlot = null;
+        if (selectedInvSlot != null) {
+            selectedInvSlot.deselectThisItemSlot();
+            selectedInvSlot = null;
+        }
 
     }
 
@@ -78,13 +82,14 @@ public class LogicEventController : MonoBehaviour {
     //Called when HB walks into range of HT
     public void HBGoInHTRange() {
         inHTRange = true;
-
+        htMgr.unblockSlots();
         //TODO: Play sound and activate graphic that shows can interact with HT
     }
 
     //Called when HB walks out of range of HT
     public void HBOutOfHTRange() {
         inHTRange = false;
+        htMgr.blockSlots();
         deselectItem();
     }
 
