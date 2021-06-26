@@ -62,6 +62,7 @@ public class MapControllerScript : MonoBehaviour {
                 if (currTile.name == "exitTile") {
                     currInstantiatedObj = Instantiate(lvlExitPrefab, new Vector3(x, 0, y), Quaternion.identity);
                     currInstantiatedObj.transform.parent = blocks3DContainer.transform;
+                    LevelMasterSingleton.LM.lvlExitBlockList.Add(currInstantiatedObj.GetComponent<LevelCompleter>());
                     Debug.Log("Lvl Complete At: " + x + " " + y);
                 }
 

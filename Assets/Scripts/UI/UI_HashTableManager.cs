@@ -21,6 +21,9 @@ public class UI_HashTableManager : MonoBehaviour {
     //supposed to be autoadded.
     public HTSlotController[] preHTSlotsList;
 
+    //List containing all the HTSlots that are active
+    public List<HTSlotController> activeHTSlotsList = new List<HTSlotController>();
+
 
 
     // Start is called before the first frame update
@@ -31,6 +34,7 @@ public class UI_HashTableManager : MonoBehaviour {
         //Tells all the HT slots that this script is its HT manager
         foreach (HTSlotController slot in preHTSlotsList) {
             slot.htMgr = this;
+            activeHTSlotsList.Add(slot);
         }
 
         //Add slots to HT if there's the relevant item in the level
@@ -44,8 +48,17 @@ public class UI_HashTableManager : MonoBehaviour {
                 currHTSlot.htMgr = this;
                 currHTSlot.logicMgr = LevelMasterSingleton.LM.logicCtrl;
                 currHTSlot.qnText.text = currItem.htQuestionStr;
+
+                //Debug.Log(currHTSlot.qnText.text);
+                //Make newlines display correctly
+                currHTSlot.qnText.text.Replace("\\n", "\n");
+                currHTSlot.qnText.text.Replace("\\r", "\n");
+                Debug.Log(currHTSlot.qnText.text);
+
                 currHTSlot.correctItem = currItem;
                 currHTSlot.transform.SetParent(gridLayoutObj.transform, false);
+
+                activeHTSlotsList.Add(currHTSlot);
 
             }
         }
@@ -66,4 +79,19 @@ public class UI_HashTableManager : MonoBehaviour {
     public void unblockSlots() {
         HTSlotsBlocker.SetActive(false);
     }
+
+
+    //Run when you want to check whether ythe player filled in all the answers correctly
+    public bool checkCorrectnessOfHTSlots() {
+        foreach (HTSlotController currSlot in activeHTSlotsList) {
+            bool correctness = currSlot.correctItem.Equals(currSlot.currHexItem);
+
+            if (!correctness) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

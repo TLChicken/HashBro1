@@ -58,7 +58,8 @@ public class LogicEventController : MonoBehaviour {
         }
 
 
-
+        //Every time after the action caused by selecting an item finishes, check if HT is correct
+        LevelMasterSingleton.LM.checkAnswersNow();
 
     }
 

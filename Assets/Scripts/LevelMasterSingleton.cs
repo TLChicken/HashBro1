@@ -30,6 +30,12 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public LogicEventController logicCtrl;
 
+    //Tracks whether HT is completed 
+    public bool htCompleted = false;
+
+    //List of all the level exits
+    public List<LevelCompleter> lvlExitBlockList;
+
     void Start() {
 
         updateEventTriggersList();
@@ -115,8 +121,22 @@ public class LevelMasterSingleton : MonoBehaviour {
     public bool fixedColliderTileEvent(string currTileName) {
         foreach (TileBase fixedColTileWEvent in fixedColliderEventTiles) {
             if (fixedColTileWEvent.name.Equals(currTileName)) {
-                //WIP
-                return false;
+
+                Debug.Log("Fixed Collider Tile Event: " + currTileName);
+                if (fixedColTileWEvent.name.Equals("exitTile")) {
+                    //Check if HT completed
+                    if (htCompleted) {
+                        return false;
+                    } else {
+
+                        Debug.Log("Display hint in Hash Function box saying that player has to complete the HT first.");
+                        return true;
+                    }
+
+                }
+
+
+
             }
         }
 
@@ -170,6 +190,25 @@ public class LevelMasterSingleton : MonoBehaviour {
 
             currIndex = currIndex + 1;
         }
+
+    }
+
+    public void checkAnswersNow() {
+        bool allCorrect = htMgr.checkCorrectnessOfHTSlots();
+
+        //XOR - True if there is a change in the status of htCompleted
+        if (htCompleted ^ allCorrect) {
+            foreach (LevelCompleter currExit in lvlExitBlockList) {
+                if (allCorrect) {
+                    currExit.openExit();
+                } else {
+                    currExit.closeExit();
+                }
+            }
+        }
+
+
+        htCompleted = allCorrect;
 
     }
 }

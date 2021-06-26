@@ -39,6 +39,11 @@ public class LevelCompleter : MonoBehaviour, TileBlockInterface {
         indicatorGameObj.GetComponent<Renderer>().material = exitOpenMaterial;
     }
 
+    public void closeExit() {
+        hashTableCompleted = false;
+        indicatorGameObj.GetComponent<Renderer>().material = exitClosedMaterial;
+    }
+
     public void onHBEnter() {
 
         LevelMasterSingleton.LM.UI_levelComplete.gameObject.SetActive(true);
