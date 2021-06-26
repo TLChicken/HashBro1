@@ -26,7 +26,8 @@ public class HexItem : InvisEventTrigger {
     private LevelMasterSingleton LM;
     private UI_InventoryManager invMgr;
 
-    void Start() {
+    protected override void Start() {
+
         itemTextInGame.text = itemName;
         LM = LevelMasterSingleton.LM;
         invMgr = LM.invMgr;
@@ -34,13 +35,16 @@ public class HexItem : InvisEventTrigger {
     }
 
     // Update is called once per frame
-    void Update() {
+    protected override void Update() {
+
 
     }
 
 
     //Runs when HashBro enters the tile with the item
     public override void onHBEnter() {
+        base.onHBEnter();
+
         bool successfullyAdded = invMgr.addItemToInventory(this);
 
         Debug.Log("Successfully Added: " + successfullyAdded);
@@ -54,6 +58,7 @@ public class HexItem : InvisEventTrigger {
 
     //Does nothing when u exit a tile with an item because u already collected it
     public override void onHBExit() {
+        base.onHBExit();
 
     }
 
