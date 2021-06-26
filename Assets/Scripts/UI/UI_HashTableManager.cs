@@ -7,6 +7,9 @@ public class UI_HashTableManager : MonoBehaviour {
     //HT Slots Parent Object that contains the Grid Layout Group AND contains the HT Slots
     public GameObject gridLayoutObj;
 
+    //The panel that prevents interaction with the HT Slots when HB is not beside the HT
+    public GameObject HTSlotsBlocker;
+
     public HTSlotController[] HTSlotsList;
 
 

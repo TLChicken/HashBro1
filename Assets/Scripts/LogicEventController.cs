@@ -15,6 +15,8 @@ public class LogicEventController : MonoBehaviour {
 
     private UI_Slot selectedInvSlot;
 
+    private bool inHTRange;
+
 
     // Start is called before the first frame update
     void Start() {
@@ -30,6 +32,7 @@ public class LogicEventController : MonoBehaviour {
             slot.logicMgr = this;
         }
 
+        inHTRange = false;
     }
 
     // Update is called once per frame
@@ -72,5 +75,17 @@ public class LogicEventController : MonoBehaviour {
     }
 
 
+    //Called when HB walks into range of HT
+    public void HBGoInHTRange() {
+        inHTRange = true;
+
+        //TODO: Play sound and activate graphic that shows can interact with HT
+    }
+
+    //Called when HB walks out of range of HT
+    public void HBOutOfHTRange() {
+        inHTRange = false;
+        deselectItem();
+    }
 
 }

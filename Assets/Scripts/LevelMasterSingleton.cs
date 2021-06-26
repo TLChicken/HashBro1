@@ -28,6 +28,8 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public UI_HashTableManager htMgr;
 
+    public LogicEventController logicCtrl;
+
     void Start() {
 
         List<InvisEventTrigger> tempList = new List<InvisEventTrigger>();
@@ -158,4 +160,11 @@ public class LevelMasterSingleton : MonoBehaviour {
         return invMgr;
     }
 
+    public UI_HashTableManager getCurrHT() {
+        return htMgr;
+    }
+
+    public LogicEventController getCurrLogicCtrl() {
+        return logicCtrl;
+    }
 }
