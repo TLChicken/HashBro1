@@ -10,21 +10,26 @@ public class UI_HashTableManager : MonoBehaviour {
     //The panel that prevents interaction with the HT Slots when HB is not beside the HT
     public GameObject HTSlotsBlocker;
 
+    //A panel with the size of 1 HT slot to extend the scroll area if necessary
+    //So that the HT slots will not be blocked by the inventory
+    public GameObject HTScrollExtenderPanel;
+
     //The HT Slot Prefab
     public HTSlotController htSlotPrefab;
 
-
-    public HTSlotController[] HTSlotsList;
+    //Add pre-existing slots in the HT in to this list if its not
+    //supposed to be autoadded.
+    public HTSlotController[] preHTSlotsList;
 
 
 
     // Start is called before the first frame update
     void Start() {
         //Sets the scroll area to not start from the centre for some reason
-        gridLayoutObj.transform.position = new Vector3(gridLayoutObj.transform.position.x, 193, gridLayoutObj.transform.position.z);
+        gridLayoutObj.transform.position = new Vector3(gridLayoutObj.transform.position.x, -10000, gridLayoutObj.transform.position.z);
 
         //Tells all the HT slots that this script is its HT manager
-        foreach (HTSlotController slot in HTSlotsList) {
+        foreach (HTSlotController slot in preHTSlotsList) {
             slot.htMgr = this;
         }
 
@@ -44,6 +49,8 @@ public class UI_HashTableManager : MonoBehaviour {
 
             }
         }
+
+        HTScrollExtenderPanel.transform.SetParent(gridLayoutObj.transform, false);
 
     }
 

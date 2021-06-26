@@ -28,7 +28,7 @@ public class LogicEventController : MonoBehaviour {
             slot.logicMgr = this;
         }
 
-        foreach (HTSlotController slot in htMgr.HTSlotsList) {
+        foreach (HTSlotController slot in htMgr.preHTSlotsList) {
             slot.logicMgr = this;
         }
 
