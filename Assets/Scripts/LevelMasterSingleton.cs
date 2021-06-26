@@ -9,7 +9,7 @@ public class LevelMasterSingleton : MonoBehaviour
 
     public static LevelMasterSingleton LM;
 
-    private string[] fixedCollidableSpriteNames = {"wallPlaceholder", "water1"};
+    private string[] fixedCollidableSpriteNames = {"wallPlaceholder", "water1", "Door"};
     public TileBase[] fixedColliderEventTiles;
     public int levelLength;
     public int levelWidth;

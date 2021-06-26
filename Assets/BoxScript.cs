@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxScript : MonoBehaviour
-{
+public class BoxScript : MonoBehaviour {
     public float moveSpeed = 5f;
     public Transform movePoint;
     public Transform HashBromoveToThisSpot;
+
+    [HideInInspector]
+    public string Collectible;
 
     // Start is called before the first frame update
     void Start()
