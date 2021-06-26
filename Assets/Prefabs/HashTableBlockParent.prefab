@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8991d0f012d034f9731dd96b66f924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hTEventTriggerPrefab: {fileID: 3206255802810257435, guid: 02da7030d08546640b491289d068d89e, type: 3}
 --- !u!1 &5041624136804495043
 GameObject:
   m_ObjectHideFlags: 0

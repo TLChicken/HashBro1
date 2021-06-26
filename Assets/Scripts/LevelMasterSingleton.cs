@@ -9,7 +9,7 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public static LevelMasterSingleton LM;
 
-    private string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime" };
+    private string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic" };
     public TileBase[] fixedColliderEventTiles;
     public int levelLength;
     public int levelWidth;
@@ -32,26 +32,7 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     void Start() {
 
-        List<InvisEventTrigger> tempList = new List<InvisEventTrigger>();
-
-
-        foreach (Transform itemInLevelTrans in objsInLvlParent.transform) {
-            InvisEventTrigger itemInLevelTrigger = itemInLevelTrans.GetComponent<InvisEventTrigger>();
-            if (itemInLevelTrigger != null) {
-                //Add to the list
-                tempList.Add(itemInLevelTrigger);
-
-            }
-        }
-
-        itemsInLevelList = new InvisEventTrigger[tempList.Count];
-        int currIndex = 0;
-        foreach (InvisEventTrigger invisEventTrigger in tempList) {
-            itemsInLevelList[currIndex] = invisEventTrigger;
-
-
-            currIndex = currIndex + 1;
-        }
+        updateEventTriggersList();
 
     }
 
@@ -166,5 +147,29 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public LogicEventController getCurrLogicCtrl() {
         return logicCtrl;
+    }
+
+    public void updateEventTriggersList() {
+        List<InvisEventTrigger> tempList = new List<InvisEventTrigger>();
+
+
+        foreach (Transform itemInLevelTrans in objsInLvlParent.transform) {
+            InvisEventTrigger itemInLevelTrigger = itemInLevelTrans.GetComponent<InvisEventTrigger>();
+            if (itemInLevelTrigger != null) {
+                //Add to the list
+                tempList.Add(itemInLevelTrigger);
+
+            }
+        }
+
+        itemsInLevelList = new InvisEventTrigger[tempList.Count];
+        int currIndex = 0;
+        foreach (InvisEventTrigger invisEventTrigger in tempList) {
+            itemsInLevelList[currIndex] = invisEventTrigger;
+
+
+            currIndex = currIndex + 1;
+        }
+
     }
 }

@@ -25,7 +25,7 @@ public class HashTableBlock : MonoBehaviour {
 
         Debug.Log("start HT Block");
 
-        for (int posNo = 0; posNo < positions.Length; posNo = posNo + 1) {
+        for (int posNo = 0; posNo < 4; posNo = posNo + 1) {
             int diffX = positions[posNo, 0];
             int diffZ = positions[posNo, 1];
 
@@ -37,7 +37,7 @@ public class HashTableBlock : MonoBehaviour {
             //Debug.Log(theNewPosition);
         }
 
-
+        LevelMasterSingleton.LM.updateEventTriggersList();
 
 
     }

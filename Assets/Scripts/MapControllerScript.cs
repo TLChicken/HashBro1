@@ -15,13 +15,13 @@ public class MapControllerScript : MonoBehaviour {
     public GameObject blocks3DContainer;
     public GameObject wallMainPrefab;
     public GameObject lvlExitPrefab;
+    public GameObject hashTableBlockPrefab;
 
     // A 2D array containing the 3D objects instantiated in the level so that we can find them easily with coordinates.
     public GameObject[,] lvlObjRef;
 
 
 
-    // Start is called before the first frame update
     void Start() {
         //Initialise Array
         lvlObjRef = new GameObject[LevelMasterSingleton.LM.levelLength, LevelMasterSingleton.LM.levelWidth];
@@ -63,6 +63,11 @@ public class MapControllerScript : MonoBehaviour {
                     currInstantiatedObj = Instantiate(lvlExitPrefab, new Vector3(x, 0, y), Quaternion.identity);
                     currInstantiatedObj.transform.parent = blocks3DContainer.transform;
                     Debug.Log("Lvl Complete At: " + x + " " + y);
+                }
+
+                if (currTile.name == "hashTableTilePic") {
+                    currInstantiatedObj = Instantiate(hashTableBlockPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    currInstantiatedObj.transform.parent = blocks3DContainer.transform;
                 }
 
 
