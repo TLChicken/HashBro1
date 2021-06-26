@@ -24,6 +24,11 @@ public class LevelMasterSingleton : MonoBehaviour {
     //Canvases
     public Canvas UI_levelComplete;
 
+    public Canvas UI_pauseMenu;
+
+    //Tracks whether game is paused
+    public bool paused;
+
     public UI_InventoryManager invMgr;
 
     public UI_HashTableManager htMgr;
@@ -68,6 +73,15 @@ public class LevelMasterSingleton : MonoBehaviour {
 
         }
 
+        //Check for pause menu
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (UI_pauseMenu.gameObject.activeInHierarchy) {
+                resumeGame();
+            } else {
+                pauseGame();
+            }
+        }
+
     }
 
     //Singleton Design
@@ -98,6 +112,16 @@ public class LevelMasterSingleton : MonoBehaviour {
         Application.Quit();
     }
 
+    public void pauseGame() {
+        Debug.Log("Pausing Game...");
+        paused = true;
+        UI_pauseMenu.gameObject.SetActive(true);
+    }
+    public void resumeGame() {
+        Debug.Log("Resuming Game...");
+        paused = false;
+        UI_pauseMenu.gameObject.SetActive(false);
+    }
 
     /**
         Checks if a tile is a fixed collidable in the level, using its sprite name.
