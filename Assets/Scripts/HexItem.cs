@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HexItem : MonoBehaviour, TileBlockInterface {
-    // Start is called before the first frame update
+public class HexItem : InvisEventTrigger {
+    //Extends InvisEventTrigger because it needs a transform, and this is supposed to be split into 2 classes,
+    //One CollectHexItemTrigger which triggers the actual Hex Item
 
     //The short name of the item to display inside the item graphic itself
     public string itemName;
@@ -39,7 +40,7 @@ public class HexItem : MonoBehaviour, TileBlockInterface {
 
 
     //Runs when HashBro enters the tile with the item
-    public void onHBEnter() {
+    public override void onHBEnter() {
         bool successfullyAdded = invMgr.addItemToInventory(this);
 
         Debug.Log("Successfully Added: " + successfullyAdded);
@@ -51,5 +52,9 @@ public class HexItem : MonoBehaviour, TileBlockInterface {
 
     }
 
+    //Does nothing when u exit a tile with an item because u already collected it
+    public override void onHBExit() {
+
+    }
 
 }

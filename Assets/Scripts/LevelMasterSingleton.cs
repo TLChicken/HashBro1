@@ -14,7 +14,11 @@ public class LevelMasterSingleton : MonoBehaviour {
     public int levelLength;
     public int levelWidth;
 
-    public HexItem[] itemsInLevelList;
+    //The Parent empty gameObject containing all the invisEventTriggers in the level
+    public GameObject objsInLvlParent;
+
+    //Do not modify in inspector anymore - Am leaving it inside for debug puurposes
+    public InvisEventTrigger[] itemsInLevelList;
 
     public GameObject HashBroPlayer;
     //Canvases
@@ -26,6 +30,27 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     void Start() {
 
+        List<InvisEventTrigger> tempList = new List<InvisEventTrigger>();
+
+
+        foreach (Transform itemInLevelTrans in objsInLvlParent.transform) {
+            InvisEventTrigger itemInLevelTrigger = itemInLevelTrans.GetComponent<InvisEventTrigger>();
+            if (itemInLevelTrigger != null) {
+                //Add to the list
+                tempList.Add(itemInLevelTrigger);
+
+            }
+        }
+
+        itemsInLevelList = new InvisEventTrigger[tempList.Count];
+        int currIndex = 0;
+        foreach (InvisEventTrigger invisEventTrigger in tempList) {
+            itemsInLevelList[currIndex] = invisEventTrigger;
+
+
+            currIndex = currIndex + 1;
+        }
+
     }
 
     // Update is called once per frame
@@ -34,8 +59,8 @@ public class LevelMasterSingleton : MonoBehaviour {
         int hbY = Mathf.RoundToInt(HashBroPlayer.transform.position.z);
 
 
-        //Check if hb came into contact with any of the HexItems
-        foreach (HexItem currItem in itemsInLevelList) {
+        //Check if hb came into contact with any of the InvisEventTrigger inside the level
+        foreach (InvisEventTrigger currItem in itemsInLevelList) {
             //Debug.Log("HB POS: " + HashBroPlayer.transform.position + "Item pos being checked: " + currItem.transform.position);
             int itemX = Mathf.RoundToInt(currItem.transform.position.x);
             int itemY = Mathf.RoundToInt(currItem.transform.position.z);

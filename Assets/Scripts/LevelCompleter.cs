@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelCompleter : MonoBehaviour, TileBlockInterface
-{
+public class LevelCompleter : MonoBehaviour, TileBlockInterface {
     // Start is called before the first frame update
 
     //The gameObject to change the color of after completing the Hash Table. (The top cube)
@@ -13,12 +12,11 @@ public class LevelCompleter : MonoBehaviour, TileBlockInterface
     public Material exitOpenMaterial;
 
     public bool hashTableCompleted;
-    
 
-    
 
-    void Start()
-    {
+
+
+    void Start() {
         if (hashTableCompleted) {
             indicatorGameObj.GetComponent<Renderer>().material = exitOpenMaterial;
         } else {
@@ -27,9 +25,8 @@ public class LevelCompleter : MonoBehaviour, TileBlockInterface
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 
     /** True = Collidable (When HT not completed yet). */
@@ -43,9 +40,14 @@ public class LevelCompleter : MonoBehaviour, TileBlockInterface
     }
 
     public void onHBEnter() {
-        
+
         LevelMasterSingleton.LM.UI_levelComplete.gameObject.SetActive(true);
         Destroy(LevelMasterSingleton.LM.HashBroPlayer.GetComponent<HashBroMover>());
+    }
+
+    //Does nothing as HB cant exit this tile
+    public void onHBExit() {
+
     }
 
 }
