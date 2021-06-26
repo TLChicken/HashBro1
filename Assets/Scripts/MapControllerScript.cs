@@ -142,8 +142,8 @@ public class MapControllerScript : MonoBehaviour {
     //     // if it is a box, must be pushable 
     //     if (currentTile.name == "box2") {
     //         Debug.Log("test");
-    //         return false;
+    //         return true;
     //     }
-    //     return true;
+    //     return false;
     // }
 }
