@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HexItem : MonoBehaviour {
+public class HexItem : MonoBehaviour, TileBlockInterface {
     // Start is called before the first frame update
 
     //The short name of the item to display inside the item graphic itself
@@ -14,6 +14,10 @@ public class HexItem : MonoBehaviour {
 
     //Description when u hover over an item
     public string desc;
+
+    //Prompt in correct HT Slot - Can be a qn or match etc - Eg: item name is O(n^2) and the prompt is Selection Sort
+    public string htQuestionStr;
+
 
     //Reference to the text gameObject in game to display the itemName on
     public Text itemTextInGame;

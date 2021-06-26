@@ -27,6 +27,9 @@ public class UI_Slot : MonoBehaviour {
     //The item that this slot contains
     public HexItem currHexItem;
 
+    //Enum for identifying the type of the slot
+    public enum slotType { General, Inventory, HashTable };
+
     // Start is called before the first frame update
     void Start() {
 
@@ -44,6 +47,11 @@ public class UI_Slot : MonoBehaviour {
     //Checks if slot is empty
     public bool isEmpty() {
         return currHexItem == null;
+    }
+
+    //Checks slot type
+    public virtual slotType whatType() {
+        return slotType.General;
     }
 
 
@@ -66,6 +74,15 @@ public class UI_Slot : MonoBehaviour {
         logicMgr.deselectItem();
     }
 
+    //Called when selecting another slot with some slot already selected
+    //Default behaviour is to swap the items
+    public virtual void onSelectWhenSthElseAlrSelected(UI_Slot previousSel) {
+        Debug.Log("Default UI_Slot onSelectWhenSthElseAlrSelected ran.");
+        previousSel.swapItems(this);
+        logicMgr.deselectItem();
+
+    }
+
     public void selectThisItemSlot() {
         this.selectedIndicatorObj.SetActive(true);
     }
@@ -80,51 +97,57 @@ public class UI_Slot : MonoBehaviour {
 
     // Add item to this slot
     //      Updates the 2 text components and turns on the item slot image
-    public bool addItem(HexItem itemToAdd) {
-        if (currHexItem != null) {
-            Debug.Log("Trying to add a new item into a slot that is already filled. ERROR.");
-            return false;
-        } else if (itemToAdd == null) {
-            Debug.Log("Adding null item into slot. ERROR.");
-            return false;
-        }
+    public virtual bool addItem(HexItem itemToAdd) {
+        // if (currHexItem != null) {
+        //     Debug.Log("Trying to add a new item into a slot that is already filled. ERROR.");
+        //     //Used when swapping
+        // } else if (!(itemToAdd is HexItem) || itemToAdd == null) {
+        //     Debug.Log("Adding null item into slot. Empties the slot instead.");
+        //     this.removeItem();
+        //     return true;
+        // }
 
 
-        currHexItem = itemToAdd;
+        // currHexItem = itemToAdd;
 
-        this.graphicTextObj.text = itemToAdd.itemName;
-        this.fullNameTextObj.text = itemToAdd.fullName;
+        // this.graphicTextObj.text = itemToAdd.itemName;
+        // this.fullNameTextObj.text = itemToAdd.fullName;
 
-        //Turns on the game object containing the hexagonal item sprite
-        this.itemImg.gameObject.SetActive(true);
+        // //Turns on the game object containing the hexagonal item sprite
+        // this.itemImg.gameObject.SetActive(true);
 
-        if (itemToAdd.fullName != "") {
-            //If the item has a full name, then display the wood panel with the full name text
-            this.fullNameWoodPanelImg.gameObject.SetActive(true);
-        }
+        // if (itemToAdd.fullName != "") {
+        //     //If the item has a full name, then display the wood panel with the full name text
+        //     this.fullNameWoodPanelImg.gameObject.SetActive(true);
+        // }
 
-        return true;
+        // return true;
+        Debug.Log("Default addItem function ran. Item not added.");
+        return false;
     }
 
     //Removes an item from the slot
     //Returns true if the slot is empty in the end, false otherwise
     //(It won't return false currently because the item will always get removed when this is called.)
-    public bool removeItem() {
-        if (currHexItem != null) {
-            Debug.Log("Trying to remove an item from a slot that is empty.");
-            return true;
-        }
+    public virtual bool removeItem() {
+        // if (currHexItem == null) {
+        //     Debug.Log("Trying to remove an item from a slot that is empty.");
+        //     return true;
+        // }
 
-        //Deselect item
-        currHexItem = null;
-        //Deactivate item image
-        this.itemImg.gameObject.SetActive(false);
-        //Deactivate full name panel if it was already activated
-        if (this.fullNameWoodPanelImg.gameObject.activeInHierarchy) {
-            this.fullNameWoodPanelImg.gameObject.SetActive(false);
-        }
+        // //Deselect item
+        // currHexItem = null;
+        // //Deactivate item image
+        // this.itemImg.gameObject.SetActive(false);
+        // //Deactivate full name panel if it was already activated
+        // if (this.fullNameWoodPanelImg.gameObject.activeInHierarchy) {
+        //     this.fullNameWoodPanelImg.gameObject.SetActive(false);
+        // }
 
-        return true;
+        // return true;
+
+        Debug.Log("Default removeItem function ran. Item not removed.");
+        return false;
     }
 
     public HexItem getItemInSlot() {

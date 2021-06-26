@@ -423,10 +423,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedIndicatorObj: {fileID: 5612722095594645227}
   itemImg: {fileID: 5612722096876299304}
-  fullNameWoodPanelImg: {fileID: 2316371262293516884}
+  fullNameWoodPanelImg: {fileID: 0}
   logicMgr: {fileID: 0}
   graphicTextObj: {fileID: 7453933319444106397}
-  fullNameTextObj: {fileID: 4077413115054076404}
+  fullNameTextObj: {fileID: 0}
   currHexItem: {fileID: 0}
   htMgr: {fileID: 0}
 --- !u!1 &5612722095594645227
@@ -578,7 +578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5612722096876299305
 RectTransform:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_HashTableManager : MonoBehaviour {
-    //HT Slots Parent Object that contains the Grid Layout Group
+    //HT Slots Parent Object that contains the Grid Layout Group AND contains the HT Slots
     public GameObject gridLayoutObj;
 
     public HTSlotController[] HTSlotsList;

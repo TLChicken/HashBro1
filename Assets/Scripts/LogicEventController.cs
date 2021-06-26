@@ -47,14 +47,7 @@ public class LogicEventController : MonoBehaviour {
             selectedInvSlot = selectThisSlot;
         } else if (selectedInvSlot != null) {
 
-
-
-
-            // selectThisSlot.selectThisItemSlot();
-            // if (selectedInvSlot != null) {
-            //     selectedInvSlot.deselectThisItemSlot();
-            // }
-            // selectedInvSlot = selectThisSlot;
+            selectThisSlot.onSelectWhenSthElseAlrSelected(selectedInvSlot);
 
 
         }
@@ -62,6 +55,14 @@ public class LogicEventController : MonoBehaviour {
 
 
 
+    }
+
+    public void forceSelectItem(UI_Slot selectThisSlot) {
+        selectThisSlot.selectThisItemSlot();
+        if (selectedInvSlot != null) {
+            selectedInvSlot.deselectThisItemSlot();
+        }
+        selectedInvSlot = selectThisSlot;
     }
 
     public void deselectItem() {
