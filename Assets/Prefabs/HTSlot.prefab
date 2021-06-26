@@ -429,6 +429,8 @@ MonoBehaviour:
   fullNameTextObj: {fileID: 0}
   currHexItem: {fileID: 0}
   htMgr: {fileID: 0}
+  qnText: {fileID: 4077413115054076404}
+  correctItem: {fileID: 0}
 --- !u!1 &5612722095594645227
 GameObject:
   m_ObjectHideFlags: 0

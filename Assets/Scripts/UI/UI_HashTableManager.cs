@@ -10,6 +10,10 @@ public class UI_HashTableManager : MonoBehaviour {
     //The panel that prevents interaction with the HT Slots when HB is not beside the HT
     public GameObject HTSlotsBlocker;
 
+    //The HT Slot Prefab
+    public HTSlotController htSlotPrefab;
+
+
     public HTSlotController[] HTSlotsList;
 
 
@@ -22,6 +26,23 @@ public class UI_HashTableManager : MonoBehaviour {
         //Tells all the HT slots that this script is its HT manager
         foreach (HTSlotController slot in HTSlotsList) {
             slot.htMgr = this;
+        }
+
+        //Add slots to HT if there's the relevant item in the level
+        foreach (Transform itemInLevelTrans in LevelMasterSingleton.LM.objsInLvlParent.transform) {
+            HexItem currItem = itemInLevelTrans.GetComponent<HexItem>();
+
+            //If it is a HexItem then add it to the Hash Table
+            if (currItem != null) {
+                HTSlotController currHTSlot = Instantiate(htSlotPrefab);
+                //currHTSlot.transform.localScale = new Vector3(1, 1, 1);
+                currHTSlot.htMgr = this;
+                currHTSlot.logicMgr = LevelMasterSingleton.LM.logicCtrl;
+                currHTSlot.qnText.text = currItem.htQuestionStr;
+                currHTSlot.correctItem = currItem;
+                currHTSlot.transform.SetParent(gridLayoutObj.transform, false);
+
+            }
         }
 
     }
