@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TLC1.unity
     guid: 3ea69bab585956541aa0ba9da432f60f
+  - enabled: 1
+    path: Assets/Scenes/TLC2.unity
+    guid: 607f4d50b8f75ce48bad46e0b859d565
   m_configObjects: {}

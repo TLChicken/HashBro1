@@ -35,6 +35,13 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public LogicEventController logicCtrl;
 
+    [Tooltip("Open the Hash Function Canvas, Drag in the 'Hash Function Panel' GameObject.")]
+    public UI_HashFunction hashFunctionMgr;
+
+    [Tooltip("Drag in the picture (Sprite) containing the Hash Function for this level.")]
+    public Sprite hashFunctionImgForThisLvl;
+
+
     //Tracks whether HT is completed 
     public bool htCompleted = false;
 
@@ -44,6 +51,15 @@ public class LevelMasterSingleton : MonoBehaviour {
     void Start() {
 
         updateEventTriggersList();
+
+        //Set image if there is a hf for this level otherwise show plain msgBox
+        if (hashFunctionImgForThisLvl != null) {
+            hashFunctionMgr.setHFImg(hashFunctionImgForThisLvl);
+        } else {
+            hashFunctionMgr.changeMessage("", "Place all the items into the Hash Table in the correct positions. Then head to the exit to complete the level.");
+            hashFunctionMgr.showMessage();
+        }
+
 
     }
 
@@ -159,6 +175,7 @@ public class LevelMasterSingleton : MonoBehaviour {
                     } else {
 
                         Debug.Log("Display hint in Hash Function box saying that player has to complete the HT first.");
+                        hashFunctionMgr.changeAndShowMsgForSeconds("HINT:", "You have to fill up the entire Hash Table with the correct Hex Items in their respective positions before the exit unlocks.", 3.0f);
                         return true;
                     }
 
