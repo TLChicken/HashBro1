@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleLevel2.unity
     guid: 942d598c15a6bc34dad38930ae72669e
+  - enabled: 1
+    path: Assets/Scenes/TLC1.unity
+    guid: 3ea69bab585956541aa0ba9da432f60f
   m_configObjects: {}

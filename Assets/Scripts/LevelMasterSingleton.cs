@@ -123,6 +123,11 @@ public class LevelMasterSingleton : MonoBehaviour {
         UI_pauseMenu.gameObject.SetActive(false);
     }
 
+    public void backToMainMenu() {
+        Debug.Log("Quitting to Main Menu...");
+        SceneManager.LoadScene(0);
+    }
+
     /**
         Checks if a tile is a fixed collidable in the level, using its sprite name.
         The sprite name is checked with a list of constants at the top of this script.
