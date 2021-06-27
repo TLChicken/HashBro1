@@ -14,6 +14,9 @@ public class UI_HashTableManager : MonoBehaviour {
     //So that the HT slots will not be blocked by the inventory
     public GameObject HTScrollExtenderPanel;
 
+    //The exclaimation mark picture to tell the player that the Hash Table is open
+    public Image HTExclaimationMark;
+
     //The HT Slot Prefab
     public HTSlotController htSlotPrefab;
 
@@ -50,7 +53,7 @@ public class UI_HashTableManager : MonoBehaviour {
                 currHTSlot.qnText.text = currItem.htQuestionStr;
 
                 //Debug.Log(currHTSlot.qnText.text);
-                //Make newlines display correctly
+                //Make newlines display correctly (Not Working)
                 currHTSlot.qnText.text.Replace("\\n", "\n");
                 currHTSlot.qnText.text.Replace("\\r", "\n");
                 Debug.Log(currHTSlot.qnText.text);
@@ -74,10 +77,12 @@ public class UI_HashTableManager : MonoBehaviour {
 
     public void blockSlots() {
         HTSlotsBlocker.SetActive(true);
+        HTExclaimationMark.gameObject.SetActive(false);
     }
 
     public void unblockSlots() {
         HTSlotsBlocker.SetActive(false);
+        HTExclaimationMark.gameObject.SetActive(true);
     }
 
 

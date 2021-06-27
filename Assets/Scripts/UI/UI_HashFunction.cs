@@ -64,6 +64,7 @@ public class UI_HashFunction : MonoBehaviour {
         string previousBody = hfBodyText.text;
 
         this.changeMessage(headerText, bodyText);
+        showMessage();
         showingMsgCoroutine = WaitThenShowHFAndChangeMsg(previousHeader, previousBody, amtSecs);
         StartCoroutine(showingMsgCoroutine); //OMG REMEMBER TO START THE COROUTINE
         Debug.Log("Started Routine");
