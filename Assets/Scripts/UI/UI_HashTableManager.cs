@@ -14,8 +14,11 @@ public class UI_HashTableManager : MonoBehaviour {
     //So that the HT slots will not be blocked by the inventory
     public GameObject HTScrollExtenderPanel;
 
-    //The exclaimation mark picture to tell the player that the Hash Table is open
+    //The exclaimation mark picture to tell the player that the Hash Table is open,
+    // and the audio source to play the corresponding sound
     public Image HTExclaimationMark;
+    public AudioSource HTExclaimationMarkAudioSource;
+    private bool currHBEnterPlayed = false;
 
     //The HT Slot Prefab
     public HTSlotController htSlotPrefab;
@@ -78,11 +81,16 @@ public class UI_HashTableManager : MonoBehaviour {
     public void blockSlots() {
         HTSlotsBlocker.SetActive(true);
         HTExclaimationMark.gameObject.SetActive(false);
+        currHBEnterPlayed = false;
     }
 
     public void unblockSlots() {
         HTSlotsBlocker.SetActive(false);
         HTExclaimationMark.gameObject.SetActive(true);
+        if (!HTExclaimationMarkAudioSource.isPlaying && currHBEnterPlayed == false) {
+            HTExclaimationMarkAudioSource.Play();
+            currHBEnterPlayed = true;
+        }
     }
 
 
