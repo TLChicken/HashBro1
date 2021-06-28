@@ -38,6 +38,9 @@ public class LevelMasterSingleton : MonoBehaviour {
     [Tooltip("Open the Hash Function Canvas, Drag in the 'Hash Function Panel' GameObject.")]
     public UI_HashFunction hashFunctionMgr;
 
+    [Tooltip("Open the Hash Function Canvas, Drag in the 'Other UI Things Panel' GameObject.")]
+    public UI_OtherInHF otherUIHFMgr;
+
     [Tooltip("Drag in the picture (Sprite) containing the Hash Function for this level.")]
     public Sprite hashFunctionImgForThisLvl;
 
@@ -213,6 +216,10 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public LogicEventController getCurrLogicCtrl() {
         return logicCtrl;
+    }
+
+    public UI_OtherInHF getCurrOtherUIHFMgr() {
+        return otherUIHFMgr;
     }
 
     public void updateEventTriggersList() {
