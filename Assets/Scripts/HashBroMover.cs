@@ -63,7 +63,7 @@ public class HashBroMover : MonoBehaviour {
                         : GameMgrSingleton.MoveDirection.LEFT;
 
                     //If HB can go then check if got entity there etc and perform the entity action if needed
-                    if (mapControllerObj.checkEntityBeforeHBEnter(currDirHBMoving)) {
+                    if (mapControllerObj.checkEntityBeforeHBEnter(currDirHBMoving, destPosition)) {
                         moveToThisSpot.position = destPosition;
                         mapControllerObj.onHBEnterTile(destPosition);
                     }
@@ -84,7 +84,7 @@ public class HashBroMover : MonoBehaviour {
                         : GameMgrSingleton.MoveDirection.DOWN;
 
                     //If HB can go then check if got entity there etc and perform the entity action if needed
-                    if (mapControllerObj.checkEntityBeforeHBEnter(currDirHBMoving)) {
+                    if (mapControllerObj.checkEntityBeforeHBEnter(currDirHBMoving, destPosition)) {
                         moveToThisSpot.position = destPosition;
                         mapControllerObj.onHBEnterTile(destPosition);
                     }

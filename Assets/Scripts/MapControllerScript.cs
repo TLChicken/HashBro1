@@ -152,7 +152,7 @@ public class MapControllerScript : MonoBehaviour {
         If have then see if HB can enter
         If HB can enter then perform any actions needed to the entity and also return true
     */
-    public bool checkEntityBeforeHBEnter(GameMgrSingleton.MoveDirection direction) {
+    public bool checkEntityBeforeHBEnter(GameMgrSingleton.MoveDirection direction, Vector3 destPosition) {
 
 
         return true;

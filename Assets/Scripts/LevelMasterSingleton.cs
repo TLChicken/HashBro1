@@ -20,6 +20,9 @@ public class LevelMasterSingleton : MonoBehaviour {
     //Do not modify in inspector anymore - Am leaving it inside for debug puurposes
     public InvisEventTrigger[] itemsInLevelList;
 
+    //Entities found in objsInLvlParent
+    public List<Entity> entitiesInLevelList;
+
     //The Parent empty gameObject containing all the other nonTrigger stuff in the level
     public GameObject allOtherMiscObjsInLvlParent;
 
@@ -225,8 +228,13 @@ public class LevelMasterSingleton : MonoBehaviour {
         return otherUIHFMgr;
     }
 
+    //Updates the Invis Event Trigger List and Entities List
     public void updateEventTriggersList() {
+        //Rebuild list each time because it's faster and less intense than comparing the objs in objsInLvlParent
+        //And seeing if each obj is alr in the lists
         List<InvisEventTrigger> tempList = new List<InvisEventTrigger>();
+        entitiesInLevelList = new List<Entity>();
+
 
 
         foreach (Transform itemInLevelTrans in objsInLvlParent.transform) {
@@ -235,6 +243,11 @@ public class LevelMasterSingleton : MonoBehaviour {
                 //Add to the list
                 tempList.Add(itemInLevelTrigger);
 
+            }
+
+            Entity entityOnObj = itemInLevelTrans.GetComponent<Entity>();
+            if (entityOnObj != null) {
+                entitiesInLevelList.Add(entityOnObj);
             }
         }
 

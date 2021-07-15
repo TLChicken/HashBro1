@@ -33,7 +33,7 @@ public class MovableEntityMover : MonoBehaviour {
 
         //By default, entities will be pushable by HB
         bool moved = MoveOrder(dir);
-        return true;
+        return moved;
     }
 
     //This is the entry point to telling the entity to move, so it will check if can move etc
@@ -41,7 +41,7 @@ public class MovableEntityMover : MonoBehaviour {
     public virtual bool MoveOrder(GameMgrSingleton.MoveDirection dir) {
         //Check if the direction its facing can be moved
 
-        return false;
+        return true;
     }
 
     //This mtd will actually move the entity
