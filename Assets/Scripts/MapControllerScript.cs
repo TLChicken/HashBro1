@@ -153,8 +153,28 @@ public class MapControllerScript : MonoBehaviour {
         If HB can enter then perform any actions needed to the entity and also return true
     */
     public bool checkEntityBeforeHBEnter(GameMgrSingleton.MoveDirection direction, Vector3 destPosition) {
+        List<Entity> entitiesInLvl = LevelMasterSingleton.LM.getLvlEntities();
+        foreach (Entity currEnt in entitiesInLvl) {
+
+            int entityX = Mathf.RoundToInt(currEnt.transform.position.x);
+            int entityZ = Mathf.RoundToInt(currEnt.transform.position.z);
+
+            if (destPosition.x == entityX && destPosition.z == entityZ) {
+                Debug.Log("Entity pos being checked: " + currEnt.transform.position);
+
+                if (currEnt.gameObject.activeSelf) {
+                    //Since there is an entity at the destination position that HB wants to go,
+                    //we check if HB can enter
+                    currEnt.onHBWantsToEnter(direction);
+                }
 
 
+            }
+
+
+        }
+
+        //True by default if there are no entities at the destination position
         return true;
     }
 

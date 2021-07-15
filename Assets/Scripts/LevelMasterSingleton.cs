@@ -228,6 +228,11 @@ public class LevelMasterSingleton : MonoBehaviour {
         return otherUIHFMgr;
     }
 
+    //Gets the list of entities under objsInLvlParent
+    public List<Entity> getLvlEntities() {
+        return entitiesInLevelList;
+    }
+
     //Updates the Invis Event Trigger List and Entities List
     public void updateEventTriggersList() {
         //Rebuild list each time because it's faster and less intense than comparing the objs in objsInLvlParent

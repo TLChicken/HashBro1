@@ -41,7 +41,8 @@ public class MovableEntityMover : MonoBehaviour {
     public virtual bool MoveOrder(GameMgrSingleton.MoveDirection dir) {
         //Check if the direction its facing can be moved
 
-        return true;
+        //Move the thing if it can move
+        return MoveNormal(dir);
     }
 
     //This mtd will actually move the entity

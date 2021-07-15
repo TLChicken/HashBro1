@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : MonoBehaviour {
-    // Start is called before the first frame update
-    void Start() {
 
-    }
+    public virtual bool onHBWantsToEnter(GameMgrSingleton.MoveDirection direction) {
 
-    // Update is called once per frame
-    void Update() {
-
+        //HB Can enter by default if entity is not collidable and has no special properties
+        return true;
     }
 }
