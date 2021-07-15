@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetachTest : MonoBehaviour {
+public class Enitity : MonoBehaviour
+{
     // Start is called before the first frame update
-    void Start() {
-        this.gameObject.transform.SetParent(LevelMasterSingleton.LM.allOtherMiscObjsInLvlParent.transform);
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
-    void Update() {
-
+    void Update()
+    {
+        
     }
 }

@@ -46,7 +46,7 @@ public class HashBroMover : MonoBehaviour {
             cC.Move(moveWhereVector * Time.deltaTime * movementWidth);
 
             //HASHBRO MOVEMENT SCRIPT
-        } else if (Vector3.Distance(gameObject.transform.position, moveToThisSpot.position) <= 0.05f) { //Sensitivity
+        } else if (Vector3.Distance(gameObject.transform.position, moveToThisSpot.position) <= 0.02f) { //Sensitivity
             //HashBro has almost finished moving, start accepting input again
             if (Mathf.Abs(Input.GetAxis("Horizontal")) >= 0.05) {
                 //Move Left/Right by 1 block
