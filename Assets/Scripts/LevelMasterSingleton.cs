@@ -20,6 +20,9 @@ public class LevelMasterSingleton : MonoBehaviour {
     //Do not modify in inspector anymore - Am leaving it inside for debug puurposes
     public InvisEventTrigger[] itemsInLevelList;
 
+    //The Parent empty gameObject containing all the other nonTrigger stuff in the level
+    public GameObject allOtherMiscObjsInLvlParent;
+
     public GameObject HashBroPlayer;
     //Canvases
     public Canvas UI_levelComplete;
@@ -235,6 +238,8 @@ public class LevelMasterSingleton : MonoBehaviour {
             }
         }
 
+        //Transfer the gameObjects with InvisEventTriggers found under ObjsInLvlParent into the itemsInLevelList
+        //This is so when HB walks into those coordinates it will trigger the event triggers.
         itemsInLevelList = new InvisEventTrigger[tempList.Count];
         int currIndex = 0;
         foreach (InvisEventTrigger invisEventTrigger in tempList) {
