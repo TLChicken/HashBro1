@@ -132,6 +132,10 @@ public class MapControllerScript : MonoBehaviour {
         return isFixedCollider || checkFixedTileEvent;
     }
 
+    public TileBase getFixedCollidableTileAt(Vector3 position) {
+        return TM_FixedCollider.GetTile(mainGrid.WorldToCell(position));
+    }
+
     // public bool checkObjectCollider(Vector3 position) {
     //     TileBase currentTile = TM_FixedCollider.GetTile(mainGrid.WorldToCell(position));
     //     if (currentTile == null) {
@@ -154,6 +158,8 @@ public class MapControllerScript : MonoBehaviour {
     */
     public bool checkEntityBeforeHBEnter(GameMgrSingleton.MoveDirection direction, Vector3 destPosition) {
         List<Entity> entitiesInLvl = LevelMasterSingleton.LM.getLvlEntities();
+        bool HBCanEnter = true;
+
         foreach (Entity currEnt in entitiesInLvl) {
 
             int entityX = Mathf.RoundToInt(currEnt.transform.position.x);
@@ -165,7 +171,8 @@ public class MapControllerScript : MonoBehaviour {
                 if (currEnt.gameObject.activeSelf) {
                     //Since there is an entity at the destination position that HB wants to go,
                     //we check if HB can enter
-                    currEnt.onHBWantsToEnter(direction);
+                    HBCanEnter = HBCanEnter && currEnt.onHBWantsToEnter(direction);
+                    // Once there is a false somewhere then HB cannot enter
                 }
 
 
@@ -175,7 +182,7 @@ public class MapControllerScript : MonoBehaviour {
         }
 
         //True by default if there are no entities at the destination position
-        return true;
+        return HBCanEnter;
     }
 
 }

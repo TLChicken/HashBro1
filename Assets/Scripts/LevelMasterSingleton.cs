@@ -9,7 +9,7 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public static LevelMasterSingleton LM;
 
-    private string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic", "Door" };
+    private string[] fixedCollidableSpriteNames = GameMgrSingleton.fixedCollidableSpriteNames;
     public TileBase[] fixedColliderEventTiles;
     public int levelLength;
     public int levelWidth;
@@ -35,6 +35,7 @@ public class LevelMasterSingleton : MonoBehaviour {
     //Tracks whether game is paused
     public bool paused;
 
+    public MapControllerScript mapController;
     public UI_InventoryManager invMgr;
 
     public UI_HashTableManager htMgr;
@@ -192,9 +193,14 @@ public class LevelMasterSingleton : MonoBehaviour {
 
 
 
+
             }
         }
 
+        return false;
+    }
+
+    public bool nonHBSpecificFixedCollidableTileEvent(string currTileName) {
         return false;
     }
 
@@ -231,6 +237,10 @@ public class LevelMasterSingleton : MonoBehaviour {
     //Gets the list of entities under objsInLvlParent
     public List<Entity> getLvlEntities() {
         return entitiesInLevelList;
+    }
+
+    public MapControllerScript GetMapController() {
+        return mapController;
     }
 
     //Updates the Invis Event Trigger List and Entities List

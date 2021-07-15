@@ -14,9 +14,16 @@ public class BoxMover : MovableEntityMover {
     }
 
     public override bool MoveOrder(GameMgrSingleton.MoveDirection dir) {
+
         return base.MoveOrder(dir);
+
     }
 
 
+    protected override bool canMoveIntoWater(Vector3 destPos) {
+        //Box can go into water
+        //Trigger water code that changes the tile at that pos and set the box as inactive in heirarchy
+        return true;
+    }
 
 }

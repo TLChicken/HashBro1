@@ -33,6 +33,9 @@ public class GameMgrSingleton : MonoBehaviour {
 
     public int testNo = 2;
 
+    [HideInInspector]
+    public static string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic", "Door" };
+
 
     //Singleton Design - This one real singleton
     void Awake() {
@@ -54,4 +57,19 @@ public class GameMgrSingleton : MonoBehaviour {
     void Update() {
 
     }
+
+    //Vector3 creator. This only changes the original coordinate provided
+    //to a new coordinate after moving in a certain direction and returns the new one
+    public virtual Vector3 calcNormalDestPos(Vector3 startingPos, MoveDirection dir) {
+
+        int[] coorDiff = null;
+        movePosCoorsDict.TryGetValue(dir, out coorDiff);
+
+        float newX = startingPos.x + coorDiff[0];
+        float newZ = startingPos.z + coorDiff[1];
+
+        Vector3 destPos = new Vector3(newX, startingPos.y, newZ);
+        return destPos;
+    }
+
 }
