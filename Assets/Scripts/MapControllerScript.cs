@@ -185,4 +185,28 @@ public class MapControllerScript : MonoBehaviour {
         return HBCanEnter;
     }
 
+    /**
+        General function for checking if there are entities at a certain position.
+        Used to determine if entities can move to that position BEFORE checking if this position has fixed collidable
+    */
+    public Entity checkEntityAtPos(Vector3 position) {
+        List<Entity> entitiesInLvl = LevelMasterSingleton.LM.getLvlEntities();
+
+        foreach (Entity currEnt in entitiesInLvl) {
+
+            int entityX = Mathf.RoundToInt(currEnt.transform.position.x);
+            int entityZ = Mathf.RoundToInt(currEnt.transform.position.z);
+
+            if (position.x == entityX && position.z == entityZ) {
+                Debug.Log(this.name + ":  Entity pos being checked: " + currEnt.transform.position);
+
+                if (currEnt.gameObject.activeSelf) {
+                    return currEnt;
+                }
+            }
+        }
+
+        return null;
+    }
+
 }

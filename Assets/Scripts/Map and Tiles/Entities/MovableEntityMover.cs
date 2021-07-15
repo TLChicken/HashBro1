@@ -44,8 +44,21 @@ public class MovableEntityMover : MonoBehaviour {
         //Normal movable entities cannot collide with fixed collidables
 
         Vector3 destPos = calcDestPos(dir);
-
         MapControllerScript MCS = LevelMasterSingleton.LM.GetMapController();
+
+        //Check if got entity at the destination position
+
+        Entity destPosEntity = MCS.checkEntityAtPos(destPos);
+
+        if (destPosEntity != null) {
+            //Check if this entity can move into the other entity else return false
+
+            return destPosEntity.onEntityWantsToEnter(this.gameObject.GetComponent<Entity>());
+        }
+
+        //Check if got fixed collidable at destination position
+
+
 
         TileBase collidableTileAtDest = MCS.getFixedCollidableTileAt(destPos);
 

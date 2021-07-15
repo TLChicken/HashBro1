@@ -9,4 +9,8 @@ public class Entity : MonoBehaviour {
         //HB Can enter by default if entity is not collidable and has no special properties
         return true;
     }
+
+    public virtual bool onEntityWantsToEnter(Entity theEntityThatIsEntering) {
+        return false;
+    }
 }
