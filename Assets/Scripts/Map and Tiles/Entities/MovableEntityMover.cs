@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovableEntityMover : MonoBehaviour {
 
     public Transform moveToThisSpot;
-    public float movementSpeed = 1.0f;
+    public float movementSpeed = 4.5f;
 
     // Start is called before the first frame update
     protected virtual void Start() {
