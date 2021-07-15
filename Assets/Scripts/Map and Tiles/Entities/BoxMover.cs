@@ -12,4 +12,11 @@ public class BoxMover : MovableEntityMover {
     protected override void Update() {
         base.Update();
     }
+
+    public override bool MoveOrder(GameMgrSingleton.MoveDirection dir) {
+        return base.MoveOrder(dir);
+    }
+
+
+
 }

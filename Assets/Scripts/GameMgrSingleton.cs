@@ -19,6 +19,18 @@ public class GameMgrSingleton : MonoBehaviour {
         RIGHT
     }
 
+    private static int[][] movePositions = { new int[] { 0, 1 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { -1, 0 } };
+
+    //To easily get X and Z coordinates to increment or decrement by if something wants to move in a certian direction
+    public static Dictionary<MoveDirection, int[]> movePosCoorsDict = new Dictionary<MoveDirection, int[]>()
+    {
+        { MoveDirection.UP, movePositions[0] },
+        { MoveDirection.RIGHT, movePositions[1] },
+        { MoveDirection.DOWN, movePositions[2] },
+        { MoveDirection.LEFT, movePositions[3] }
+
+    };
+
     public int testNo = 2;
 
 

@@ -146,4 +146,16 @@ public class MapControllerScript : MonoBehaviour {
     //     }
     //     return false;
     // }
+
+    /**
+        This is a general function for checking if there are entities at the position that HB wants to enter
+        If have then see if HB can enter
+        If HB can enter then perform any actions needed to the entity and also return true
+    */
+    public bool checkEntityBeforeHBEnter(GameMgrSingleton.MoveDirection direction) {
+
+
+        return true;
+    }
+
 }
