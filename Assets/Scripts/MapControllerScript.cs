@@ -102,6 +102,11 @@ public class MapControllerScript : MonoBehaviour {
         Debug.Log("entered:");
     }
 
+    /** Runs when a movable entity enters a tile fully the first time. */
+    public void onEntityEnterTileFully(Entity currEntity) {
+
+    }
+
     /**
         This function is called by HashBro after the player supplies input telling it to go somewhere.
         The purpose is to check whether HashBro is able to go to that position.

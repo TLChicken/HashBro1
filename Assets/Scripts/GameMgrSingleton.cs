@@ -33,7 +33,8 @@ public class GameMgrSingleton : MonoBehaviour {
 
     public int testNo = 2;
 
-    private static float closeEnoughAllowance = 0.02f;
+    private static float closeEnoughAllowance = 0.05f;
+    private static float closeEnoughToTileCentreYAllowance = 0.2f;
 
     [HideInInspector]
     public static string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic", "Door" };
@@ -91,5 +92,37 @@ public class GameMgrSingleton : MonoBehaviour {
     }
 
 
+    //Return the nearest Vector3 coordinate XZ with Y = 0 if the obj is near the centre of a tile (for onTileEnterFully)
+    //Returns null if the currPos is not close enough to an integer coor
+    public static bool nearEnoughToIntTileCoordinate(Vector3 currPos) {
+        float currX = currPos.x;
+        float currY = currPos.y;
+        float currZ = currPos.z;
+
+        if (currY <= closeEnoughToTileCentreYAllowance && currY >= -closeEnoughToTileCentreYAllowance) {
+            float closestX = Mathf.Round(currX);
+            float closestZ = Mathf.Round(currZ);
+
+            if (Mathf.Abs(closestX - currX) < closeEnoughAllowance && Mathf.Abs(closestZ - currZ) < closeEnoughAllowance) {
+                //The coor is close enough so return that coor
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    //Return nearest int coordinate
+    public static Vector3 nearestYZeroIntCoordinate(Vector3 currPos) {
+        float currX = currPos.x;
+        float currZ = currPos.z;
+
+        float closestX = Mathf.Round(currX);
+        float closestZ = Mathf.Round(currZ);
+
+        return new Vector3(closestX, 0.0f, closestZ);
+
+    }
 
 }

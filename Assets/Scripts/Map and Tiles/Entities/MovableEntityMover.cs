@@ -9,11 +9,19 @@ public class MovableEntityMover : MonoBehaviour {
     public Transform moveToThisSpot;
     public float movementSpeed = 4.5f;
 
+    //Keeps track of which was the last tile that this thing had entered fully into
+    private Vector3 lastTileEnteredFullyCoor;
+
     // Start is called before the first frame update
     protected virtual void Start() {
 
         moveToThisSpot.parent = LevelMasterSingleton.LM.allOtherMiscObjsInLvlParent.transform;
 
+        //TRIGGER THE ON TILE ENTER FULLY FOR IT's STARTING TILE HERE
+        //In case eg a box starts in water
+        LevelMasterSingleton.LM.GetMapController().onEntityEnterTileFully(this.gameObject.GetComponent<Entity>());
+
+        lastTileEnteredFullyCoor = this.transform.position;
     }
 
     // Update is called once per frame
@@ -28,6 +36,20 @@ public class MovableEntityMover : MonoBehaviour {
 
         //Continue Moving the entity towards destination
         transform.position = Vector3.MoveTowards(transform.position, moveToThisSpot.position, movementSpeed * Time.deltaTime);
+
+        //Check if the entity is currently directly on top of a tile
+        bool closeEnoughToTileCentre = GameMgrSingleton.nearEnoughToIntTileCoordinate(transform.position);
+        if (closeEnoughToTileCentre) {
+            //Trigger the onEntityEnterFully of that tile
+            Vector3 nearestTileCoor = GameMgrSingleton.nearestYZeroIntCoordinate(this.transform.position);
+
+            //Check if this nearest tile is the last tile that was already entered, if new tile then continue
+            if (!nearestTileCoor.Equals(lastTileEnteredFullyCoor)) {
+                LevelMasterSingleton.LM.GetMapController().onEntityEnterTileFully(this.gameObject.GetComponent<Entity>()); //enter tile fully
+
+                lastTileEnteredFullyCoor = nearestTileCoor;
+            }
+        }
 
     }
 
