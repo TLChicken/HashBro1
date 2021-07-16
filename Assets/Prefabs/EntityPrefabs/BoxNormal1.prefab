@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa072b76f718fa41a13ee9c7a2071a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movableByHB: 1
   moveToThisSpot: {fileID: 3052772068031011073}
   movementSpeed: 4.5
 --- !u!114 &5946076295844045629
@@ -217,8 +218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e742dc0513dc8b24da5db11c7355bc76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  solidToObjs: 1
+  solidToHashBro: 1
   moverComponent: {fileID: 3052772068583104125}
+  heightWhenFloatingInWater: -0.85
+  waterWithBoxTile: {fileID: 11400000, guid: 8520397d04baced418c323bda54ace3f, type: 2}
 --- !u!1 &3052772069448891118
 GameObject:
   m_ObjectHideFlags: 0

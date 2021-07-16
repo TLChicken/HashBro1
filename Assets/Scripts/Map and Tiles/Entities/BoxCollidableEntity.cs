@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BoxCollidableEntity : CollidableEntity {
 
     public float heightWhenFloatingInWater = -0.85f;
+
+    [SerializeField]
+    private TileBase waterWithBoxTile;
 
     public override void onEnterGeneralWaterTile(GeneralWaterTile theTile) {
         base.onEnterGeneralWaterTile(theTile);
@@ -22,7 +26,7 @@ public class BoxCollidableEntity : CollidableEntity {
         LevelMasterSingleton.LM.removeEntityFromActiveCheckingList(this);
 
         //Tell water tile to Make itself walkable by HB and others on tilemap and also in lvlObjRef
-
+        LevelMasterSingleton.LM.GetMapController().setTileInTMCollidable(theTile.getTilePosition(), waterWithBoxTile);
 
     }
 

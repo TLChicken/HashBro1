@@ -211,6 +211,13 @@ public class MapControllerScript : MonoBehaviour {
         return TM_FixedCollider.GetTile(mainGrid.WorldToCell(position));
     }
 
+    //Change tile in Collidable TileMap
+    public void setTileInTMCollidable(Vector3 coorsOfTile, TileBase theNewTile) {
+        TM_FixedCollider.SetTile(mainGrid.WorldToCell(coorsOfTile), theNewTile);
+        updateLvlObjRefByCoorsWithNewObj(coorsOfTile);
+
+    }
+
     // public bool checkObjectCollider(Vector3 position) {
     //     TileBase currentTile = TM_FixedCollider.GetTile(mainGrid.WorldToCell(position));
     //     if (currentTile == null) {
@@ -284,6 +291,7 @@ public class MapControllerScript : MonoBehaviour {
         return null;
     }
 
+
     //Change the game object in the array that tracks the game objects instantiated by TMCollidable
     public void setGameObjInLvlObjRefByCoors(Vector3 coorsOfTile, GameObject setToThis) {
         int i = Mathf.RoundToInt(coorsOfTile.x);
@@ -297,8 +305,9 @@ public class MapControllerScript : MonoBehaviour {
         setGameObjInLvlObjRefByCoors(coorsOfTile, null);
     }
 
-    public void updateLvlObjRefByCoors(Vector3 coorsOfTile) {
-
+    public void updateLvlObjRefByCoorsWithNewObj(Vector3 coorsOfTile) {
+        GameObject newInstantiatedObj = getGameObjFromCollidableTile(coorsOfTile);
+        setGameObjInLvlObjRefByCoors(coorsOfTile, newInstantiatedObj);
     }
 
 }
