@@ -33,6 +33,8 @@ public class GameMgrSingleton : MonoBehaviour {
 
     public int testNo = 2;
 
+    private static float closeEnoughAllowance = 0.02f;
+
     [HideInInspector]
     public static string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic", "Door" };
 
@@ -60,7 +62,7 @@ public class GameMgrSingleton : MonoBehaviour {
 
     //Vector3 creator. This only changes the original coordinate provided
     //to a new coordinate after moving in a certain direction and returns the new one
-    public virtual Vector3 calcNormalDestPos(Vector3 startingPos, MoveDirection dir) {
+    public static Vector3 calcNormalDestPos(Vector3 startingPos, MoveDirection dir) {
 
         int[] coorDiff = null;
         movePosCoorsDict.TryGetValue(dir, out coorDiff);
@@ -71,5 +73,23 @@ public class GameMgrSingleton : MonoBehaviour {
         Vector3 destPos = new Vector3(newX, startingPos.y, newZ);
         return destPos;
     }
+
+    //Checks if something is close enough to something else by comparing their Vector3 (Coordinates)
+    public static bool isCloseEnoughToXZ(Vector3 first, Vector3 second) {
+        float firstX = first.x;
+        float firstZ = first.z;
+        float secondX = second.x;
+        float secondZ = second.z;
+
+        if (Mathf.Abs(secondX - firstX) < closeEnoughAllowance) {
+            if (Mathf.Abs(secondZ - firstZ) < closeEnoughAllowance) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
 
 }

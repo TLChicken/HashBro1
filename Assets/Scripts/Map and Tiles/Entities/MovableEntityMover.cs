@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class MovableEntityMover : MonoBehaviour {
 
+    public bool movableByHB = true;
     public Transform moveToThisSpot;
     public float movementSpeed = 4.5f;
 
@@ -23,6 +24,8 @@ public class MovableEntityMover : MonoBehaviour {
             return;
         }
 
+
+
         //Continue Moving the entity towards destination
         transform.position = Vector3.MoveTowards(transform.position, moveToThisSpot.position, movementSpeed * Time.deltaTime);
 
@@ -31,10 +34,15 @@ public class MovableEntityMover : MonoBehaviour {
     //Entry point for HB wanting to enter, will contain stuff to trigger entity moving if needed
     // Return true if HB can enter false if cannot
     public virtual bool onHBWantsToEnter(GameMgrSingleton.MoveDirection dir) {
+        if (movableByHB) {
 
-        //By default, entities will be pushable by HB
-        bool moved = MoveOrder(dir);
-        return moved;
+            //By default, entities will be pushable by HB
+            bool moved = MoveOrder(dir);
+            return moved;
+        } else {
+            //Not movable by HB so cannot enter
+            return false;
+        }
     }
 
     //This is the entry point to telling the entity to move, so it will check if can move etc
@@ -46,19 +54,23 @@ public class MovableEntityMover : MonoBehaviour {
         Vector3 destPos = calcDestPos(dir);
         MapControllerScript MCS = LevelMasterSingleton.LM.GetMapController();
 
-        //Check if got entity at the destination position
+        //Check if got entity at the destination position and whether can enter - Abstract this out as its own fn soon
 
         Entity destPosEntity = MCS.checkEntityAtPos(destPos);
+        bool entityCanGoIntoDestEntity = false;
 
         if (destPosEntity != null) {
             //Check if this entity can move into the other entity else return false
 
-            return destPosEntity.onEntityWantsToEnter(this.gameObject.GetComponent<Entity>());
+            entityCanGoIntoDestEntity = destPosEntity.onEntityWantsToEnter(this.gameObject.GetComponent<Entity>());
+            if (entityCanGoIntoDestEntity == false) {
+                //Cannot move into the other entity so this entity shouldn't move
+                return false;
+            }
         }
 
+
         //Check if got fixed collidable at destination position
-
-
 
         TileBase collidableTileAtDest = MCS.getFixedCollidableTileAt(destPos);
 
@@ -111,7 +123,7 @@ public class MovableEntityMover : MonoBehaviour {
         //Get coors from moveToThisSpot instead of the GameObject itself in case the entity is still moving
         //to that spot but is not there yet
         Vector3 currPos = moveToThisSpot.transform.position;
-        Vector3 destPos = GameMgrSingleton.GM.calcNormalDestPos(currPos, dir);
+        Vector3 destPos = GameMgrSingleton.calcNormalDestPos(currPos, dir);
 
         //ABSTRAcTED OUT TO GMS as this could be common operation
         // float currX = moveToThisSpot.transform.position.x;
