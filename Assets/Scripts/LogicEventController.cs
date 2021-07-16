@@ -94,4 +94,12 @@ public class LogicEventController : MonoBehaviour {
         deselectItem();
     }
 
+    //Checks if inventory is full
+    // Return true if inventory is full and false if it isn't
+    public bool isInventoryFull() {
+        InvItemSlotController nextEmptySlot = invMgr.findNextEmptySlot();
+
+        return nextEmptySlot == null;
+    }
+
 }

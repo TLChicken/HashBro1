@@ -110,6 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2975022195850038009}
   - component: {fileID: 2975022195850037990}
+  - component: {fileID: 160696210735233781}
   m_Layer: 0
   m_Name: HexItem
   m_TagString: Untagged
@@ -145,10 +146,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb42629a1bf844f48b1061c776591f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onEnterTriggeredDuringLastFrame: 0
+  updateFrameTracker: 0
+  onEnterFrameTracker: 0
   itemName: Bubble Sort
   fullName: 
   desc: 
+  htQuestionStr: 
   itemTextInGame: {fileID: 2975022196607034345}
+--- !u!114 &160696210735233781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2975022195850038008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c7f28878fd54c4baad55232ffa67eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solidToHashBro: 0
+  moverComponent: {fileID: 0}
 --- !u!1 &2975022196607034347
 GameObject:
   m_ObjectHideFlags: 0
