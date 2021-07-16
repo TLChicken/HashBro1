@@ -18,8 +18,11 @@ public class BoxCollidableEntity : CollidableEntity {
         moverComponent.GetComponent<BoxMover>().startSinkIntoWaterMovement();
 
         //Remove box from active interactable entities list
+        this.gameObject.transform.SetParent(LevelMasterSingleton.LM.allOtherMiscObjsInLvlParent.transform);
+        LevelMasterSingleton.LM.removeEntityFromActiveCheckingList(this);
 
         //Tell water tile to Make itself walkable by HB and others on tilemap and also in lvlObjRef
+
 
     }
 

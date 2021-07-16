@@ -279,6 +279,13 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     }
 
+    /*
+        Remove entiity from the list of entities to check
+    */
+    public void removeEntityFromActiveCheckingList(Entity toRemove) {
+        entitiesInLevelList.Remove(toRemove);
+    }
+
     public void checkAnswersNow() {
         bool allCorrect = htMgr.checkCorrectnessOfHTSlots();
 
