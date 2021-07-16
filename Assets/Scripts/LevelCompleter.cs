@@ -55,4 +55,8 @@ public class LevelCompleter : MonoBehaviour, TileBlockInterface {
 
     }
 
+    public void onEntityEnterTileFully(Entity currEntity) {
+
+    }
+
 }

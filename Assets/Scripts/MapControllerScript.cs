@@ -103,7 +103,19 @@ public class MapControllerScript : MonoBehaviour {
     }
 
     /** Runs when a movable entity enters a tile fully the first time. */
-    public void onEntityEnterTileFully(Entity currEntity) {
+    public void onEntityEnterTileFully(Vector3 destPosition, Entity currEntity) {
+        Debug.Log(this.name + ": onEntityEnterTileFully at position: " + destPosition);
+
+        GameObject objAtDest = lvlObjRef[Mathf.RoundToInt(destPosition.x), Mathf.RoundToInt(destPosition.z)];
+        if (objAtDest == null) {
+            return;
+        }
+
+        TileBlockInterface tbiAtDest = objAtDest.GetComponent<TileBlockInterface>();
+        if (tbiAtDest == null) {
+            return;
+        }
+
 
     }
 

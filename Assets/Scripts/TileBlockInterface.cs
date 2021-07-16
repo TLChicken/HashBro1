@@ -14,4 +14,10 @@ public interface TileBlockInterface {
     */
 
     void onHBExit();
+
+    /**
+        When entity enters some tile, this method will run once after it enters fully
+    */
+    void onEntityEnterTileFully(Entity currEntity);
+
 }

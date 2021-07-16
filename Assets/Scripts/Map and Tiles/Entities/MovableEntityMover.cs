@@ -19,9 +19,7 @@ public class MovableEntityMover : MonoBehaviour {
 
         //TRIGGER THE ON TILE ENTER FULLY FOR IT's STARTING TILE HERE
         //In case eg a box starts in water
-        LevelMasterSingleton.LM.GetMapController().onEntityEnterTileFully(this.gameObject.GetComponent<Entity>());
-
-        lastTileEnteredFullyCoor = this.transform.position;
+        //REMOVED BECAUSE IT WILL TRIGGER FOR THE FIRST TIME ANYWAY IN UPDATE since transform.position != null
     }
 
     // Update is called once per frame
@@ -45,7 +43,7 @@ public class MovableEntityMover : MonoBehaviour {
 
             //Check if this nearest tile is the last tile that was already entered, if new tile then continue
             if (!nearestTileCoor.Equals(lastTileEnteredFullyCoor)) {
-                LevelMasterSingleton.LM.GetMapController().onEntityEnterTileFully(this.gameObject.GetComponent<Entity>()); //enter tile fully
+                LevelMasterSingleton.LM.GetMapController().onEntityEnterTileFully(this.transform.position, this.gameObject.GetComponent<Entity>()); //enter tile fully
 
                 lastTileEnteredFullyCoor = nearestTileCoor;
             }

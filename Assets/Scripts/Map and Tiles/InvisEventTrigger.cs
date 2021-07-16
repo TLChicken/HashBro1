@@ -50,4 +50,8 @@ public abstract class InvisEventTrigger : MonoBehaviour, TileBlockInterface {
 
     }
 
+    public virtual void onEntityEnterTileFully(Entity currEntity) {
+
+    }
+
 }
