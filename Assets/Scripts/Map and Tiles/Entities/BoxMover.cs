@@ -26,4 +26,8 @@ public class BoxMover : MovableEntityMover {
         return true;
     }
 
+    public virtual void startSinkIntoWaterMovement() {
+        this.MoveSpecificAmt(new Vector3(0.0f, -0.85f, 0.0f));
+    }
+
 }

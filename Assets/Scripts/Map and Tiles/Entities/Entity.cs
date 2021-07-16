@@ -13,4 +13,9 @@ public class Entity : MonoBehaviour {
     public virtual bool onEntityWantsToEnter(Entity theEntityThatIsEntering) {
         return false;
     }
+
+    //For things that can enter water
+    public virtual void onEnterGeneralWaterTile(GeneralWaterTile theTile) {
+
+    }
 }

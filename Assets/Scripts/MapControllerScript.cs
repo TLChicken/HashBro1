@@ -17,6 +17,8 @@ public class MapControllerScript : MonoBehaviour {
     public GameObject lvlExitPrefab;
     public GameObject hashTableBlockPrefab;
 
+    public GameObject generalWaterPrefab;
+
     // A 2D array containing the 3D objects instantiated in the level so that we can find them easily with coordinates.
     public GameObject[,] lvlObjRef;
 
@@ -43,7 +45,9 @@ public class MapControllerScript : MonoBehaviour {
         //     for (int y = Mathf.RoundToInt(tmOrigin.y); y < tmOrigin.y + tmSize.y; y++) {
         for (int x = btmLeftX; x < btmLeftX + LevelMasterSingleton.LM.levelLength; x++) {
             for (int y = btmLeftY; y < btmLeftY + LevelMasterSingleton.LM.levelWidth; y++) {
-                TileBase currTile = currTilemap.GetTile(mainGrid.WorldToCell(new Vector3(x, 0, y)));
+                Vector3 currentCoordinateInFocus = new Vector3(x, 0, y);
+
+                TileBase currTile = currTilemap.GetTile(mainGrid.WorldToCell(currentCoordinateInFocus));
 
                 // Debug.Log(new Vector3(x, 0, y));
 
@@ -55,20 +59,27 @@ public class MapControllerScript : MonoBehaviour {
 
                 //Wall Generator
                 if (currTile.name == "wallPlaceholder") {
-                    currInstantiatedObj = Instantiate(wallMainPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    currInstantiatedObj = Instantiate(wallMainPrefab, currentCoordinateInFocus, Quaternion.identity);
                     currInstantiatedObj.transform.parent = blocks3DContainer.transform;
                 }
 
                 if (currTile.name == "exitTile") {
-                    currInstantiatedObj = Instantiate(lvlExitPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    currInstantiatedObj = Instantiate(lvlExitPrefab, currentCoordinateInFocus, Quaternion.identity);
                     currInstantiatedObj.transform.parent = blocks3DContainer.transform;
                     LevelMasterSingleton.LM.lvlExitBlockList.Add(currInstantiatedObj.GetComponent<LevelCompleter>());
                     Debug.Log("Lvl Complete At: " + x + " " + y);
                 }
 
                 if (currTile.name == "hashTableTilePic") {
-                    currInstantiatedObj = Instantiate(hashTableBlockPrefab, new Vector3(x, 0, y), Quaternion.identity);
+                    currInstantiatedObj = Instantiate(hashTableBlockPrefab, currentCoordinateInFocus, Quaternion.identity);
                     currInstantiatedObj.transform.parent = blocks3DContainer.transform;
+                }
+
+                if (GameMgrSingleton.waterTypesSpriteNames.Contains(currTile.name)) {
+                    //Check if the tile is of a water type
+                    currInstantiatedObj = Instantiate(generalWaterPrefab, currentCoordinateInFocus, Quaternion.identity);
+                    currInstantiatedObj.transform.parent = blocks3DContainer.transform;
+                    currInstantiatedObj.GetComponent<GeneralWaterTile>().setTilePosition(currentCoordinateInFocus);
                 }
 
 
@@ -116,6 +127,9 @@ public class MapControllerScript : MonoBehaviour {
             return;
         }
 
+        Debug.Log(this.name + ": onEntityEnterTileFully entity: " + currEntity.name + " entering tile of type: " + tbiAtDest.GetType());
+
+        tbiAtDest.onEntityEnterTileFully(currEntity);
 
     }
 

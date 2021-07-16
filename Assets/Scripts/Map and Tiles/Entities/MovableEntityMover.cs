@@ -139,6 +139,13 @@ public class MovableEntityMover : MonoBehaviour {
 
     }
 
+    //This mtd will actually move the thing by a specific amount
+    public virtual bool MoveSpecificAmt(Vector3 amount) {
+        moveToThisSpot.transform.position = moveToThisSpot.transform.position + amount;
+
+        return true;
+    }
+
     public virtual Vector3 calcDestPos(GameMgrSingleton.MoveDirection dir) {
         //Get coors from moveToThisSpot instead of the GameObject itself in case the entity is still moving
         //to that spot but is not there yet

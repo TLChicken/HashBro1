@@ -39,6 +39,8 @@ public class GameMgrSingleton : MonoBehaviour {
     [HideInInspector]
     public static string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic", "Door" };
 
+    [HideInInspector]
+    public static List<string> waterTypesSpriteNames = new List<string>() { "water1", "waterAnime" };
 
     //Singleton Design - This one real singleton
     void Awake() {
