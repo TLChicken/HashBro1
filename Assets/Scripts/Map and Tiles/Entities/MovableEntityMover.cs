@@ -73,10 +73,13 @@ public class MovableEntityMover : MonoBehaviour {
 
             //{ "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic", "Door" };
 
-            if (collidableTileAtDest.name == "wallPlaceholder") {
+            if (collidableTileAtDest.name.Equals("wallPlaceholder")) {
                 canMove = canMoveIntoWalls(destPos);
-            } else if (collidableTileAtDest.name == "waterAnime" || collidableTileAtDest.name == "water1") {
+            } else if (collidableTileAtDest.name.Equals("waterAnime") || collidableTileAtDest.name.Equals("water1")) {
                 canMove = canMoveIntoWater(destPos);
+            } else if (collidableTileAtDest.name.Equals("exitTile")) {
+                canMove = false;
+
             } else {
                 //If previous checks dont catch the tile name then check here
                 canMove = !LevelMasterSingleton.LM.isFixedCollidable(collidableTileAtDest.name);
