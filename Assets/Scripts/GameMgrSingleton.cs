@@ -115,16 +115,19 @@ public class GameMgrSingleton : MonoBehaviour {
         return false;
     }
 
-    //Return nearest int coordinate
-    public static Vector3 nearestYZeroIntCoordinate(Vector3 currPos) {
+    //Return nearest int coordinate at ground level unless ground level = false
+    public static Vector3 nearestYZeroIntCoordinate(Vector3 currPos, bool groundLevel = true) {
         float currX = currPos.x;
+        float currY = currPos.y;
         float currZ = currPos.z;
 
         float closestX = Mathf.Round(currX);
+        float closestY = Mathf.Round(currY);
         float closestZ = Mathf.Round(currZ);
 
-        return new Vector3(closestX, 0.0f, closestZ);
+        return new Vector3(closestX, groundLevel ? 0.0f : closestY, closestZ);
 
     }
+
 
 }

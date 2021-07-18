@@ -304,4 +304,43 @@ public class LevelMasterSingleton : MonoBehaviour {
         htCompleted = allCorrect;
 
     }
+
+    /**
+        Triggers an entity action on all InvisEventTriggers at a given coordinate.
+        The given coordinate has to be the exact coordinate of the tile to trigger the triggers on
+    */
+    public void onEntitySomethingToInvisEventTrigger(Vector3 coorToTrigger, Entity currEntity, EnumCollection.EntityActionsOntoTile actionToPerform) {
+        int posX = Mathf.RoundToInt(coorToTrigger.x);
+        int posZ = Mathf.RoundToInt(coorToTrigger.z);
+
+        foreach (InvisEventTrigger currTrigger in itemsInLevelList) {
+
+            int itemX = Mathf.RoundToInt(currTrigger.transform.position.x);
+            int itemZ = Mathf.RoundToInt(currTrigger.transform.position.z);
+
+            if (posX.Equals(itemX) && posZ.Equals(itemZ)) {
+                Debug.Log(this.name + ": Entity " + currEntity.name + ": Triggering entity action: " + actionToPerform + " for trigger: " + currTrigger.name + " at " + coorToTrigger);
+
+                if (currTrigger.gameObject.activeSelf) {
+
+                    switch (actionToPerform) {
+                        case EnumCollection.EntityActionsOntoTile.ON_START_TO_ENTER:
+                            currTrigger.onEntityStartToEnterTile(currEntity);
+                            break;
+                        case EnumCollection.EntityActionsOntoTile.ON_ENTER_FULLY:
+                            currTrigger.onEntityEnterTileFully(currEntity);
+                            break;
+                        case EnumCollection.EntityActionsOntoTile.ON_START_EXITING:
+                            currTrigger.onEntityStartExitingTile(currEntity);
+                            break;
+                    }
+
+
+                }
+            }
+
+        }
+    }
+
+
 }

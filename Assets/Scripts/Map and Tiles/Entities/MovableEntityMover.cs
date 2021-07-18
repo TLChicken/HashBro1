@@ -45,8 +45,14 @@ public class MovableEntityMover : MonoBehaviour {
             if (!nearestTileCoor.Equals(lastTileEnteredFullyCoor)) {
                 LevelMasterSingleton.LM.GetMapController().onEntityEnterTileFully(this.transform.position, this.gameObject.GetComponent<Entity>()); //enter tile fully
 
+                //Trigger might be in the air???
+                Vector3 nearestIntCoordinates = GameMgrSingleton.nearestYZeroIntCoordinate(this.transform.position, false);
+                //Trigger onEntityEnterTileFully of invisEventTrigger here
+                LevelMasterSingleton.LM.onEntitySomethingToInvisEventTrigger(nearestIntCoordinates, this.gameObject.GetComponent<Entity>(), EnumCollection.EntityActionsOntoTile.ON_ENTER_FULLY);
+
                 lastTileEnteredFullyCoor = nearestTileCoor;
             }
+
         }
 
     }
@@ -163,6 +169,9 @@ public class MovableEntityMover : MonoBehaviour {
         //Get fixed collidable tile at current position
         Vector3 currTileCoor = GameMgrSingleton.nearestYZeroIntCoordinate(this.transform.position);
         LevelMasterSingleton.LM.GetMapController().onEntityStartExitingTile(currTileCoor, this.gameObject.GetComponent<Entity>());
+
+        //Trigger exit invisEventTriggers here
+        LevelMasterSingleton.LM.onEntitySomethingToInvisEventTrigger(currTileCoor, this.gameObject.GetComponent<Entity>(), EnumCollection.EntityActionsOntoTile.ON_START_EXITING);
 
     }
 
