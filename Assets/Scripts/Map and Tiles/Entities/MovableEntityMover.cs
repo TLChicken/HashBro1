@@ -160,6 +160,10 @@ public class MovableEntityMover : MonoBehaviour {
     public virtual void TriggerStartToEnterTileMtdInDestTile() {
         //Currently does nothing as it's not implemented in TileBlockInterface yet and no tile needs this mtd yet
 
+        //Should run the onEntityStartToEnterTile method of the tile in the FixedCollidable tilemap here
+
+        //Should run the onEntityStartToEnterTile method of the InvisEventTrigger at the destination coordinates here
+        LevelMasterSingleton.LM.onEntitySomethingToInvisEventTrigger(moveToThisSpot.transform.position, this.gameObject.GetComponent<Entity>(), EnumCollection.EntityActionsOntoTile.ON_START_TO_ENTER);
     }
 
     /*
