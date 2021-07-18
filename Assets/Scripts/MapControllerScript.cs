@@ -12,6 +12,7 @@ public class MapControllerScript : MonoBehaviour {
     public Grid mainGrid;
     public Tilemap TM_FixedCollider;
     public Tilemap TM_Walkable;
+    public Tilemap TM_NonInteractable;
     public GameObject blocks3DContainer;
     public GameObject wallMainPrefab;
     public GameObject lvlExitPrefab;
@@ -94,6 +95,8 @@ public class MapControllerScript : MonoBehaviour {
             }
         }
 
+        fillBordersWithTile();
+
     }
 
     // Update is called once per frame
@@ -138,6 +141,33 @@ public class MapControllerScript : MonoBehaviour {
         }
 
         return currInstantiatedObj;
+    }
+
+    /** Fill in the Borders (Non Interactable Tilemap) with the tile - Run at the start of the level. */
+    private void fillBordersWithTile() {
+        TileBase useToFill = LevelMasterSingleton.LM.borderTile;
+
+        float[] lvlBtmLeft = LevelMasterSingleton.LM.getLvlCornerCoors();
+        float left = lvlBtmLeft[0];
+        float btm = lvlBtmLeft[1];
+        float top = btm + LevelMasterSingleton.LM.levelWidth;
+        float right = left + LevelMasterSingleton.LM.levelLength;
+
+        int padding = 12;
+        int btmPadding = 3;
+
+        for (float i = left - padding; i <= right + padding; i++) {
+            for (float j = btm - btmPadding; j <= top + padding; j++) {
+
+                if (i <= left || i >= right || j <= btm || j >= top) {
+                    Debug.Log(new Vector3(i, 0, j));
+                    TM_NonInteractable.SetTile(mainGrid.WorldToCell(new Vector3(i, 0, j)), useToFill);
+                }
+
+            }
+        }
+
+
     }
 
     /** Runs when HB walks into the tile at position. */

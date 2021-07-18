@@ -51,6 +51,9 @@ public class LevelMasterSingleton : MonoBehaviour {
     [Tooltip("Drag in the picture (Sprite) containing the Hash Function for this level.")]
     public Sprite hashFunctionImgForThisLvl;
 
+    [Tooltip("Put in the tile to use as the borders for this level.")]
+    public TileBase borderTile;
+
 
     //Tracks whether HT is completed 
     public bool htCompleted = false;
