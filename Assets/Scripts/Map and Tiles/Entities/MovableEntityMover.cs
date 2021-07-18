@@ -107,7 +107,8 @@ public class MovableEntityMover : MonoBehaviour {
 
             if (collidableTileAtDest.name.Equals("wallPlaceholder")) {
                 canMove = canMoveIntoWalls(destPos);
-            } else if (collidableTileAtDest.name.Equals("waterAnime") || collidableTileAtDest.name.Equals("water1")) {
+            } else if (GameMgrSingleton.waterTypesSpriteNames.Contains(collidableTileAtDest.name)) {
+                //Check if the tile is a type of water
                 canMove = canMoveIntoWater(destPos);
             } else if (collidableTileAtDest.name.Equals("exitTile")) {
                 canMove = false;
