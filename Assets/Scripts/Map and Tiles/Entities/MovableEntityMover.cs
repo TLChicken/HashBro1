@@ -139,6 +139,7 @@ public class MovableEntityMover : MonoBehaviour {
     //This mtd will actually move the entity
     public virtual bool MoveNormal(GameMgrSingleton.MoveDirection dir) {
 
+        LevelMasterSingleton.LM.lvlMixer.playLvlSound(EnumCollection.LvlSounds.BOX_PUSH);
 
         moveToThisSpot.transform.position = calcDestPos(dir);
         TriggerStartToExitTileMtdInCurrTile(); //Exit from current tile

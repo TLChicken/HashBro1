@@ -153,7 +153,7 @@ public class MapControllerScript : MonoBehaviour {
         float top = btm + LevelMasterSingleton.LM.levelWidth;
         float right = left + LevelMasterSingleton.LM.levelLength;
 
-        int padding = 12;
+        int padding = 15;
         int btmPadding = 3;
 
         for (float i = left - padding; i <= right + padding; i++) {

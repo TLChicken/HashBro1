@@ -48,6 +48,9 @@ public class LevelMasterSingleton : MonoBehaviour {
     [Tooltip("Open the Hash Function Canvas, Drag in the 'Other UI Things Panel' GameObject.")]
     public UI_OtherInHF otherUIHFMgr;
 
+    [Tooltip("Put in the general audio controller.")]
+    public LvlSoundEffectsMixer lvlMixer;
+
     [Tooltip("Drag in the picture (Sprite) containing the Hash Function for this level.")]
     public Sprite hashFunctionImgForThisLvl;
 

@@ -10,6 +10,8 @@ public class Entity : MonoBehaviour {
         return true;
     }
 
+    //Checks if an entity can enter another entity by being pushed by HB
+    //Return True if can, false if cannot
     public virtual bool onEntityWantsToEnter(Entity theEntityThatIsEntering) {
         return false;
     }

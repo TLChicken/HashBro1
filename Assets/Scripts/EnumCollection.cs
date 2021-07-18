@@ -10,4 +10,19 @@ public static class EnumCollection {
         ON_START_EXITING
     }
 
+    public enum LvlSounds {
+        BOX_PUSH,
+        BOX_SPLASH,
+        BOX_UNMOVABLE,
+        COLLECT_HEXITEM,
+        COLLECT_BONUS
+    }
+
+    public enum UISounds {
+        UI_TRAY_SLIDE,
+        PLACE_ITEM_INTO_HT,
+        CHANGE_SCENE_WOOSH,
+        MENU_BUTTON_CLICK
+    }
+
 }

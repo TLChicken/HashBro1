@@ -28,6 +28,7 @@ public class BoxMover : MovableEntityMover {
 
     public virtual void startSinkIntoWaterMovement() {
         this.MoveSpecificAmt(new Vector3(0.0f, -0.85f, 0.0f));
+        LevelMasterSingleton.LM.lvlMixer.playLvlSound(EnumCollection.LvlSounds.BOX_SPLASH);
     }
 
 }
