@@ -177,6 +177,26 @@ public class MapControllerScript : MonoBehaviour {
 
     }
 
+    /** Runs when a movable entity starts to exit a tile. */
+    public void onEntityStartExitingTile(Vector3 posOfTileBeingExited, Entity currEntity) {
+        Debug.Log(this.name + ": onEntityStartExitingTile at position: " + posOfTileBeingExited);
+
+        GameObject objAtDest = lvlObjRef[Mathf.RoundToInt(posOfTileBeingExited.x), Mathf.RoundToInt(posOfTileBeingExited.z)];
+        if (objAtDest == null) {
+            return;
+        }
+
+        TileBlockInterface tbiAtDest = objAtDest.GetComponent<TileBlockInterface>();
+        if (tbiAtDest == null) {
+            return;
+        }
+
+        Debug.Log(this.name + ": onEntityStartExitingTile entity: " + currEntity.name + " exiting tile of type: " + tbiAtDest.GetType());
+
+        tbiAtDest.onEntityStartExitingTile(currEntity);
+
+    }
+
     /**
         This function is called by HashBro after the player supplies input telling it to go somewhere.
         The purpose is to check whether HashBro is able to go to that position.

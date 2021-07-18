@@ -135,7 +135,8 @@ public class MovableEntityMover : MonoBehaviour {
 
 
         moveToThisSpot.transform.position = calcDestPos(dir);
-
+        TriggerStartToExitTileMtdInCurrTile(); //Exit from current tile
+        TriggerStartToEnterTileMtdInDestTile(); //Start to enter next tile
         return true;
 
     }
@@ -145,6 +146,24 @@ public class MovableEntityMover : MonoBehaviour {
         moveToThisSpot.transform.position = moveToThisSpot.transform.position + amount;
 
         return true;
+    }
+
+    /*
+        Triggers the onEntityStartToEnterTile mtd of the destination tile that this entity is currently moving towards.
+    */
+    public virtual void TriggerStartToEnterTileMtdInDestTile() {
+        //Currently does nothing as it's not implemented in TileBlockInterface yet and no tile needs this mtd yet
+
+    }
+
+    /*
+        Triggers the onEntityStartExitingTile mtd of the current tile that the entity is currently exiting.
+    */
+    public virtual void TriggerStartToExitTileMtdInCurrTile() {
+        //Get fixed collidable tile at current position
+        Vector3 currTileCoor = GameMgrSingleton.nearestYZeroIntCoordinate(this.transform.position);
+        LevelMasterSingleton.LM.GetMapController().onEntityStartExitingTile(currTileCoor, this.gameObject.GetComponent<Entity>());
+
     }
 
     public virtual Vector3 calcDestPos(GameMgrSingleton.MoveDirection dir) {

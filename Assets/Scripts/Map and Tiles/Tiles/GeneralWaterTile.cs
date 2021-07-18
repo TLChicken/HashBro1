@@ -23,9 +23,17 @@ public class GeneralWaterTile : MonoBehaviour, TileBlockInterface {
         return tilePositionOnGrid;
     }
 
+    public void onEntityStartToEnterTile(Entity currEntity) {
+
+    }
+
     public void onEntityEnterTileFully(Entity currEntity) {
         //Tell the entity that it has entered water
         currEntity.onEnterGeneralWaterTile(this);
+
+    }
+
+    public void onEntityStartExitingTile(Entity currEntity) {
 
     }
 }
