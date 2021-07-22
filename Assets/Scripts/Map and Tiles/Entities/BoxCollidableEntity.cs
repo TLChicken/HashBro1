@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class BoxCollidableEntity : CollidableEntity {
 
@@ -12,19 +13,37 @@ public class BoxCollidableEntity : CollidableEntity {
     public string textAtDestination = "";
 
 
-
+    [Header("Do not modify:")]
     public BoxDestinationTrigger destInvisTrigger;
+    public Text boxTextObj;
+    public Text destTextObj;
+    public GameObject boxCanvasParent;
 
     private bool boxAtDest = false;
 
     [Space(10f)]
-    [Header("Do not modify:")]
+
+    [SerializeField]
+    private GameObject sphereToDisableInStart;
     public float heightWhenFloatingInWater = -0.85f;
 
     [SerializeField]
     private TileBase waterWithBoxTile;
 
 
+    public void Start() {
+        sphereToDisableInStart.gameObject.SetActive(false);
+        boxTextObj.text = textOnBox;
+        destTextObj.text = textAtDestination;
+
+        if (hasDestination) {
+            boxCanvasParent.gameObject.SetActive(true);
+            destInvisTrigger.gameObject.SetActive(true);
+            LevelMasterSingleton.LM.activateInvisEventTrigger(destInvisTrigger);
+        }
+
+
+    }
 
     public void Reset() {
         hasDestination = false;

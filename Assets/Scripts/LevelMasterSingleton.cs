@@ -399,6 +399,14 @@ public class LevelMasterSingleton : MonoBehaviour {
     }
 
     /*
+        Add new InvisEventTrigger and set it to be actively detected.
+    */
+    public void activateInvisEventTrigger(InvisEventTrigger currTrigger) {
+        currTrigger.transform.SetParent(this.objsInLvlParent.transform);
+        updateEventTriggersList();
+    }
+
+    /*
         Remove InvisEventTrigger from the list of InvisEventTrigger to check without marking gameObject as inactive yet
     */
     public void stopDetectingForThisInvisEventTrigger(InvisEventTrigger theTrigger) {
@@ -412,6 +420,7 @@ public class LevelMasterSingleton : MonoBehaviour {
     public void collectBonusCoin(BonusCoinCollidableEntity coin) {
         this.totalBonusCollectedSoFar = this.totalBonusCollectedSoFar + 1;
     }
+
 
 
 }
