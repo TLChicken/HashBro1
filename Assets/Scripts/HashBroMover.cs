@@ -46,7 +46,7 @@ public class HashBroMover : MonoBehaviour {
             cC.Move(moveWhereVector * Time.deltaTime * movementWidth);
 
             //HASHBRO MOVEMENT SCRIPT
-        } else if (Vector3.Distance(gameObject.transform.position, moveToThisSpot.position) <= 0.05f) { //Sensitivity
+        } else if (Vector3.Distance(gameObject.transform.position, moveToThisSpot.position) <= 0.02f) { //Sensitivity
             //HashBro has almost finished moving, start accepting input again
             if (Mathf.Abs(Input.GetAxis("Horizontal")) >= 0.05) {
                 //Move Left/Right by 1 block
@@ -57,8 +57,17 @@ public class HashBroMover : MonoBehaviour {
 
                 //Tell MapController that HB wants to go there, checks whether HB can go there or not
                 if (mapControllerObj.canGo(destPosition)) {
-                    moveToThisSpot.position = destPosition;
-                    mapControllerObj.onHBEnterTile(destPosition);
+
+                    GameMgrSingleton.MoveDirection currDirHBMoving = moveXBy > 0
+                        ? GameMgrSingleton.MoveDirection.RIGHT
+                        : GameMgrSingleton.MoveDirection.LEFT;
+
+                    //If HB can go then check if got entity there etc and perform the entity action if needed
+                    if (mapControllerObj.checkEntityBeforeHBEnter(currDirHBMoving, destPosition)) {
+                        moveToThisSpot.position = destPosition;
+                        mapControllerObj.onHBEnterTile(destPosition);
+                    }
+
                 }
 
             } else if (Mathf.Abs(Input.GetAxis("Vertical")) >= 0.05) {
@@ -69,8 +78,16 @@ public class HashBroMover : MonoBehaviour {
 
                 //Tell MapController that HB wants to go there, checks whether HB can go there or not
                 if (mapControllerObj.canGo(destPosition)) {
-                    moveToThisSpot.position = destPosition;
-                    mapControllerObj.onHBEnterTile(destPosition);
+
+                    GameMgrSingleton.MoveDirection currDirHBMoving = moveZBy > 0
+                        ? GameMgrSingleton.MoveDirection.UP
+                        : GameMgrSingleton.MoveDirection.DOWN;
+
+                    //If HB can go then check if got entity there etc and perform the entity action if needed
+                    if (mapControllerObj.checkEntityBeforeHBEnter(currDirHBMoving, destPosition)) {
+                        moveToThisSpot.position = destPosition;
+                        mapControllerObj.onHBEnterTile(destPosition);
+                    }
                 }
 
             }

@@ -9,7 +9,7 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public static LevelMasterSingleton LM;
 
-    private string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic", "Door" };
+    private string[] fixedCollidableSpriteNames = GameMgrSingleton.fixedCollidableSpriteNames;
     public TileBase[] fixedColliderEventTiles;
     public int levelLength;
     public int levelWidth;
@@ -18,7 +18,10 @@ public class LevelMasterSingleton : MonoBehaviour {
     public GameObject objsInLvlParent;
 
     //Do not modify in inspector anymore - Am leaving it inside for debug puurposes
-    public InvisEventTrigger[] itemsInLevelList;
+    public List<InvisEventTrigger> itemsInLevelList;
+
+    //Entities found in objsInLvlParent
+    public List<Entity> entitiesInLevelList;
 
     //The Parent empty gameObject containing all the other nonTrigger stuff in the level
     public GameObject allOtherMiscObjsInLvlParent;
@@ -32,6 +35,7 @@ public class LevelMasterSingleton : MonoBehaviour {
     //Tracks whether game is paused
     public bool paused;
 
+    public MapControllerScript mapController;
     public UI_InventoryManager invMgr;
 
     public UI_HashTableManager htMgr;
@@ -44,15 +48,48 @@ public class LevelMasterSingleton : MonoBehaviour {
     [Tooltip("Open the Hash Function Canvas, Drag in the 'Other UI Things Panel' GameObject.")]
     public UI_OtherInHF otherUIHFMgr;
 
+    [Tooltip("Put in the general audio controller.")]
+    public LvlSoundEffectsMixer lvlMixer;
+
     [Tooltip("Drag in the picture (Sprite) containing the Hash Function for this level.")]
     public Sprite hashFunctionImgForThisLvl;
+
+    [Tooltip("Put in the tile to use as the borders for this level.")]
+    public TileBase borderTile;
 
 
     //Tracks whether HT is completed 
     public bool htCompleted = false;
 
+    //------------------------------------------------------------------------
+    [Header("Don't Modify in Inspector")]
+
     //List of all the level exits
     public List<LevelCompleter> lvlExitBlockList;
+
+    [SerializeField]
+    private int _totalAmtBonusInLvl = -1;
+    private int totalAmtBonusInLvl {
+        get {
+            return _totalAmtBonusInLvl;
+        }
+        set {
+            _totalAmtBonusInLvl = _totalAmtBonusInLvl == -1 ? value : _totalAmtBonusInLvl;
+        }
+    }
+    [SerializeField]
+    //private int _totalAmtBonusCoinsLeftInLvl = 0;
+    private int totalAmtBonusCoinsLeftInLvl = 0;
+    //     get {
+    //         return _totalAmtBonusCoinsLeftInLvl;
+    //     }
+    //     set {
+    //         _totalAmtBonusCoinsLeftInLvl = value;
+    //         totalAmtBonusInLvl = value;
+    //     }
+    // }
+    [SerializeField]
+    private int totalBonusCollectedSoFar = 0;
 
     void Start() {
 
@@ -189,9 +226,14 @@ public class LevelMasterSingleton : MonoBehaviour {
 
 
 
+
             }
         }
 
+        return false;
+    }
+
+    public bool nonHBSpecificFixedCollidableTileEvent(string currTileName) {
         return false;
     }
 
@@ -225,9 +267,23 @@ public class LevelMasterSingleton : MonoBehaviour {
         return otherUIHFMgr;
     }
 
-    public void updateEventTriggersList() {
-        List<InvisEventTrigger> tempList = new List<InvisEventTrigger>();
+    //Gets the list of entities under objsInLvlParent
+    public List<Entity> getLvlEntities() {
+        return entitiesInLevelList;
+    }
 
+    public MapControllerScript GetMapController() {
+        return mapController;
+    }
+
+    //Updates the Invis Event Trigger List and Entities List
+    public void updateEventTriggersList() {
+        //Rebuild list each time because it's faster and less intense than comparing the objs in objsInLvlParent
+        //And seeing if each obj is alr in the lists
+        List<InvisEventTrigger> tempList = new List<InvisEventTrigger>();
+        entitiesInLevelList = new List<Entity>();
+
+        totalAmtBonusCoinsLeftInLvl = 0;
 
         foreach (Transform itemInLevelTrans in objsInLvlParent.transform) {
             InvisEventTrigger itemInLevelTrigger = itemInLevelTrans.GetComponent<InvisEventTrigger>();
@@ -236,20 +292,39 @@ public class LevelMasterSingleton : MonoBehaviour {
                 tempList.Add(itemInLevelTrigger);
 
             }
+
+            Entity entityOnObj = itemInLevelTrans.GetComponent<Entity>();
+            if (entityOnObj != null) {
+
+                //Check if it's bonus coin
+                EnumCollection.EntityTypes currEntityType = entityOnObj.GetEntityType();
+
+                if (currEntityType == EnumCollection.EntityTypes.BONUS_COIN) {
+                    Debug.Log(currEntityType + " add bonus coin");
+                    this.totalAmtBonusCoinsLeftInLvl = this.totalAmtBonusCoinsLeftInLvl + 1;
+                }
+
+                entitiesInLevelList.Add(entityOnObj);
+            }
         }
+
+        //Only actually sets the value the first time the function is run so if this fn is run again later
+        // then the original starting amt of bonus coins wont change
+        totalAmtBonusInLvl = totalAmtBonusCoinsLeftInLvl;
 
         //Transfer the gameObjects with InvisEventTriggers found under ObjsInLvlParent into the itemsInLevelList
         //This is so when HB walks into those coordinates it will trigger the event triggers.
-        itemsInLevelList = new InvisEventTrigger[tempList.Count];
-        int currIndex = 0;
-        foreach (InvisEventTrigger invisEventTrigger in tempList) {
-            itemsInLevelList[currIndex] = invisEventTrigger;
+        itemsInLevelList = tempList; // CHANGED ITEMSINLVLLIST FROM ARRAY TO LIST
+        // int currIndex = 0;
+        // foreach (InvisEventTrigger invisEventTrigger in tempList) {
+        //     itemsInLevelList.Add(invisEventTrigger);
 
 
-            currIndex = currIndex + 1;
-        }
+        //     currIndex = currIndex + 1;
+        // }
 
     }
+
 
     public void checkAnswersNow() {
         bool allCorrect = htMgr.checkCorrectnessOfHTSlots();
@@ -269,4 +344,74 @@ public class LevelMasterSingleton : MonoBehaviour {
         htCompleted = allCorrect;
 
     }
+
+    /**
+        Triggers an entity action on all InvisEventTriggers at a given coordinate.
+        The given coordinate has to be the exact coordinate of the tile to trigger the triggers on
+    */
+    public void onEntitySomethingToInvisEventTrigger(Vector3 coorToTrigger, Entity currEntity, EnumCollection.EntityActionsOntoTile actionToPerform) {
+        int posX = Mathf.RoundToInt(coorToTrigger.x);
+        int posZ = Mathf.RoundToInt(coorToTrigger.z);
+
+        foreach (InvisEventTrigger currTrigger in itemsInLevelList) {
+
+            int itemX = Mathf.RoundToInt(currTrigger.transform.position.x);
+            int itemZ = Mathf.RoundToInt(currTrigger.transform.position.z);
+
+            if (posX.Equals(itemX) && posZ.Equals(itemZ)) {
+                Debug.Log(this.name + ": Entity " + currEntity.name + ": Triggering entity action: " + actionToPerform + " for trigger: " + currTrigger.name + " at " + coorToTrigger);
+
+                if (currTrigger.gameObject.activeSelf) {
+
+                    switch (actionToPerform) {
+                        case EnumCollection.EntityActionsOntoTile.ON_START_TO_ENTER:
+                            currTrigger.onEntityStartToEnterTile(currEntity);
+                            break;
+                        case EnumCollection.EntityActionsOntoTile.ON_ENTER_FULLY:
+                            currTrigger.onEntityEnterTileFully(currEntity);
+                            break;
+                        case EnumCollection.EntityActionsOntoTile.ON_START_EXITING:
+                            currTrigger.onEntityStartExitingTile(currEntity);
+                            break;
+                    }
+
+
+                }
+            }
+
+        }
+    }
+
+
+    /*
+        Remove entiity from the list of entities to check
+    */
+    private void removeEntityFromActiveCheckingList(Entity toRemove) {
+        entitiesInLevelList.Remove(toRemove);
+    }
+
+    /**
+        Return the gameObject that contains all the entities that are still visible in the level but removed from the interaction checks
+    */
+    public void stopDetectingForThisEntity(Entity currEntity) {
+        currEntity.transform.SetParent(this.allOtherMiscObjsInLvlParent.transform);
+        this.removeEntityFromActiveCheckingList(currEntity);
+    }
+
+    /*
+        Remove InvisEventTrigger from the list of InvisEventTrigger to check without marking gameObject as inactive yet
+    */
+    public void stopDetectingForThisInvisEventTrigger(InvisEventTrigger theTrigger) {
+        theTrigger.transform.SetParent(this.allOtherMiscObjsInLvlParent.transform);
+        itemsInLevelList.Remove(theTrigger);
+    }
+
+    /**
+        Collecting a Bonus Coin
+    */
+    public void collectBonusCoin(BonusCoinCollidableEntity coin) {
+        this.totalBonusCollectedSoFar = this.totalBonusCollectedSoFar + 1;
+    }
+
+
 }
