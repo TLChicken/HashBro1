@@ -325,12 +325,6 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     }
 
-    /*
-        Remove entiity from the list of entities to check
-    */
-    public void removeEntityFromActiveCheckingList(Entity toRemove) {
-        entitiesInLevelList.Remove(toRemove);
-    }
 
     public void checkAnswersNow() {
         bool allCorrect = htMgr.checkCorrectnessOfHTSlots();
@@ -386,6 +380,22 @@ public class LevelMasterSingleton : MonoBehaviour {
             }
 
         }
+    }
+
+
+    /*
+        Remove entiity from the list of entities to check
+    */
+    private void removeEntityFromActiveCheckingList(Entity toRemove) {
+        entitiesInLevelList.Remove(toRemove);
+    }
+
+    /**
+        Return the gameObject that contains all the entities that are still visible in the level but removed from the interaction checks
+    */
+    public void stopDetectingForThisEntity(Entity currEntity) {
+        currEntity.transform.SetParent(this.allOtherMiscObjsInLvlParent.transform);
+        this.removeEntityFromActiveCheckingList(currEntity);
     }
 
     /**
