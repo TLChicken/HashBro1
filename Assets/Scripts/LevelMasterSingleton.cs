@@ -398,6 +398,14 @@ public class LevelMasterSingleton : MonoBehaviour {
         this.removeEntityFromActiveCheckingList(currEntity);
     }
 
+    /*
+        Remove InvisEventTrigger from the list of InvisEventTrigger to check without marking gameObject as inactive yet
+    */
+    public void stopDetectingForThisInvisEventTrigger(InvisEventTrigger theTrigger) {
+        theTrigger.transform.SetParent(this.allOtherMiscObjsInLvlParent.transform);
+        itemsInLevelList.Remove(theTrigger);
+    }
+
     /**
         Collecting a Bonus Coin
     */

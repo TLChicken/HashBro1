@@ -25,12 +25,15 @@ public class HexItem : InvisEventTrigger {
 
     private LevelMasterSingleton LM;
     private UI_InventoryManager invMgr;
+    private Animator currHexItemAnimator;
 
     protected override void Start() {
 
         itemTextInGame.text = itemName;
         LM = LevelMasterSingleton.LM;
         invMgr = LM.invMgr;
+
+        currHexItemAnimator = this.gameObject.GetComponent<Animator>();
 
     }
 
@@ -51,7 +54,9 @@ public class HexItem : InvisEventTrigger {
 
         //If added successfully then remove the item from the world (SetActive(false))
         if (successfullyAdded) {
-            this.gameObject.SetActive(false);
+            LevelMasterSingleton.LM.stopDetectingForThisInvisEventTrigger(this);
+            currHexItemAnimator.Play("CollectItem");
+            //this.gameObject.SetActive(false);
         }
 
     }
