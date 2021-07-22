@@ -20,4 +20,8 @@ public class HexItemCollidableEntity : CollidableEntity {
 
     }
 
+    public override EnumCollection.EntityTypes GetEntityType() {
+        return EnumCollection.EntityTypes.HEXITEM;
+    }
+
 }

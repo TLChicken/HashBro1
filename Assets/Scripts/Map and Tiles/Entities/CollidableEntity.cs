@@ -25,4 +25,8 @@ public class CollidableEntity : Entity {
 
     }
 
+    public override EnumCollection.EntityTypes GetEntityType() {
+        return EnumCollection.EntityTypes.COLLIDABLE;
+    }
+
 }

@@ -7,7 +7,8 @@ public static class EnumCollection {
     public enum EntityActionsOntoTile {
         ON_START_TO_ENTER,
         ON_ENTER_FULLY,
-        ON_START_EXITING
+        ON_START_EXITING,
+        ON_EXIT_FULLY
     }
 
     public enum LvlSounds {
@@ -23,6 +24,15 @@ public static class EnumCollection {
         PLACE_ITEM_INTO_HT,
         CHANGE_SCENE_WOOSH,
         MENU_BUTTON_CLICK
+    }
+
+    public enum EntityTypes {
+        ENTITY,
+        COLLIDABLE,
+
+        BOX,
+        HEXITEM,
+        BONUS_COIN
     }
 
 }

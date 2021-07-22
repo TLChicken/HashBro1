@@ -61,8 +61,35 @@ public class LevelMasterSingleton : MonoBehaviour {
     //Tracks whether HT is completed 
     public bool htCompleted = false;
 
+    //------------------------------------------------------------------------
+    [Header("Don't Modify in Inspector")]
+
     //List of all the level exits
     public List<LevelCompleter> lvlExitBlockList;
+
+    [SerializeField]
+    private int _totalAmtBonusInLvl = -1;
+    private int totalAmtBonusInLvl {
+        get {
+            return _totalAmtBonusInLvl;
+        }
+        set {
+            _totalAmtBonusInLvl = _totalAmtBonusInLvl == -1 ? value : _totalAmtBonusInLvl;
+        }
+    }
+    [SerializeField]
+    //private int _totalAmtBonusCoinsLeftInLvl = 0;
+    private int totalAmtBonusCoinsLeftInLvl = 0;
+    //     get {
+    //         return _totalAmtBonusCoinsLeftInLvl;
+    //     }
+    //     set {
+    //         _totalAmtBonusCoinsLeftInLvl = value;
+    //         totalAmtBonusInLvl = value;
+    //     }
+    // }
+    [SerializeField]
+    private int totalBonusCollectedSoFar = 0;
 
     void Start() {
 
@@ -256,7 +283,7 @@ public class LevelMasterSingleton : MonoBehaviour {
         List<InvisEventTrigger> tempList = new List<InvisEventTrigger>();
         entitiesInLevelList = new List<Entity>();
 
-
+        totalAmtBonusCoinsLeftInLvl = 0;
 
         foreach (Transform itemInLevelTrans in objsInLvlParent.transform) {
             InvisEventTrigger itemInLevelTrigger = itemInLevelTrans.GetComponent<InvisEventTrigger>();
@@ -268,9 +295,22 @@ public class LevelMasterSingleton : MonoBehaviour {
 
             Entity entityOnObj = itemInLevelTrans.GetComponent<Entity>();
             if (entityOnObj != null) {
+
+                //Check if it's bonus coin
+                EnumCollection.EntityTypes currEntityType = entityOnObj.GetEntityType();
+
+                if (currEntityType == EnumCollection.EntityTypes.BONUS_COIN) {
+                    Debug.Log(currEntityType + " add bonus coin");
+                    this.totalAmtBonusCoinsLeftInLvl = this.totalAmtBonusCoinsLeftInLvl + 1;
+                }
+
                 entitiesInLevelList.Add(entityOnObj);
             }
         }
+
+        //Only actually sets the value the first time the function is run so if this fn is run again later
+        // then the original starting amt of bonus coins wont change
+        totalAmtBonusInLvl = totalAmtBonusCoinsLeftInLvl;
 
         //Transfer the gameObjects with InvisEventTriggers found under ObjsInLvlParent into the itemsInLevelList
         //This is so when HB walks into those coordinates it will trigger the event triggers.
@@ -346,6 +386,13 @@ public class LevelMasterSingleton : MonoBehaviour {
             }
 
         }
+    }
+
+    /**
+        Collecting a Bonus Coin
+    */
+    public void collectBonusCoin(BonusCoinCollidableEntity coin) {
+        this.totalBonusCollectedSoFar = this.totalBonusCollectedSoFar + 1;
     }
 
 
