@@ -5,6 +5,7 @@ using UnityEngine;
 public class BonusCoinCollidableEntity : CollidableEntity {
 
     public float rotatingSpeed = 90f;
+    public Animator bonusCoinAnimator;
 
     void Update() {
         this.transform.Rotate(new Vector3(0, 1, 0), rotatingSpeed * Time.deltaTime, Space.Self);
@@ -20,10 +21,11 @@ public class BonusCoinCollidableEntity : CollidableEntity {
         Debug.Log("Collecting Bonus Coin at: " + this.gameObject.transform.position);
         LevelMasterSingleton.LM.stopDetectingForThisEntity(this);
 
+        bonusCoinAnimator.Play("CollectItem");
 
         LevelMasterSingleton.LM.collectBonusCoin(this);
 
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
 
         return true;
     }
