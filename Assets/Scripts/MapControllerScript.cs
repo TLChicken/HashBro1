@@ -291,6 +291,7 @@ public class MapControllerScript : MonoBehaviour {
     public bool checkEntityBeforeHBEnter(GameMgrSingleton.MoveDirection direction, Vector3 destPosition) {
         List<Entity> entitiesInLvl = LevelMasterSingleton.LM.getLvlEntities();
         bool HBCanEnter = true;
+        List<Entity> entitiesThatHBWantsToEnter = new List<Entity>();
 
         foreach (Entity currEnt in entitiesInLvl) {
 
@@ -298,19 +299,21 @@ public class MapControllerScript : MonoBehaviour {
             int entityZ = Mathf.RoundToInt(currEnt.transform.position.z);
 
             if (destPosition.x == entityX && destPosition.z == entityZ) {
-                Debug.Log("Entity pos being checked: " + currEnt.transform.position);
 
-                if (currEnt.gameObject.activeSelf) {
-                    //Since there is an entity at the destination position that HB wants to go,
-                    //we check if HB can enter
-                    HBCanEnter = HBCanEnter && currEnt.onHBWantsToEnter(direction);
-                    // Once there is a false somewhere then HB cannot enter
-                }
-
-
+                entitiesThatHBWantsToEnter.Add(currEnt);
             }
+        }
 
+        //Entity List may be modified by onHBWantsToEnter while going through the list so should only call the fn after checking which entities to call it on
+        foreach (Entity currEnt in entitiesThatHBWantsToEnter) {
+            Debug.Log("Entity pos being checked: " + currEnt.transform.position);
 
+            if (currEnt.gameObject.activeSelf) {
+                //Since there is an entity at the destination position that HB wants to go,
+                //we check if HB can enter
+                HBCanEnter = HBCanEnter && currEnt.onHBWantsToEnter(direction);
+                // Once there is a false somewhere then HB cannot enter
+            }
         }
 
         //True by default if there are no entities at the destination position
