@@ -18,7 +18,7 @@ public class LevelMasterSingleton : MonoBehaviour {
     public GameObject objsInLvlParent;
 
     //Do not modify in inspector anymore - Am leaving it inside for debug puurposes
-    public InvisEventTrigger[] itemsInLevelList;
+    public List<InvisEventTrigger> itemsInLevelList;
 
     //Entities found in objsInLvlParent
     public List<Entity> entitiesInLevelList;
@@ -314,14 +314,14 @@ public class LevelMasterSingleton : MonoBehaviour {
 
         //Transfer the gameObjects with InvisEventTriggers found under ObjsInLvlParent into the itemsInLevelList
         //This is so when HB walks into those coordinates it will trigger the event triggers.
-        itemsInLevelList = new InvisEventTrigger[tempList.Count];
-        int currIndex = 0;
-        foreach (InvisEventTrigger invisEventTrigger in tempList) {
-            itemsInLevelList[currIndex] = invisEventTrigger;
+        itemsInLevelList = tempList; // CHANGED ITEMSINLVLLIST FROM ARRAY TO LIST
+        // int currIndex = 0;
+        // foreach (InvisEventTrigger invisEventTrigger in tempList) {
+        //     itemsInLevelList.Add(invisEventTrigger);
 
 
-            currIndex = currIndex + 1;
-        }
+        //     currIndex = currIndex + 1;
+        // }
 
     }
 
