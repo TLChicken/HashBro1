@@ -55,6 +55,7 @@ public class HexItem : InvisEventTrigger {
         //If added successfully then remove the item from the world (SetActive(false))
         if (successfullyAdded) {
             LevelMasterSingleton.LM.stopDetectingForThisInvisEventTrigger(this);
+            LevelMasterSingleton.LM.stopDetectingForThisEntity(this.gameObject.GetComponent<Entity>());
             currHexItemAnimator.Play("CollectItem");
             //this.gameObject.SetActive(false);
         }

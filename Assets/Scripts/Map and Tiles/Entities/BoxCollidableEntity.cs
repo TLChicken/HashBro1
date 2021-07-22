@@ -5,10 +5,34 @@ using UnityEngine.Tilemaps;
 
 public class BoxCollidableEntity : CollidableEntity {
 
+    [Header("Destination Things")]
+    [Tooltip("Remember to drag the Ending Point gameobject to your desired position.")]
+    public bool hasDestination = false;
+    public string textOnBox = "";
+    public string textAtDestination = "";
+
+
+
+    public BoxDestinationTrigger destInvisTrigger;
+
+    private bool boxAtDest = false;
+
+    [Space(10f)]
+    [Header("Do not modify:")]
     public float heightWhenFloatingInWater = -0.85f;
 
     [SerializeField]
     private TileBase waterWithBoxTile;
+
+
+
+    public void Reset() {
+        hasDestination = false;
+        heightWhenFloatingInWater = -0.85f;
+        textOnBox = "";
+        textAtDestination = "";
+        boxAtDest = false;
+    }
 
     public override void onEnterGeneralWaterTile(GeneralWaterTile theTile) {
         base.onEnterGeneralWaterTile(theTile);
@@ -35,5 +59,14 @@ public class BoxCollidableEntity : CollidableEntity {
         return EnumCollection.EntityTypes.BOX;
     }
 
+
+
+    public void arriveAtDest() {
+        boxAtDest = true;
+    }
+
+    public void leaveDest() {
+        boxAtDest = false;
+    }
 
 }
