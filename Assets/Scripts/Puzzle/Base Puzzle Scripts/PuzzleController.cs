@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PuzzleController : MonoBehaviour {
 
-    [Tooltip("Use this shader to create the material for the color of the puzzle.")]
-    public Shader shaderForMaterial;
+    // [Tooltip("Use this shader to create the material for the color of the puzzle.")]
+    // public Shader shaderForMaterial;
     public Color puzzleColor;
     [SerializeField]
     [Tooltip("Assign the puzzle pieces to be solved for this puzzle to complete")]
@@ -22,10 +22,12 @@ public class PuzzleController : MonoBehaviour {
     private bool currentlySolved = false;
 
 
+
+
     // Start is called before the first frame update
     void Start() {
         // Create a material to use for the selected color
-        Material colorMaterial = new Material(shaderForMaterial);
+        Material colorMaterial = new Material(Shader.Find("Standard"));
         colorMaterial.color = puzzleColor;
 
         // Process puzzle pieces

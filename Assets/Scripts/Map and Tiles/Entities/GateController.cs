@@ -15,8 +15,8 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
     [Header("Optional")]
     public float percentageDarkerAmt = 20f;
 
-    [SerializeField]
-    private Shader defaultShader;
+    // [SerializeField]
+    // private Shader defaultShader;
 
     [SerializeField]
     private bool overrideDarkerColor = true;
@@ -74,7 +74,7 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
             darkerColor = new Color(makeDarkerColor(originalColor.r), makeDarkerColor(originalColor.g), makeDarkerColor(originalColor.b), originalColor.a);
         }
 
-        Material darkerMaterial = new Material(defaultShader);
+        Material darkerMaterial = new Material(Shader.Find("Standard"));
         darkerMaterial.color = darkerColor;
 
         outsideBlockOfGate.material = darkerMaterial;

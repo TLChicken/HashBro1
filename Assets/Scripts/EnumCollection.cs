@@ -35,6 +35,7 @@ public static class EnumCollection {
         BOX,
         HEXITEM,
         BONUS_COIN,
+        KEY_NORMAL,
 
         //Blocks
         GATE_NORMAL
