@@ -27,12 +27,19 @@ public static class EnumCollection {
     }
 
     public enum EntityTypes {
+        //Base Things
         ENTITY,
         COLLIDABLE,
 
+        //Actual Entities
         BOX,
         HEXITEM,
-        BONUS_COIN
+        BONUS_COIN,
+
+        //Blocks
+        GATE_NORMAL
+
+
     }
 
 }

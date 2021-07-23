@@ -89,10 +89,23 @@ public class BoxCollidableEntity : CollidableEntity, PuzzlePieceInterface {
     }
 
     public bool isCurrentlyCorrect() {
-        return !hasDestination || boxAtDest;
+        return !hasDestination || isBoxAtDest();
     }
 
-    public void changeColor(Color changeToThisColor) {
+    //What if box starts at destination?
+    public bool isBoxAtDest() {
+        if (boxAtDest) {
+            return true;
+        } else {
+            bool isNearEnough = GameMgrSingleton.isCloseEnoughToXZ(this.gameObject.transform.position, destInvisTrigger.transform.position);
+            boxAtDest = isNearEnough;
+            return isNearEnough;
+        }
+    }
+
+
+    public void changeColor(Material colorMaterial) {
+        Color changeToThisColor = colorMaterial.color;
         boxDestFloorSquareImg.color = changeToThisColor;
     }
 
