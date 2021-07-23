@@ -25,6 +25,10 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     //The Parent empty gameObject containing all the other nonTrigger stuff in the level
     public GameObject allOtherMiscObjsInLvlParent;
+    public List<PuzzleController> puzzleControllersInLvlList;
+
+    //The Parent gameObject that contains all the other misc controllers in the level (EG: Puzzle Group Controllers)
+    public GameObject otherControllersParent;
 
     public GameObject HashBroPlayer;
     //Canvases
@@ -103,6 +107,7 @@ public class LevelMasterSingleton : MonoBehaviour {
             hashFunctionMgr.showMessage();
         }
 
+        updateOtherControllersInLvlList();
 
     }
 
@@ -112,8 +117,10 @@ public class LevelMasterSingleton : MonoBehaviour {
         int hbY = Mathf.RoundToInt(HashBroPlayer.transform.position.z);
 
 
+        InvisEventTrigger[] checkThis = new InvisEventTrigger[itemsInLevelList.Count];
+        itemsInLevelList.CopyTo(checkThis);
         //Check if hb came into contact with any of the InvisEventTrigger inside the level
-        foreach (InvisEventTrigger currItem in itemsInLevelList) {
+        foreach (InvisEventTrigger currItem in checkThis) {
             //Debug.Log("HB POS: " + HashBroPlayer.transform.position + "Item pos being checked: " + currItem.transform.position);
             int itemX = Mathf.RoundToInt(currItem.transform.position.x);
             int itemY = Mathf.RoundToInt(currItem.transform.position.z);
@@ -127,7 +134,7 @@ public class LevelMasterSingleton : MonoBehaviour {
                 }
 
                 //Stop checking
-                return; //Remove if one tile can contain more than 1 item
+                //return; //Remove if one tile can contain more than 1 item
             }
 
         }
@@ -140,6 +147,8 @@ public class LevelMasterSingleton : MonoBehaviour {
                 pauseGame();
             }
         }
+
+        this.checkAllPuzzles();
 
     }
 
@@ -325,6 +334,19 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     }
 
+    public void updateOtherControllersInLvlList() {
+        //Find Puzzle Controllers
+        foreach (Transform currObj in otherControllersParent.transform) {
+            PuzzleController currPuzzCtrl = currObj.GetComponent<PuzzleController>();
+
+            if (currPuzzCtrl == null) {
+                continue;
+            }
+
+            puzzleControllersInLvlList.Add(currPuzzCtrl);
+        }
+    }
+
 
     public void checkAnswersNow() {
         bool allCorrect = htMgr.checkCorrectnessOfHTSlots();
@@ -343,6 +365,15 @@ public class LevelMasterSingleton : MonoBehaviour {
 
         htCompleted = allCorrect;
 
+    }
+
+    /**
+        Updates the state of all the puzzles in the level.
+    */
+    public void checkAllPuzzles() {
+        foreach (PuzzleController currPuzzCtrl in puzzleControllersInLvlList) {
+            currPuzzCtrl.updatePuzzleState();
+        }
     }
 
     /**

@@ -89,18 +89,17 @@ public class BoxCollidableEntity : CollidableEntity, PuzzlePieceInterface {
     }
 
     public bool isCurrentlyCorrect() {
-        return !hasDestination || isBoxAtDest();
+        return isBoxAtDest();
     }
 
     //What if box starts at destination?
     public bool isBoxAtDest() {
-        if (boxAtDest) {
-            return true;
-        } else {
-            bool isNearEnough = GameMgrSingleton.isCloseEnoughToXZ(this.gameObject.transform.position, destInvisTrigger.transform.position);
-            boxAtDest = isNearEnough;
-            return isNearEnough;
-        }
+
+        bool isNearEnough = GameMgrSingleton.isCloseEnoughToXZ(this.gameObject.transform.position, destInvisTrigger.transform.position);
+        //Debug.Log(this.gameObject.transform.position + " is " + isNearEnough + " to be near enough to " + destInvisTrigger.transform.position);
+        boxAtDest = isNearEnough;
+        return isNearEnough;
+
     }
 
 

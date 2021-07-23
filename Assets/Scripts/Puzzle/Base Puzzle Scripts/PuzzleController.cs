@@ -59,6 +59,8 @@ public class PuzzleController : MonoBehaviour {
     public void updatePuzzleState() {
         bool solved = checkIfCurrPuzzleSolved();
 
+        //Debug.Log(this.name + " AFTER CHECKING SOLVED Solved: " + solved + " | Unupdated currentlySolved: " + currentlySolved);
+
         if (solved && !currentlySolved) {
             //Puzzle is now solved
             currentlySolved = solved;
@@ -96,7 +98,7 @@ public class PuzzleController : MonoBehaviour {
     private bool checkIfCurrPuzzleSolved() {
         bool solved = true;
         foreach (PuzzlePieceInterface currPiece in currPuzzlePieces) {
-
+            //Debug.Log("Curr Piece Correct: " + currPiece.isCurrentlyCorrect());
             solved = solved && currPiece.isCurrentlyCorrect();
         }
 

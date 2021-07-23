@@ -160,7 +160,7 @@ public class MapControllerScript : MonoBehaviour {
             for (float j = btm - btmPadding; j <= top + padding; j++) {
 
                 if (i <= left || i >= right || j <= btm || j >= top) {
-                    Debug.Log(new Vector3(i, 0, j));
+                    //Debug.Log(new Vector3(i, 0, j));
                     TM_NonInteractable.SetTile(mainGrid.WorldToCell(new Vector3(i, 0, j)), useToFill);
                 }
 
