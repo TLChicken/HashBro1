@@ -509,7 +509,8 @@ MonoBehaviour:
   boxTextObj: {fileID: 1733399614399018687}
   destTextObj: {fileID: 226042573885756763}
   boxCanvasParent: {fileID: 7174878628914690632}
-  sphereToDisableInStart: {fileID: 3052772069895795579}
+  boxDestFloorSquareImg: {fileID: 5914908018554628709}
+  boxAtDest: 0
   heightWhenFloatingInWater: -0.85
   waterWithBoxTile: {fileID: 11400000, guid: 8520397d04baced418c323bda54ace3f, type: 2}
 --- !u!1 &3052772069448891118
@@ -563,7 +564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3052772069895795578
 Transform:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class BoxCollidableEntity : CollidableEntity {
+public class BoxCollidableEntity : CollidableEntity, PuzzlePieceInterface {
 
     [Header("Destination Things")]
     [Tooltip("Remember to drag the Ending Point gameobject to your desired position.")]
@@ -18,13 +18,13 @@ public class BoxCollidableEntity : CollidableEntity {
     public Text boxTextObj;
     public Text destTextObj;
     public GameObject boxCanvasParent;
+    public Image boxDestFloorSquareImg;
 
+    [SerializeField]
     private bool boxAtDest = false;
 
     [Space(10f)]
 
-    [SerializeField]
-    private GameObject sphereToDisableInStart;
     public float heightWhenFloatingInWater = -0.85f;
 
     [SerializeField]
@@ -32,7 +32,7 @@ public class BoxCollidableEntity : CollidableEntity {
 
 
     public void Start() {
-        sphereToDisableInStart.gameObject.SetActive(false);
+
         boxTextObj.text = textOnBox;
         destTextObj.text = textAtDestination;
 
@@ -86,6 +86,14 @@ public class BoxCollidableEntity : CollidableEntity {
 
     public void leaveDest() {
         boxAtDest = false;
+    }
+
+    public bool isCurrentlyCorrect() {
+        return !hasDestination || boxAtDest;
+    }
+
+    public void changeColor(Color changeToThisColor) {
+        boxDestFloorSquareImg.color = changeToThisColor;
     }
 
 }
