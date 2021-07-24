@@ -37,9 +37,9 @@ public class LogicEventController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (inHTRange) {
-            //In HT Range Effects
-        }
+        // if (inHTRange) {
+        //     //In HT Range Effects
+        // }
     }
 
     // Called by item slots after they are clicked

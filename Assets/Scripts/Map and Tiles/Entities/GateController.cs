@@ -23,6 +23,12 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
     public Color darkerColorOverride = new Color(200, 170, 112, 255);
 
 
+    public enum GateOptions {
+        NORMAL, //Gate closes when puzzle incomplete
+        BUGGY
+    }
+
+
     // Start is called before the first frame update
     void Start() {
 
