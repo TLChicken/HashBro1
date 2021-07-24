@@ -28,6 +28,10 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
         BUGGY
     }
 
+    public enum GateAction {
+        OPENING,
+        CLOSING
+    }
 
     // Start is called before the first frame update
     void Start() {
@@ -44,11 +48,13 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
     public void openGate() {
         gateOpen = true;
         gateAnimator.SetBool("isGateOpen", true);
+        LevelMasterSingleton.LM.GetMapController().gateActionAtPos(this.gameObject.transform.position + new Vector3(0f, 1f, 0f), GateAction.OPENING);
     }
 
     public void closeGate() {
         gateOpen = false;
         gateAnimator.SetBool("isGateOpen", false);
+        LevelMasterSingleton.LM.GetMapController().gateActionAtPos(this.gameObject.transform.position, GateAction.CLOSING);
     }
 
     // Only runs the first time that the puzzle is completed.

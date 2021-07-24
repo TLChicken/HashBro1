@@ -25,6 +25,17 @@ public class Entity : MonoBehaviour {
 
     }
 
+    //When gate opens while entity is on top of it
+    public virtual void onGateBelowMeOpen() {
+        //Won't move unless it is collidable and has a mover component 
+    }
+
+    //When gate closes while entity is on top of it
+    public virtual void onGateBelowMeClose() {
+
+    }
+
+
     //Return type of entity to get type without using GetComponent
     public virtual EnumCollection.EntityTypes GetEntityType() {
         return EnumCollection.EntityTypes.ENTITY;

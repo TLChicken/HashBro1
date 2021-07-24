@@ -296,9 +296,10 @@ public class MapControllerScript : MonoBehaviour {
         foreach (Entity currEnt in entitiesInLvl) {
 
             int entityX = Mathf.RoundToInt(currEnt.transform.position.x);
+            int entityY = Mathf.RoundToInt(currEnt.transform.position.y);
             int entityZ = Mathf.RoundToInt(currEnt.transform.position.z);
 
-            if (destPosition.x == entityX && destPosition.z == entityZ) {
+            if (destPosition.x == entityX && destPosition.z == entityZ && Mathf.Abs(entityY - destPosition.y) < 0.5) {
 
                 entitiesThatHBWantsToEnter.Add(currEnt);
             }
@@ -323,6 +324,8 @@ public class MapControllerScript : MonoBehaviour {
     /**
         General function for checking if there are entities at a certain position.
         Used to determine if entities can move to that position BEFORE checking if this position has fixed collidable
+
+        IMPORTANT: ONLY WORKS IF THERE IS ONLY 1 ENTITY AT THAT POSITION
     */
     public Entity checkEntityAtPos(Vector3 position) {
         List<Entity> entitiesInLvl = LevelMasterSingleton.LM.getLvlEntities();
@@ -342,6 +345,39 @@ public class MapControllerScript : MonoBehaviour {
         }
 
         return null;
+    }
+
+
+    public void gateActionAtPos(Vector3 position, GateController.GateAction action) {
+        // Can use get getEntitiesAtXYZPos in the future
+        List<Entity> entitiesInLvl = LevelMasterSingleton.LM.getLvlEntities();
+
+        List<Entity> entitiesToPerformActionOn = new List<Entity>();
+
+        foreach (Entity currEnt in entitiesInLvl) {
+
+            int entityX = Mathf.RoundToInt(currEnt.transform.position.x);
+            int entityY = Mathf.RoundToInt(currEnt.transform.position.y);
+            int entityZ = Mathf.RoundToInt(currEnt.transform.position.z);
+
+            if (position.x == entityX && position.z == entityZ && Mathf.Abs(entityY - position.y) < 0.5) {
+
+                entitiesToPerformActionOn.Add(currEnt);
+            }
+        }
+
+        foreach (Entity currEntity in entitiesToPerformActionOn) {
+            switch (action) {
+                case GateController.GateAction.OPENING:
+                    currEntity.onGateBelowMeOpen();
+                    break;
+                case GateController.GateAction.CLOSING:
+                    currEntity.onGateBelowMeClose();
+                    break;
+            }
+
+        }
+
     }
 
 

@@ -8,9 +8,17 @@ public class MovableEntityMover : MonoBehaviour {
     public bool movableByHB = true;
     public Transform moveToThisSpot;
     public float movementSpeed = 4.5f;
+    public float movementSpeedNormal = 4.5f;
+    public float movementSpeedOnGate = 1f;
 
     //Keeps track of which was the last tile that this thing had entered fully into
     private Vector3 lastTileEnteredFullyCoor;
+
+
+    public enum BoxSpeedTypes {
+        NORMAL_PUSH,
+        GATE_PUSH
+    }
 
     // Start is called before the first frame update
     protected virtual void Start() {
@@ -61,7 +69,7 @@ public class MovableEntityMover : MonoBehaviour {
     // Return true if HB can enter false if cannot
     public virtual bool onHBWantsToEnter(GameMgrSingleton.MoveDirection dir) {
         if (movableByHB) {
-
+            this.SwitchSpeed(BoxSpeedTypes.NORMAL_PUSH);
             //By default, entities will be pushable by HB
             bool moved = MoveOrder(dir);
             return moved;
@@ -153,6 +161,21 @@ public class MovableEntityMover : MonoBehaviour {
         moveToThisSpot.transform.position = moveToThisSpot.transform.position + amount;
 
         return true;
+    }
+
+    //This mtd will switch the currently selected speed
+    public virtual void SwitchSpeed(BoxSpeedTypes speedType) {
+        switch (speedType) {
+            case BoxSpeedTypes.NORMAL_PUSH:
+                movementSpeed = movementSpeedNormal;
+                break;
+            case BoxSpeedTypes.GATE_PUSH:
+                movementSpeed = movementSpeedOnGate;
+                break;
+            default:
+                movementSpeed = movementSpeedNormal;
+                break;
+        }
     }
 
     /*
