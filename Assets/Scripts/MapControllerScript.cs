@@ -97,6 +97,7 @@ public class MapControllerScript : MonoBehaviour {
 
         fillBordersWithTile();
 
+
     }
 
     // Update is called once per frame

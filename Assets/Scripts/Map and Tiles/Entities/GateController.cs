@@ -22,6 +22,7 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
     private bool overrideDarkerColor = true;
     public Color darkerColorOverride = new Color(200, 170, 112, 255);
 
+    public GateOptions gateType = GateOptions.NORMAL;
 
     public enum GateOptions {
         NORMAL, //Gate closes when puzzle incomplete
@@ -42,19 +43,29 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
         overrideDarkerColor = true;
         darkerColorOverride = new Color(200, 170, 112, 255);
         percentageDarkerAmt = 20f;
+        gateType = GateOptions.NORMAL;
+        gateOpen = false;
 
     }
 
     public void openGate() {
         gateOpen = true;
         gateAnimator.SetBool("isGateOpen", true);
-        LevelMasterSingleton.LM.GetMapController().gateActionAtPos(this.gameObject.transform.position + new Vector3(0f, 1f, 0f), GateAction.OPENING);
+        if (gateType == GateOptions.BUGGY) {
+            //Do not move entities
+        } else {
+            LevelMasterSingleton.LM.GetMapController().gateActionAtPos(this.gameObject.transform.position + new Vector3(0f, 1f, 0f), GateAction.OPENING);
+        }
     }
 
     public void closeGate() {
         gateOpen = false;
         gateAnimator.SetBool("isGateOpen", false);
-        LevelMasterSingleton.LM.GetMapController().gateActionAtPos(this.gameObject.transform.position, GateAction.CLOSING);
+        if (gateType == GateOptions.BUGGY) {
+            //Do not move entities
+        } else {
+            LevelMasterSingleton.LM.GetMapController().gateActionAtPos(this.gameObject.transform.position, GateAction.CLOSING);
+        }
     }
 
     // Only runs the first time that the puzzle is completed.
