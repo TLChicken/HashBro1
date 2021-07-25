@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Controls Full Screen Image as well as signboard message
 public class UI_OtherInHF : MonoBehaviour {
 
     public Image fullScreenImg;
+    public SignboardController signboardController;
 
     // Start is called before the first frame update
     void Start() {
@@ -29,6 +31,9 @@ public class UI_OtherInHF : MonoBehaviour {
         fullScreenImg.gameObject.SetActive(false);
     }
 
+    public SignboardController getSignboard() {
+        return signboardController;
+    }
 
 
 }
