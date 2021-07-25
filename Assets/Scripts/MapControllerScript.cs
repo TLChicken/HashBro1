@@ -24,8 +24,16 @@ public class MapControllerScript : MonoBehaviour {
     public GameObject[,] lvlObjRef;
 
 
+    [SerializeField]
+    private TileBase invisCollidableInEditor;
+    [SerializeField]
+    private TileBase invisCollidableInPlayMode;
 
     void Start() {
+        //Replace all invis collidable tiles with the ones for Play Mode
+        TM_FixedCollider.SwapTile(invisCollidableInEditor, invisCollidableInPlayMode);
+
+
         //Initialise Array
         lvlObjRef = new GameObject[LevelMasterSingleton.LM.levelLength, LevelMasterSingleton.LM.levelWidth];
 

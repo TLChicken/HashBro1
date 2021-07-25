@@ -127,6 +127,8 @@ public class MovableEntityMover : MonoBehaviour {
             } else if (collidableTileAtDest.name.Equals("exitTile")) {
                 canMove = false;
 
+            } else if (collidableTileAtDest.name.Equals("InvisCollidableTilePlayMode")) {
+                canMove = canMoveIntoInvisCollidableTilePlayMode(destPos);
             } else {
                 //If previous checks dont catch the tile name then check here
                 canMove = !LevelMasterSingleton.LM.isFixedCollidable(collidableTileAtDest.name);
@@ -231,6 +233,10 @@ public class MovableEntityMover : MonoBehaviour {
 
     protected virtual bool canMoveIntoWater(Vector3 destPos) {
         //Normal entities cannot move into water
+        return false;
+    }
+
+    protected virtual bool canMoveIntoInvisCollidableTilePlayMode(Vector3 destPos) {
         return false;
     }
 

@@ -10,7 +10,7 @@ public class SignboardMsgTrigger : InvisEventTrigger {
     [TextArea]
     public string bodyTxtIn;
 
-    public GameMgrSingleton.MoveDirection signboardDirection;
+
 
     private SignboardController signboardController;
 

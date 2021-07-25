@@ -37,7 +37,7 @@ public class GameMgrSingleton : MonoBehaviour {
     private static float closeEnoughToTileCentreYAllowance = 0.2f;
 
     [HideInInspector]
-    public static string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic", "Door" };
+    public static string[] fixedCollidableSpriteNames = { "wallPlaceholder", "water1", "waterAnime", "hashTableTilePic", "Door", "InvisCollidableTilePlayMode" };
 
     [HideInInspector]
     public static List<string> waterTypesSpriteNames = new List<string>() { "water1", "waterAnime" };
