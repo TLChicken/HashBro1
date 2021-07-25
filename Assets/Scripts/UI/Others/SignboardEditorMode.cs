@@ -6,21 +6,22 @@ using UnityEngine.Tilemaps;
 [ExecuteInEditMode]
 public class SignboardEditorMode : MonoBehaviour {
 
+    [Header("Remember to place InvisCollider tile under signboard.")]
     public GameMgrSingleton.MoveDirection signboardDirection;
-    [SerializeField]
-    private Grid mainGrid;
-    [SerializeField]
-    private Tilemap TM_Collidable;
+    // [SerializeField]
+    // private Grid mainGrid;
+    // [SerializeField]
+    // private Tilemap TM_Collidable;
 
     [Space(10f)]
     [Header("Do not modify:")]
     public GameObject signboardContainer; // The pivot to rotate the signboard around
     public GameObject actualSignboard;
 
-    [SerializeField]
-    private TileBase invisCollidableInEditor;
-    [SerializeField]
-    private TileBase invisCollidableInPlayMode;
+    // [SerializeField]
+    // private TileBase invisCollidableInEditor;
+    // [SerializeField]
+    // private TileBase invisCollidableInPlayMode;
 
     private float[] rotationAmt = { 0f, 180f, 270f, 90f };
 
@@ -32,15 +33,15 @@ public class SignboardEditorMode : MonoBehaviour {
     void Update() {
         if (signboardDirection != prevSetDirection) {
             signboardContainer.transform.eulerAngles = new Vector3(0f, rotationAmt[(int)signboardDirection], 0f);
-            changeTileUnderSignboard();
+            //changeTileUnderSignboard();
             prevSetDirection = signboardDirection;
         }
     }
 
-    public void changeTileUnderSignboard() {
-        Vector3 signboardPos = actualSignboard.transform.position;
+    // public void changeTileUnderSignboard() {
+    //     Vector3 signboardPos = actualSignboard.transform.position;
 
-        TM_Collidable.SetTile(mainGrid.WorldToCell(Vector3Int.RoundToInt(GameMgrSingleton.nearestYZeroIntCoordinate(signboardPos))), invisCollidableInEditor);
-        Debug.Log("Changed tile under signboard to InvisCollider.");
-    }
+    //     TM_Collidable.SetTile(mainGrid.WorldToCell(Vector3Int.RoundToInt(GameMgrSingleton.nearestYZeroIntCoordinate(signboardPos))), invisCollidableInEditor);
+    //     Debug.Log("Changed tile under signboard to InvisCollider.");
+    // }
 }
