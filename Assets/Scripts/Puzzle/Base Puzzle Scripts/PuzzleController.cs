@@ -7,6 +7,9 @@ public class PuzzleController : MonoBehaviour {
     // [Tooltip("Use this shader to create the material for the color of the puzzle.")]
     // public Shader shaderForMaterial;
     public Color puzzleColor;
+
+    public PuzzleCondition conditionToComplete = PuzzleCondition.ALL_OF;
+
     [SerializeField]
     [Tooltip("Assign the puzzle pieces to be solved for this puzzle to complete")]
     //This list is only for attaching the puzzle pieces in the Inspector. The actual variable that contains the puzzle pieces is the next one.
@@ -22,7 +25,10 @@ public class PuzzleController : MonoBehaviour {
     private bool currentlySolved = false;
 
 
-
+    public enum PuzzleCondition {
+        ALL_OF,
+        ONE_OF
+    }
 
     // Start is called before the first frame update
     void Start() {
@@ -101,7 +107,13 @@ public class PuzzleController : MonoBehaviour {
         bool solved = true;
         foreach (PuzzlePieceInterface currPiece in currPuzzlePieces) {
             //Debug.Log("Curr Piece Correct: " + currPiece.isCurrentlyCorrect());
-            solved = solved && currPiece.isCurrentlyCorrect();
+            if (conditionToComplete == PuzzleCondition.ALL_OF) {
+                solved = solved && currPiece.isCurrentlyCorrect();
+            } else if (conditionToComplete == PuzzleCondition.ONE_OF) {
+                solved = solved || currPiece.isCurrentlyCorrect();
+            } else {
+                Debug.Log("Unknown Condition");
+            }
         }
 
         return solved;
