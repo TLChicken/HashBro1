@@ -19,6 +19,7 @@ public class GameMgrSingleton : MonoBehaviour {
         RIGHT
     }
 
+    //CONSTANTS
     private static int[][] movePositions = { new int[] { 0, 1 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { -1, 0 } };
 
     //To easily get X and Z coordinates to increment or decrement by if something wants to move in a certian direction
@@ -41,6 +42,13 @@ public class GameMgrSingleton : MonoBehaviour {
 
     [HideInInspector]
     public static List<string> waterTypesSpriteNames = new List<string>() { "water1", "waterAnime" };
+
+
+
+    //INSTANCE VARIABLES
+    [Header("Changes Depending on Playthrough:")]
+    public float currVol;
+
 
     //Singleton Design - This one real singleton
     void Awake() {
