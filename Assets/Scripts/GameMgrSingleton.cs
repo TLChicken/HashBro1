@@ -47,7 +47,7 @@ public class GameMgrSingleton : MonoBehaviour {
 
     //INSTANCE VARIABLES
     [Header("Changes Depending on Playthrough:")]
-    public float currVol;
+    public float currVol = -5f;
 
 
     //Singleton Design - This one real singleton

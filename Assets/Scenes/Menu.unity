@@ -1971,8 +1971,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 1860548447}
   m_HandleRect: {fileID: 2072381103}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0.001
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -5109,6 +5109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testNo: 2
+  currVol: -5
 --- !u!1 &1835718354
 GameObject:
   m_ObjectHideFlags: 0

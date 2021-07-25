@@ -39,7 +39,7 @@ public class SettingsMenu : MonoBehaviour {
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        audioMixer.SetFloat("volume", 0.0f);
+        audioMixer.SetFloat("volume", -5f);
 
     }
 
@@ -48,7 +48,10 @@ public class SettingsMenu : MonoBehaviour {
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
     public void SetVolume(float volume) {
-        audioMixer.SetFloat("volume", volume);
+        float aftLogConversion = Mathf.Log10(volume) * 20;
+
+        audioMixer.SetFloat("volume", aftLogConversion);
+        GameMgrSingleton.GM.currVol = aftLogConversion;
     }
 
     public void SetQuality(int qualityIndex) {
