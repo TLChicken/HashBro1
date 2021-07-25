@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelCompleter : MonoBehaviour, TileBlockInterface {
     // Start is called before the first frame update
@@ -47,6 +48,7 @@ public class LevelCompleter : MonoBehaviour, TileBlockInterface {
     public void onHBEnter() {
 
         LevelMasterSingleton.LM.UI_levelComplete.gameObject.SetActive(true);
+        LevelMasterSingleton.LM.lvlCompletedUpdateScores();
         Destroy(LevelMasterSingleton.LM.HashBroPlayer.GetComponent<HashBroMover>());
     }
 

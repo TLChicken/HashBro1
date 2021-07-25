@@ -20,11 +20,25 @@ public class LvlSelectMenuCtrl : MonoBehaviour {
         }
 
         updateLvlUnlockStatus();
+        updateBtnStats();
     }
 
     // Update is called once per frame
     void Update() {
 
+        if (Input.GetKey(KeyCode.PageUp)) {
+            //Cheat code
+            this.unlockAllLvls();
+        }
+
+        if (Input.GetKey(KeyCode.PageDown)) {
+            //Revert unlock status back to original
+            this.updateLvlUnlockStatus();
+        }
+
+        if (Input.GetKey(KeyCode.End)) {
+            this.resetProgress();
+        }
     }
 
 
@@ -36,6 +50,7 @@ public class LvlSelectMenuCtrl : MonoBehaviour {
             string searchThis = currLvlName + "_unlocked";
 
             int unlocked = PlayerPrefs.GetInt(searchThis, 0);
+            Debug.Log("Unlocked: " + unlocked);
 
             if (unlocked == 1 || currLvlName == "Tutorial") {
                 currLvlSel.activateLvl();
@@ -45,6 +60,45 @@ public class LvlSelectMenuCtrl : MonoBehaviour {
                 Debug.Log("Unlocked state not 0 or 1 but is: " + unlocked);
             }
 
+
+        }
+
+    }
+
+    public void unlockAllLvls() {
+        foreach (LevelSelection currLvlSel in lvlSelBtns) {
+
+            currLvlSel.activateLvl();
+
+        }
+    }
+
+    public void resetProgress() {
+        foreach (string currLvlName in EnumSceneName.levelName) {
+
+            //Set the bonus coin and other settings also
+            string searchUnlocked = currLvlName + "_unlocked";
+            string searchColBonus = currLvlName + "_collectedBonus";
+            PlayerPrefs.SetInt(searchUnlocked, 0);
+            PlayerPrefs.SetInt(searchColBonus, 0);
+
+
+
+        }
+    }
+
+    //Update the info underneath all buttons
+    public void updateBtnStats() {
+        foreach (LevelSelection currLvlSel in lvlSelBtns) {
+            string currLvlName = currLvlSel.getCurrLvlName();
+
+            string searchBonusCol = currLvlName + "_collectedBonus";
+            string searchBonusAvail = currLvlName + "_totalBonus";
+
+            int bonusCol = PlayerPrefs.GetInt(searchBonusCol, 0);
+            int bonusAvail = PlayerPrefs.GetInt(searchBonusAvail, 0);
+
+            currLvlSel.setBtnStats(bonusCol, bonusAvail);
 
         }
 

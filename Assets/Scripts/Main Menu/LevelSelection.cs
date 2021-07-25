@@ -14,6 +14,9 @@ public class LevelSelection : MonoBehaviour {
     [Header("Do not modify:")]
     public Button lvlSelBtn;
 
+    public Text bonusCollectedTEXT;
+    public Text bonusAvailTEXT;
+
     public void Select() {
         if (SelectLevel == -1 && selLvlName == EnumSceneName.lvlNameEnum.NONE_SEL) {
             SceneManager.LoadScene("Menu");
@@ -40,5 +43,10 @@ public class LevelSelection : MonoBehaviour {
         } else {
             return EnumSceneName.nameEnumToStr(selLvlName);
         }
+    }
+
+    public void setBtnStats(int bonusCol, int bonusAvail) {
+        bonusCollectedTEXT.text = bonusCol.ToString();
+        bonusAvailTEXT.text = bonusAvail.ToString();
     }
 }

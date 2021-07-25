@@ -14,6 +14,11 @@ public class LevelMasterSingleton : MonoBehaviour {
     public int levelLength;
     public int levelWidth;
 
+    public EnumSceneName.lvlNameEnum nextLevelNameEnum = EnumSceneName.lvlNameEnum.MENU;
+
+    [Space(10f)]
+    [Header("Do not modify:")]
+
     //The Parent empty gameObject containing all the invisEventTriggers in the level
     public GameObject objsInLvlParent;
 
@@ -84,6 +89,7 @@ public class LevelMasterSingleton : MonoBehaviour {
             if (_totalAmtBonusInLvl == -1) {
                 _totalAmtBonusInLvl = value;
                 this.GetStatusInfoController().setBonusAvailAmt(value);
+                PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "_totalBonus", value);
             } else {
                 //Do nothing
             }
@@ -179,9 +185,12 @@ public class LevelMasterSingleton : MonoBehaviour {
         Loads Scene at index 0 if u are at the last scene, otherwise loads the scene at the next build index.
     */
     public void nextLevel() {
-        int currSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int totalNoOfScene = SceneManager.sceneCountInBuildSettings;
-        SceneManager.LoadScene(currSceneIndex + 1 >= totalNoOfScene ? 0 : currSceneIndex + 1);
+        // int currSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        // int totalNoOfScene = SceneManager.sceneCountInBuildSettings;
+        // SceneManager.LoadScene(currSceneIndex + 1 >= totalNoOfScene ? 0 : currSceneIndex + 1);
+
+        string nextSceneName = EnumSceneName.nameEnumToStr(nextLevelNameEnum);
+        SceneManager.LoadScene(nextSceneName);
     }
 
     public void quitGame() {
@@ -464,6 +473,30 @@ public class LevelMasterSingleton : MonoBehaviour {
     public void collectBonusCoin(BonusCoinCollidableEntity coin) {
         this.totalBonusCollectedSoFar = this.totalBonusCollectedSoFar + 1;
         this.GetStatusInfoController().bonusJustGotCollected();
+    }
+
+    /**
+        Set Highscore in PlayerPrefs
+    */
+    public void lvlCompletedUpdateScores() {
+        string currSceneName = SceneManager.GetActiveScene().name;
+
+        //Set bonus coins collected highscore
+        int currHSBonusCol = PlayerPrefs.GetInt(currSceneName + "_collectedBonus", 0);
+        if (currHSBonusCol < totalBonusCollectedSoFar) {
+            PlayerPrefs.SetInt(currSceneName + "_collectedBonus", totalBonusCollectedSoFar);
+        }
+
+        //Unlock Next Level
+        // int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        // string nextSceneName = SceneManager.GetSceneByBuildIndex(nextSceneIndex).name;
+
+        // Debug.Log("Next Scene Name: " + nextSceneName + " at index: " + nextSceneIndex);
+        if (nextLevelNameEnum != EnumSceneName.lvlNameEnum.MENU) {
+            string nextLevelName = EnumSceneName.nameEnumToStr(nextLevelNameEnum);
+            PlayerPrefs.SetInt(nextLevelName + "_unlocked", 1);
+        }
+
     }
 
 
