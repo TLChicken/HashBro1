@@ -52,6 +52,9 @@ public class LevelMasterSingleton : MonoBehaviour {
     [Tooltip("Open the Hash Function Canvas, Drag in the 'Other UI Things Panel' GameObject.")]
     public UI_OtherInHF otherUIHFMgr;
 
+    [Tooltip("Open the Hash Function Canvas, Drag in the 'Status Info UI Parent' GameObject")]
+    public UI_StatusInfoController statusInfoMgr;
+
     [Tooltip("Put in the general audio controller.")]
     public LvlSoundEffectsMixer lvlMixer;
 
@@ -78,7 +81,13 @@ public class LevelMasterSingleton : MonoBehaviour {
             return _totalAmtBonusInLvl;
         }
         set {
-            _totalAmtBonusInLvl = _totalAmtBonusInLvl == -1 ? value : _totalAmtBonusInLvl;
+            if (_totalAmtBonusInLvl == -1) {
+                _totalAmtBonusInLvl = value;
+                this.GetStatusInfoController().setBonusAvailAmt(value);
+            } else {
+                //Do nothing
+            }
+
         }
     }
     [SerializeField]
@@ -276,6 +285,10 @@ public class LevelMasterSingleton : MonoBehaviour {
         return otherUIHFMgr;
     }
 
+    public UI_StatusInfoController GetStatusInfoController() {
+        return statusInfoMgr;
+    }
+
     //Gets the list of entities under objsInLvlParent
     public List<Entity> getLvlEntities() {
         return entitiesInLevelList;
@@ -450,6 +463,7 @@ public class LevelMasterSingleton : MonoBehaviour {
     */
     public void collectBonusCoin(BonusCoinCollidableEntity coin) {
         this.totalBonusCollectedSoFar = this.totalBonusCollectedSoFar + 1;
+        this.GetStatusInfoController().bonusJustGotCollected();
     }
 
 

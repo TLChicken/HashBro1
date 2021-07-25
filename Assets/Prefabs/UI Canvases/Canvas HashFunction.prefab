@@ -1109,6 +1109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeafaa90d920344394899fe96ccc65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hexCollectedTEXT: {fileID: 1215057430731107228}
+  hexAvailTEXT: {fileID: 124879923270581410}
+  bonusCollectedTEXT: {fileID: 5049047384976860534}
+  bonusAvailTEXT: {fileID: 5106796775668776802}
 --- !u!1 &4863795185926712729
 GameObject:
   m_ObjectHideFlags: 0

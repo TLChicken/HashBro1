@@ -43,12 +43,16 @@ public class UI_HashTableManager : MonoBehaviour {
             activeHTSlotsList.Add(slot);
         }
 
+        int totalHexItemsInLvl = 0;
+
         //Add slots to HT if there's the relevant item in the level
         foreach (Transform itemInLevelTrans in LevelMasterSingleton.LM.objsInLvlParent.transform) {
             HexItem currItem = itemInLevelTrans.GetComponent<HexItem>();
 
             //If it is a HexItem then add it to the Hash Table
             if (currItem != null) {
+                totalHexItemsInLvl++;
+
                 HTSlotController currHTSlot = Instantiate(htSlotPrefab);
                 //currHTSlot.transform.localScale = new Vector3(1, 1, 1);
                 currHTSlot.htMgr = this;
@@ -71,6 +75,7 @@ public class UI_HashTableManager : MonoBehaviour {
 
         HTScrollExtenderPanel.transform.SetParent(gridLayoutObj.transform, false);
 
+        LevelMasterSingleton.LM.GetStatusInfoController().setHexAvailAmt(totalHexItemsInLvl);
     }
 
     // Update is called once per frame
