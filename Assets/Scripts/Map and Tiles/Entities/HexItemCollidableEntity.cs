@@ -12,6 +12,7 @@ public class HexItemCollidableEntity : CollidableEntity {
 
         if (LevelMasterSingleton.LM.getCurrLogicCtrl().isInventoryFull()) {
             //If inventory is full then HB cannot enter
+            LevelMasterSingleton.LM.hashFunctionMgr.changeAndShowMsgForSeconds("HINT:", "Inventory full! You cannot collect any more items!", 3.0f);
             return false;
         } else {
             //HB can collect HexItems, so it should return true
