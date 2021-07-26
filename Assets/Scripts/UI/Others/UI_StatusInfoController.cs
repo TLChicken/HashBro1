@@ -7,6 +7,7 @@ using UnityEngine.UI;
 //Displays number of hex items and bonus coins collected
 public class UI_StatusInfoController : MonoBehaviour {
 
+    private LvlTimer timerMgr;
 
     [SerializeField]
     private Text hexCollectedTEXT;
@@ -16,10 +17,21 @@ public class UI_StatusInfoController : MonoBehaviour {
     private Text bonusCollectedTEXT;
     [SerializeField]
     private Text bonusAvailTEXT;
+    [SerializeField]
+    private Text currTimeTEXT;
+
+
 
     void Start() {
         this.setBonusCollectedAmt(0);
         this.setHexCollectedAmt(0);
+
+        LvlTimer currTimer = this.gameObject.GetComponent<LvlTimer>();
+        if (currTimer == null) {
+            Debug.LogWarning("StatusInfoCtrl Obj in curr lvl has no LvlTimer attached!!");
+        } else {
+            timerMgr = currTimer;
+        }
     }
 
     public void setHexCollectedAmt(int amt) {
@@ -48,6 +60,13 @@ public class UI_StatusInfoController : MonoBehaviour {
         setBonusCollectedAmt(currAmt + 1);
     }
 
+    public void setCurrTime(string currTimeString) {
+        currTimeTEXT.text = currTimeString;
+    }
+
+    public LvlTimer.LvlTimeContainer StopLvlTimer() {
+        return timerMgr.StopTimer();
+    }
 
 
 }

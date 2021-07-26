@@ -479,6 +479,10 @@ public class LevelMasterSingleton : MonoBehaviour {
         Set Highscore in PlayerPrefs
     */
     public void lvlCompletedUpdateScores() {
+        //Stop timer and get time
+        LvlTimer.LvlTimeContainer timeTakenContainer = statusInfoMgr.StopLvlTimer();
+
+
         string currSceneName = SceneManager.GetActiveScene().name;
 
         //Set bonus coins collected highscore
@@ -496,6 +500,20 @@ public class LevelMasterSingleton : MonoBehaviour {
             string nextLevelName = EnumSceneName.nameEnumToStr(nextLevelNameEnum);
             PlayerPrefs.SetInt(nextLevelName + "_unlocked", 1);
         }
+
+        //Set Best Time
+        int currBestTime = PlayerPrefs.GetInt(currSceneName + "_shortestTimeTaken", -1);
+        if (currBestTime == -1) {
+            PlayerPrefs.SetInt(currSceneName + "_shortestTimeTaken", timeTakenContainer.totalSeconds());
+        } else {
+            LvlTimer.LvlTimeContainer currBestTimeContainer = new LvlTimer.LvlTimeContainer(currBestTime);
+            if (timeTakenContainer.totalSeconds() < currBestTimeContainer.totalSeconds()) {
+                PlayerPrefs.SetInt(currSceneName + "_shortestTimeTaken", timeTakenContainer.totalSeconds());
+            }
+
+        }
+
+
 
     }
 

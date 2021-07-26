@@ -86,10 +86,12 @@ public class LvlSelectMenuCtrl : MonoBehaviour {
             //Set the bonus coin and other settings also
             string searchUnlocked = currLvlName + "_unlocked";
             string searchColBonus = currLvlName + "_collectedBonus";
+            string searchBestTime = currLvlName + "_shortestTimeTaken";
             // PlayerPrefs.SetInt(searchUnlocked, 0);
             // PlayerPrefs.SetInt(searchColBonus, 0);
             PlayerPrefs.DeleteKey(searchUnlocked);
             PlayerPrefs.DeleteKey(searchColBonus);
+            PlayerPrefs.DeleteKey(searchBestTime);
 
 
 
