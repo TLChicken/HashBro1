@@ -19,8 +19,7 @@ public class LvlSelectMenuCtrl : MonoBehaviour {
 
         }
 
-        updateLvlUnlockStatus();
-        updateBtnStats();
+        reloadSaveData();
     }
 
     // Update is called once per frame
@@ -39,8 +38,16 @@ public class LvlSelectMenuCtrl : MonoBehaviour {
         if (Input.GetKey(KeyCode.End)) {
             this.resetProgress();
         }
+
+        if (Input.GetKey(KeyCode.Home)) {
+            this.reloadSaveData();
+        }
     }
 
+    public void reloadSaveData() {
+        updateLvlUnlockStatus();
+        updateBtnStats();
+    }
 
     public void updateLvlUnlockStatus() {
         foreach (LevelSelection currLvlSel in lvlSelBtns) {
@@ -79,8 +86,10 @@ public class LvlSelectMenuCtrl : MonoBehaviour {
             //Set the bonus coin and other settings also
             string searchUnlocked = currLvlName + "_unlocked";
             string searchColBonus = currLvlName + "_collectedBonus";
-            PlayerPrefs.SetInt(searchUnlocked, 0);
-            PlayerPrefs.SetInt(searchColBonus, 0);
+            // PlayerPrefs.SetInt(searchUnlocked, 0);
+            // PlayerPrefs.SetInt(searchColBonus, 0);
+            PlayerPrefs.DeleteKey(searchUnlocked);
+            PlayerPrefs.DeleteKey(searchColBonus);
 
 
 

@@ -17,7 +17,7 @@ public class LevelMasterSingleton : MonoBehaviour {
     public EnumSceneName.lvlNameEnum nextLevelNameEnum = EnumSceneName.lvlNameEnum.MENU;
 
     [Space(10f)]
-    [Header("Do not modify:")]
+    [Header("REFERENCES || Do not modify unless necessary")]
 
     //The Parent empty gameObject containing all the invisEventTriggers in the level
     public GameObject objsInLvlParent;
