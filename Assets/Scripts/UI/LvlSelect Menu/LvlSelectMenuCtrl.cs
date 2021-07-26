@@ -105,11 +105,22 @@ public class LvlSelectMenuCtrl : MonoBehaviour {
 
             string searchBonusCol = currLvlName + "_collectedBonus";
             string searchBonusAvail = currLvlName + "_totalBonus";
+            string searchBestTime = currLvlName + "_shortestTimeTaken";
 
             int bonusCol = PlayerPrefs.GetInt(searchBonusCol, 0);
             int bonusAvail = PlayerPrefs.GetInt(searchBonusAvail, 0);
+            int shortestTimeSecStr = PlayerPrefs.GetInt(searchBestTime, -1);
 
-            currLvlSel.setBtnStats(bonusCol, bonusAvail);
+            if (shortestTimeSecStr == -1) {
+                currLvlSel.setBtnStats(bonusCol, bonusAvail, "-");
+            } else {
+                LvlTimer.LvlTimeContainer shortestTimeCtn = new LvlTimer.LvlTimeContainer(shortestTimeSecStr);
+                string bestTimeStr = shortestTimeCtn.getTimeStr();
+
+                currLvlSel.setBtnStats(bonusCol, bonusAvail, bestTimeStr);
+            }
+
+
 
         }
 

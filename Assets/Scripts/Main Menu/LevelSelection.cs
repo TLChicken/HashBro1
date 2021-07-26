@@ -16,6 +16,7 @@ public class LevelSelection : MonoBehaviour {
 
     public Text bonusCollectedTEXT;
     public Text bonusAvailTEXT;
+    public Text bestTimeTEXT;
 
     public void Select() {
         if (SelectLevel == -1 && selLvlName == EnumSceneName.lvlNameEnum.NONE_SEL) {
@@ -45,8 +46,9 @@ public class LevelSelection : MonoBehaviour {
         }
     }
 
-    public void setBtnStats(int bonusCol, int bonusAvail) {
+    public void setBtnStats(int bonusCol, int bonusAvail, string bestTimeStr) {
         bonusCollectedTEXT.text = bonusCol.ToString();
         bonusAvailTEXT.text = bonusAvail.ToString();
+        bestTimeTEXT.text = bestTimeStr;
     }
 }
