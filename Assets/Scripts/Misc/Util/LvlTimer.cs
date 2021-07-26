@@ -61,7 +61,7 @@ public class LvlTimer : MonoBehaviour {
 
     public LvlTimeContainer StopTimer() {
         CancelInvoke();
-        return new LvlTimeContainer((int)Math.Floor(timeElapsedSpan.TotalMinutes), (int)Math.Floor(timeElapsedSpan.TotalSeconds));
+        return new LvlTimeContainer((int)Math.Floor(timeElapsedSpan.TotalMinutes), (int)Math.Floor(timeElapsedSpan.TotalSeconds) % 60);
     }
 
     public class LvlTimeContainer : IComparable<LvlTimeContainer> {
