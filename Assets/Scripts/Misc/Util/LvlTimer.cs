@@ -43,7 +43,7 @@ public class LvlTimer : MonoBehaviour {
         } else {
             timeElapsedSpan = timeElapsedSpan + oneSecond;
             string minStr = Math.Floor(timeElapsedSpan.TotalMinutes).ToString();
-            string secStr = Math.Floor(timeElapsedSpan.TotalSeconds).ToString();
+            string secStr = (Math.Floor(timeElapsedSpan.TotalSeconds) % 60).ToString();
 
             if (minStr.Length == 1) {
                 minStr = "0" + minStr;
@@ -79,7 +79,7 @@ public class LvlTimer : MonoBehaviour {
 
         public LvlTimeContainer(TimeSpan fromTS) {
             min = (int)Math.Floor(fromTS.TotalMinutes);
-            sec = (int)Math.Floor(fromTS.TotalSeconds);
+            sec = (int)Math.Floor(fromTS.TotalSeconds) % 60;
         }
 
         public string getTimeStr() {
