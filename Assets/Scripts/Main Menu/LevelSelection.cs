@@ -22,7 +22,7 @@ public class LevelSelection : MonoBehaviour {
         if (SelectLevel == -1 && selLvlName == EnumSceneName.lvlNameEnum.NONE_SEL) {
             SceneManager.LoadScene("Menu");
         } else if (selLvlName == EnumSceneName.lvlNameEnum.NONE_SEL) {
-            SceneManager.LoadScene(EnumSceneName.levelName[SelectLevel]);
+            SceneManager.LoadScene(SelectLevel);
         } else {
             SceneManager.LoadScene(EnumSceneName.nameEnumToStr(selLvlName));
         }
@@ -40,7 +40,13 @@ public class LevelSelection : MonoBehaviour {
         if (SelectLevel == -1 && selLvlName == EnumSceneName.lvlNameEnum.NONE_SEL) {
             return null;
         } else if (selLvlName == EnumSceneName.lvlNameEnum.NONE_SEL) {
-            return EnumSceneName.levelName[SelectLevel];
+            int buildIndex = SelectLevel;
+            string pathToScene = SceneUtility.GetScenePathByBuildIndex(buildIndex);
+            int slashPos = pathToScene.LastIndexOf('/');
+            string sceneFilename = pathToScene.Substring(slashPos + 1);
+            int dotPos = sceneFilename.LastIndexOf('.');
+            string nameOfScene = sceneFilename.Substring(0, dotPos);
+            return nameOfScene;
         } else {
             return EnumSceneName.nameEnumToStr(selLvlName);
         }
