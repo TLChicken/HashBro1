@@ -259,7 +259,7 @@ RectTransform:
   m_Children:
   - {fileID: 3682108966278054610}
   m_Father: {fileID: 9156391545379038884}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1164,8 +1164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e077a6ae1aaffc419e5c88df45b4872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lvlStartTime: 0
-  timeElapsed: 0
 --- !u!1 &4863795185926712729
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,8 +2313,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5645948958286387275}
   - {fileID: 1338345907180114589}
+  - {fileID: 5645948958286387275}
   m_Father: {fileID: 6779757108880816319}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2826,7 +2824,7 @@ RectTransform:
   m_Children:
   - {fileID: 5745103796358562662}
   m_Father: {fileID: 9156391545379038884}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

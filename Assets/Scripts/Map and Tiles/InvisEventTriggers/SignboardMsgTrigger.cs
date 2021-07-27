@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SignboardMsgTrigger : InvisEventTrigger {
 
-    [TextArea]
+    [TextArea(3, 5)]
     public string headerTxtIn;
 
-    [TextArea]
+    [TextArea(5, 10)]
     public string bodyTxtIn;
 
 
