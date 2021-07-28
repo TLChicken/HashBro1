@@ -70,7 +70,30 @@ public class UI_HashTableManager : MonoBehaviour {
 
                 activeHTSlotsList.Add(currHTSlot);
 
+            } else {
+                //Check if the GO is an unused HT Slot
+                HTSlotUnusedCtrl unusedSlotCmp = itemInLevelTrans.GetComponent<HTSlotUnusedCtrl>();
+
+                if (unusedSlotCmp != null) {
+                    //Add unused slot to HT
+                    HTSlotController currHTSlot = Instantiate(htSlotPrefab);
+
+                    currHTSlot.htMgr = this;
+                    currHTSlot.logicMgr = LevelMasterSingleton.LM.logicCtrl;
+                    currHTSlot.qnText.text = unusedSlotCmp.htQuestionStr;
+
+                    //Make newlines display correctly (Not Working)
+                    currHTSlot.qnText.text.Replace("\\n", "\n");
+                    currHTSlot.qnText.text.Replace("\\r", "\n");
+                    Debug.Log(currHTSlot.qnText.text);
+
+                    currHTSlot.correctItem = null;
+                    currHTSlot.transform.SetParent(gridLayoutObj.transform, false);
+
+                    activeHTSlotsList.Add(currHTSlot);
+                }
             }
+
         }
 
         HTScrollExtenderPanel.transform.SetParent(gridLayoutObj.transform, false);
@@ -102,7 +125,15 @@ public class UI_HashTableManager : MonoBehaviour {
     //Run when you want to check whether ythe player filled in all the answers correctly
     public bool checkCorrectnessOfHTSlots() {
         foreach (HTSlotController currSlot in activeHTSlotsList) {
-            bool correctness = currSlot.correctItem.Equals(currSlot.currHexItem);
+            //CorrectItem could now be null because unused HT slots were added
+            bool correctness;
+
+            if (currSlot.correctItem == null) {
+                correctness = currSlot.currHexItem == null;
+            } else {
+
+                correctness = currSlot.correctItem.Equals(currSlot.currHexItem);
+            }
 
             if (!correctness) {
                 return false;
