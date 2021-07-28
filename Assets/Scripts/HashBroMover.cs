@@ -48,10 +48,10 @@ public class HashBroMover : MonoBehaviour {
             //HASHBRO MOVEMENT SCRIPT
         } else if (Vector3.Distance(gameObject.transform.position, moveToThisSpot.position) <= 0.02f) { //Sensitivity
             //HashBro has almost finished moving, start accepting input again
-            if (Mathf.Abs(Input.GetAxis("Horizontal")) >= 0.05) {
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) >= 0.05) {
                 //Move Left/Right by 1 block
 
-                float moveXBy = Input.GetAxis("Horizontal") > 0 ? 1.0f : -1.0f;
+                float moveXBy = Input.GetAxisRaw("Horizontal") > 0 ? 1.0f : -1.0f;
 
                 Vector3 destPosition = moveToThisSpot.position + new Vector3(moveXBy, 0.0f, 0.0f);
 
@@ -70,9 +70,9 @@ public class HashBroMover : MonoBehaviour {
 
                 }
 
-            } else if (Mathf.Abs(Input.GetAxis("Vertical")) >= 0.05) {
+            } else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) >= 0.05) {
                 //Move Up/Down by 1 block
-                float moveZBy = Input.GetAxis("Vertical") > 0 ? 1.0f : -1.0f;
+                float moveZBy = Input.GetAxisRaw("Vertical") > 0 ? 1.0f : -1.0f;
 
                 Vector3 destPosition = moveToThisSpot.position + new Vector3(0.0f, 0.0f, moveZBy);
 
