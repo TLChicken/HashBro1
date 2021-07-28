@@ -4758,6 +4758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 8f1b4a293123bb6469490090a5438d1c, type: 2}
   resolutionDropdown: {fileID: 2134645219}
+  volSlider: {fileID: 686873959}
 --- !u!1 &1448721750
 GameObject:
   m_ObjectHideFlags: 0
@@ -5886,7 +5887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testNo: 2
-  currVol: -5
+  _currVol: -5
 --- !u!1 &1835718354
 GameObject:
   m_ObjectHideFlags: 0

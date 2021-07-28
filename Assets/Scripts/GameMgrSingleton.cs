@@ -43,6 +43,8 @@ public class GameMgrSingleton : MonoBehaviour {
     [HideInInspector]
     public static List<string> waterTypesSpriteNames = new List<string>() { "water1", "waterAnime" };
 
+    //Need to prepend scene name for each level in front of these strings to find the key for each level
+    private static List<string> playerPrefGameProgressKeysBackPart = new List<string>() { "_unlocked", "_collectedBonus", "_shortestTimeTaken" };
     private static List<string> playerPrefSettingsKeys = new List<string>() { "setVol_v1" };
 
 
@@ -153,6 +155,30 @@ public class GameMgrSingleton : MonoBehaviour {
 
     }
 
+
+
+
+    /**
+        PLAYER PREFS
+    */
+    public static void resetProgress() {
+        foreach (string currLvlName in EnumSceneName.levelName) {
+            foreach (string backPart in playerPrefGameProgressKeysBackPart) {
+                string searchThis = currLvlName + backPart;
+                PlayerPrefs.DeleteKey(searchThis);
+            }
+
+            // //Set the bonus coin and other settings also
+            // string searchUnlocked = currLvlName + "_unlocked";
+            // string searchColBonus = currLvlName + "_collectedBonus";
+            // string searchBestTime = currLvlName + "_shortestTimeTaken";
+            // // PlayerPrefs.SetInt(searchUnlocked, 0);
+            // // PlayerPrefs.SetInt(searchColBonus, 0);
+            // PlayerPrefs.DeleteKey(searchUnlocked);
+            // PlayerPrefs.DeleteKey(searchColBonus);
+            // PlayerPrefs.DeleteKey(searchBestTime);
+        }
+    }
 
     public static void resetPlayerSettings() {
         foreach (string searchInPP in playerPrefSettingsKeys) {

@@ -10,6 +10,9 @@ public class SettingsMenu : MonoBehaviour {
     public Dropdown resolutionDropdown;
     Resolution[] resolutions;
 
+    [SerializeField]
+    private Slider volSlider;
+
     /* Once game starts, obtain list of possible resolutions based on computer model.
        Then create this new list and add it as the dropdown options. Additionally, 
        updates resolution choice to current computer's best suitable resolution.
@@ -40,7 +43,9 @@ public class SettingsMenu : MonoBehaviour {
         resolutionDropdown.RefreshShownValue();
 
         if (GameMgrSingleton.GM != null) {
-            audioMixer.SetFloat("volume", GameMgrSingleton.GM.currVol);
+            float aftLogVol = GameMgrSingleton.GM.currVol;
+            audioMixer.SetFloat("volume", aftLogVol);
+            volSlider.value = Mathf.Pow(10f, ((aftLogVol / 20f)));
         } else {
             Debug.Log("GMS instance does not exist, set volume as -5f.");
             audioMixer.SetFloat("volume", -5f);
@@ -55,7 +60,7 @@ public class SettingsMenu : MonoBehaviour {
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
     public void SetVolume(float volume) {
-        float aftLogConversion = Mathf.Log10(volume) * 20;
+        float aftLogConversion = Mathf.Log10(volume) * 20f;
 
         audioMixer.SetFloat("volume", aftLogConversion);
         GameMgrSingleton.GM.currVol = aftLogConversion;
