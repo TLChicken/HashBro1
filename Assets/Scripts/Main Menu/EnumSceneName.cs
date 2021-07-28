@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnumSceneName {
-    public static string[] levelName = { "Tutorial", "Ben1", "Ben2", "Ben3", "TLC4", "TLC2", "TLC3", "SampleLevel2"};
+    public static string[] levelName = { "Tutorial", "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "SampleLevel2" };
 
     public enum lvlNameEnum {
         TUTORIAL,
-        BEN1,
-        BEN2,
-        BEN3,
-        TLC4,
-        TLC2,
-        TLC3,
+        LEVEL1,
+        LEVEL2,
+        LEVEL3,
+        LEVEL4,
+        LEVEL5,
+        LEVEL6,
+        LEVEL7,
         SampleLevel2,
 
         //Not in levelname array
