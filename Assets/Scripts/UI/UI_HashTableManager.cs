@@ -131,8 +131,20 @@ public class UI_HashTableManager : MonoBehaviour {
             if (currSlot.correctItem == null) {
                 correctness = currSlot.currHexItem == null;
             } else {
+                if (LevelMasterSingleton.LM.strictHTSlotCheck) {
+                    correctness = currSlot.correctItem.Equals(currSlot.currHexItem);
+                } else {
+                    //currHexItem might be null
+                    //If the HexItem is in some slot with the correct label then it is good enough
+                    if (currSlot.currHexItem == null) {
+                        //correct item not null but curr item in slot is null so not correct
+                        correctness = false;
+                    } else {
+                        correctness = currSlot.correctItem.htQuestionStr.Equals(currSlot.currHexItem.htQuestionStr);
+                    }
 
-                correctness = currSlot.correctItem.Equals(currSlot.currHexItem);
+                }
+
             }
 
             if (!correctness) {

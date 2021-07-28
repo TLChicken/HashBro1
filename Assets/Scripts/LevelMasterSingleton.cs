@@ -16,6 +16,9 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public EnumSceneName.lvlNameEnum nextLevelNameEnum = EnumSceneName.lvlNameEnum.MENU;
 
+    //True if each HexItem needs to be put in HashTable in some order even though the htQnStr is the same
+    public bool strictHTSlotCheck = false;
+
     [Space(10f)]
     [Header("REFERENCES || Do not modify unless necessary")]
 
