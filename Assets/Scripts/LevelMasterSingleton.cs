@@ -487,8 +487,28 @@ public class LevelMasterSingleton : MonoBehaviour {
 
         //Set bonus coins collected highscore
         int currHSBonusCol = PlayerPrefs.GetInt(currSceneName + "_collectedBonus", 0);
-        if (currHSBonusCol < totalBonusCollectedSoFar) {
-            PlayerPrefs.SetInt(currSceneName + "_collectedBonus", totalBonusCollectedSoFar);
+        if (totalBonusCollectedSoFar >= currHSBonusCol) {
+
+            //If bonus collected this run is more than before then set both bonusHS and best time
+            if (totalBonusCollectedSoFar > currHSBonusCol) {
+                PlayerPrefs.SetInt(currSceneName + "_collectedBonus", totalBonusCollectedSoFar);
+
+                PlayerPrefs.SetInt(currSceneName + "_shortestTimeTaken", timeTakenContainer.totalSeconds());
+            } else {
+                //Otherwise set best time only if it is better than the previous one
+                //Set Best Time
+                int currBestTime = PlayerPrefs.GetInt(currSceneName + "_shortestTimeTaken", -1);
+                if (currBestTime == -1) {
+                    PlayerPrefs.SetInt(currSceneName + "_shortestTimeTaken", timeTakenContainer.totalSeconds());
+                } else {
+                    LvlTimer.LvlTimeContainer currBestTimeContainer = new LvlTimer.LvlTimeContainer(currBestTime);
+                    if (timeTakenContainer.totalSeconds() < currBestTimeContainer.totalSeconds()) {
+                        PlayerPrefs.SetInt(currSceneName + "_shortestTimeTaken", timeTakenContainer.totalSeconds());
+                    }
+                }
+            }
+
+
         }
 
         //Unlock Next Level
@@ -501,17 +521,7 @@ public class LevelMasterSingleton : MonoBehaviour {
             PlayerPrefs.SetInt(nextLevelName + "_unlocked", 1);
         }
 
-        //Set Best Time
-        int currBestTime = PlayerPrefs.GetInt(currSceneName + "_shortestTimeTaken", -1);
-        if (currBestTime == -1) {
-            PlayerPrefs.SetInt(currSceneName + "_shortestTimeTaken", timeTakenContainer.totalSeconds());
-        } else {
-            LvlTimer.LvlTimeContainer currBestTimeContainer = new LvlTimer.LvlTimeContainer(currBestTime);
-            if (timeTakenContainer.totalSeconds() < currBestTimeContainer.totalSeconds()) {
-                PlayerPrefs.SetInt(currSceneName + "_shortestTimeTaken", timeTakenContainer.totalSeconds());
-            }
 
-        }
 
 
 
