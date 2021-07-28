@@ -7,7 +7,7 @@ public class SignboardMsgTrigger : InvisEventTrigger {
     [TextArea(3, 5)]
     public string headerTxtIn;
 
-    [TextArea(5, 10)]
+    [TextArea(5, 15)]
     public string bodyTxtIn;
 
 
