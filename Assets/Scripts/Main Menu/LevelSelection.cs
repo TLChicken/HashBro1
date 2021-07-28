@@ -53,8 +53,14 @@ public class LevelSelection : MonoBehaviour {
     }
 
     public void setBtnStats(int bonusCol, int bonusAvail, string bestTimeStr) {
-        bonusCollectedTEXT.text = bonusCol.ToString();
-        bonusAvailTEXT.text = bonusAvail.ToString();
-        bestTimeTEXT.text = bestTimeStr;
+        if (bonusAvail == 0) {
+            bonusCollectedTEXT.text = bonusCol == 0 ? "-" : bonusCol.ToString();
+            bonusAvailTEXT.text = "-";
+            bestTimeTEXT.text = bestTimeStr;
+        } else {
+            bonusCollectedTEXT.text = bonusCol.ToString();
+            bonusAvailTEXT.text = bonusAvail.ToString();
+            bestTimeTEXT.text = bestTimeStr;
+        }
     }
 }
