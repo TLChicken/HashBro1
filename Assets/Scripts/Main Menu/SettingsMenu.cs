@@ -39,7 +39,14 @@ public class SettingsMenu : MonoBehaviour {
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        audioMixer.SetFloat("volume", -5f);
+        if (GameMgrSingleton.GM != null) {
+            audioMixer.SetFloat("volume", GameMgrSingleton.GM.currVol);
+        } else {
+            Debug.Log("GMS instance does not exist, set volume as -5f.");
+            audioMixer.SetFloat("volume", -5f);
+        }
+
+
 
     }
 

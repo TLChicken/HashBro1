@@ -98,6 +98,8 @@ public class LvlSelectMenuCtrl : MonoBehaviour {
         }
     }
 
+
+
     //Update the info underneath all buttons
     public void updateBtnStats() {
         foreach (LevelSelection currLvlSel in lvlSelBtns) {

@@ -43,11 +43,24 @@ public class GameMgrSingleton : MonoBehaviour {
     [HideInInspector]
     public static List<string> waterTypesSpriteNames = new List<string>() { "water1", "waterAnime" };
 
+    private static List<string> playerPrefSettingsKeys = new List<string>() { "setVol_v1" };
+
 
 
     //INSTANCE VARIABLES
     [Header("Changes Depending on Playthrough:")]
-    public float currVol = -5f;
+    [SerializeField]
+    private float _currVol = -5f;
+
+    public float currVol {
+        get {
+            return _currVol;
+        }
+        set {
+            _currVol = value;
+            PlayerPrefs.SetFloat("setVol_v1", value);
+        }
+    }
 
 
     //Singleton Design - This one real singleton
@@ -58,6 +71,9 @@ public class GameMgrSingleton : MonoBehaviour {
             _GM = this;
         }
         DontDestroyOnLoad(this);
+
+        this.currVol = PlayerPrefs.GetFloat("setVol_v1", -5f);
+
     }
 
 
@@ -135,6 +151,13 @@ public class GameMgrSingleton : MonoBehaviour {
 
         return new Vector3(closestX, groundLevel ? 0.0f : closestY, closestZ);
 
+    }
+
+
+    public static void resetPlayerSettings() {
+        foreach (string searchInPP in playerPrefSettingsKeys) {
+            PlayerPrefs.DeleteKey(searchInPP);
+        }
     }
 
 
