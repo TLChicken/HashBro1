@@ -242,6 +242,11 @@ public class MapControllerScript : MonoBehaviour {
     */
     public bool canGo(Vector3 position) {
         Debug.Log(lvlObjRef[Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.z)]);
+
+        if (position.x == 0 || position.z == 0) {
+            return false;
+        }
+
         return !this.checkFixedCollider(position);
     }
 
