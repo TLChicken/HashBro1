@@ -392,6 +392,14 @@ public class MapControllerScript : MonoBehaviour {
 
         }
 
+        // If HashBro is also there then play HB dead animation
+        Vector3 hbAt = LevelMasterSingleton.LM.HashBroPlayer.transform.position;
+        bool hbNearGate = GameMgrSingleton.isCloseEnoughToXYZ(position, hbAt, 0.5f);
+        if (hbNearGate) {
+            LevelMasterSingleton.LM.becomeGameOver();
+        }
+
+
     }
 
 

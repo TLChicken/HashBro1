@@ -38,7 +38,7 @@ public class LvlTimer : MonoBehaviour {
 
 
     public void updTimeElapsed() {
-        if (LevelMasterSingleton.LM.paused) {
+        if (LevelMasterSingleton.LM.paused || LevelMasterSingleton.LM.isGameOver) {
             //Do nothing
         } else {
             timeElapsedSpan = timeElapsedSpan + oneSecond;

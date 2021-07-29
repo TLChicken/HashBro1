@@ -15,6 +15,10 @@ public class HashBroMover : MonoBehaviour {
     public MapControllerScript mapControllerObj;
     public Transform moveToThisSpot;
 
+    public Animator hbModelAnimator;
+
+
+
     // Start is called before the first frame update
     void Start() {
         cC = gameObject.GetComponent<CharacterController>();
@@ -24,7 +28,7 @@ public class HashBroMover : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (LevelMasterSingleton.LM.paused) {
+        if (LevelMasterSingleton.LM.paused || LevelMasterSingleton.LM.isGameOver) {
             //Game is paused so HB does not move
             return;
         }
@@ -99,5 +103,9 @@ public class HashBroMover : MonoBehaviour {
 
 
         }
+    }
+
+    public void hbDead() {
+        hbModelAnimator.Play("HashBro Breaking");
     }
 }

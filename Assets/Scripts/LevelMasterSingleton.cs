@@ -44,8 +44,14 @@ public class LevelMasterSingleton : MonoBehaviour {
 
     public Canvas UI_pauseMenu;
 
+    [HideInInspector]
+    public GameOverMenuCtrl gameOverCanvasCtrl;
+
     //Tracks whether game is paused
     public bool paused;
+
+    //Tracks if game is over
+    public bool isGameOver = false;
 
     public MapControllerScript mapController;
     public UI_InventoryManager invMgr;
@@ -215,6 +221,19 @@ public class LevelMasterSingleton : MonoBehaviour {
     public void backToMainMenu() {
         Debug.Log("Quitting to Main Menu...");
         SceneManager.LoadScene(0);
+    }
+
+    public void becomeGameOver() {
+        Debug.Log("Game Overing...");
+        this.isGameOver = true;
+        HashBroMover hbMover = this.HashBroPlayer.GetComponent<HashBroMover>();
+        if (hbMover == null) {
+            Debug.LogWarning(this.name + "HashBro Mover not found!!");
+        } else {
+            hbMover.hbDead();
+        }
+
+        gameOverCanvasCtrl.playShowGameOverScreen();
     }
 
     /**

@@ -119,6 +119,27 @@ public class GameMgrSingleton : MonoBehaviour {
         return false;
     }
 
+    //Checks if sth is close enough to something else on all XYZ
+    public static bool isCloseEnoughToXYZ(Vector3 first, Vector3 second, float yAllowance) {
+        float firstX = first.x;
+        float firstY = first.y;
+        float firstZ = first.z;
+        float secondX = second.x;
+        float secondY = second.y;
+        float secondZ = second.z;
+
+        if (Mathf.Abs(secondX - firstX) < closeEnoughAllowance) {
+            if (Mathf.Abs(secondZ - firstZ) < closeEnoughAllowance) {
+                if (Mathf.Abs(secondY - firstY) < yAllowance) {
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+    }
+
 
     //Return the nearest Vector3 coordinate XZ with Y = 0 if the obj is near the centre of a tile (for onTileEnterFully)
     //Returns null if the currPos is not close enough to an integer coor
