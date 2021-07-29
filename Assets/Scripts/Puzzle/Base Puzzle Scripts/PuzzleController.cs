@@ -105,6 +105,11 @@ public class PuzzleController : MonoBehaviour {
     // Checks all the puzzle pieces to see if they are solved
     private bool checkIfCurrPuzzleSolved() {
         bool solved = true;
+
+        if (conditionToComplete == PuzzleCondition.ONE_OF) {
+            solved = false;
+        }
+
         foreach (PuzzlePieceInterface currPiece in currPuzzlePieces) {
             //Debug.Log("Curr Piece Correct: " + currPiece.isCurrentlyCorrect());
             if (conditionToComplete == PuzzleCondition.ALL_OF) {
