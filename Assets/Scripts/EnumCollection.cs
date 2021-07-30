@@ -16,7 +16,9 @@ public static class EnumCollection {
         BOX_SPLASH,
         BOX_UNMOVABLE,
         COLLECT_HEXITEM,
-        COLLECT_BONUS
+        COLLECT_BONUS,
+        GATE_MOVE,
+        BUTTON_PRESS
     }
 
     public enum UISounds {

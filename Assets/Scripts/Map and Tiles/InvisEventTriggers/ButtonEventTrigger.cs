@@ -14,6 +14,7 @@ public class ButtonEventTrigger : InvisEventTrigger, PuzzlePieceInterface {
     private float timeTakenForButtonToDeactivate = 0.1f;
     private IEnumerator buttonDeactivateDelayCoroutine;
     private bool coroutineRunning = false;
+    private bool soundCoroutineRunning = false;
 
 
     public void PressButton() {
@@ -23,6 +24,8 @@ public class ButtonEventTrigger : InvisEventTrigger, PuzzlePieceInterface {
         }
         isActivated = true;
         buttonAnimation.SetBool("buttonDepressed", true);
+
+        playButtonPress();
 
         //Just in case the coroutine runs while the above 2 lines are running?
         if (coroutineRunning) {
@@ -39,6 +42,22 @@ public class ButtonEventTrigger : InvisEventTrigger, PuzzlePieceInterface {
             buttonDeactivateDelayCoroutine = delayThenUnactivateButton(timeTakenForButtonToDeactivate);
             StartCoroutine(buttonDeactivateDelayCoroutine);
         }
+
+    }
+
+    public void playButtonPress() {
+        if (soundCoroutineRunning || updateFrameTracker > 20) {
+            return;
+        }
+        IEnumerator soundPlayingCoroutine = buttonPressCoroutine();
+        StartCoroutine(soundPlayingCoroutine);
+    }
+
+    public IEnumerator buttonPressCoroutine() {
+        soundCoroutineRunning = true;
+        LevelMasterSingleton.LM.lvlMixer.playLvlSound(EnumCollection.LvlSounds.BUTTON_PRESS);
+        yield return new WaitForSeconds(0.5f);
+        soundCoroutineRunning = false;
 
     }
 

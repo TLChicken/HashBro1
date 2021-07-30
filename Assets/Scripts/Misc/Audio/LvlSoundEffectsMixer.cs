@@ -7,6 +7,7 @@ public class LvlSoundEffectsMixer : MonoBehaviour {
     [Tooltip("Place the reference to the Audio Source - The one that plays the bkg music")]
     public AudioSource audioSource;
 
+    [Header("UI Sounds")]
     [Tooltip("Sound for the UI trays sliding in and out")]
     public AudioClip openingClosingInv;
 
@@ -16,6 +17,8 @@ public class LvlSoundEffectsMixer : MonoBehaviour {
 
     public AudioClip clickingButtonInMenu;
 
+
+    [Header("Level Sounds")]
     public AudioClip boxPush;
 
     public AudioClip boxSplashIntoWater;
@@ -25,12 +28,18 @@ public class LvlSoundEffectsMixer : MonoBehaviour {
     public AudioClip collectingHexItems;
 
     public AudioClip collectingBonus;
+    public AudioClip gateMove;
+    public AudioClip buttonPress;
 
+
+
+    // Things to check whether certain sounds are currently playing. If yes then don't play it again
+    public bool gateSoundPlaying = false;
 
 
     // Start is called before the first frame update
     void Start() {
-
+        gateSoundPlaying = false;
     }
 
 
@@ -77,6 +86,17 @@ public class LvlSoundEffectsMixer : MonoBehaviour {
                 break;
             case EnumCollection.LvlSounds.COLLECT_BONUS:
                 playThis = collectingBonus;
+                break;
+            case EnumCollection.LvlSounds.GATE_MOVE:
+                if (gateSoundPlaying) {
+                    playThis = null;
+                } else {
+                    playThis = gateMove;
+                }
+
+                break;
+            case EnumCollection.LvlSounds.BUTTON_PRESS:
+                playThis = buttonPress;
                 break;
 
         }

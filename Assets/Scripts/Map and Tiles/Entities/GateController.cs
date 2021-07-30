@@ -24,6 +24,8 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
 
     public GateOptions gateType = GateOptions.NORMAL;
 
+    private bool soundCoroutineRunning = false;
+
     public enum GateOptions {
         NORMAL, //Gate closes when puzzle incomplete
         BUGGY
@@ -36,7 +38,7 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
 
     // Start is called before the first frame update
     void Start() {
-
+        soundCoroutineRunning = false;
     }
 
     void Reset() {
@@ -51,6 +53,9 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
     public void openGate() {
         gateOpen = true;
         gateAnimator.SetBool("isGateOpen", true);
+
+        gateMoving();
+
         if (gateType == GateOptions.BUGGY) {
             //Do not move entities
         } else {
@@ -61,11 +66,33 @@ public class GateController : CollidableEntity, PuzzleFinishInterface {
     public void closeGate() {
         gateOpen = false;
         gateAnimator.SetBool("isGateOpen", false);
+
+        gateMoving();
+
         if (gateType == GateOptions.BUGGY) {
             //Do not move entities
         } else {
             LevelMasterSingleton.LM.GetMapController().gateActionAtPos(this.gameObject.transform.position, GateAction.CLOSING);
         }
+    }
+
+    public void gateMoving() {
+        if (soundCoroutineRunning || LevelMasterSingleton.LM.lvlMixer.gateSoundPlaying) {
+            return;
+        }
+        IEnumerator soundPlayingCoroutine = playGateMove();
+        StartCoroutine(soundPlayingCoroutine);
+    }
+
+    public IEnumerator playGateMove() {
+        soundCoroutineRunning = true;
+
+        LevelMasterSingleton.LM.lvlMixer.playLvlSound(EnumCollection.LvlSounds.GATE_MOVE);
+        LevelMasterSingleton.LM.lvlMixer.gateSoundPlaying = true;
+        yield return new WaitForSeconds(0.5f);
+        soundCoroutineRunning = false;
+        LevelMasterSingleton.LM.lvlMixer.gateSoundPlaying = false;
+
     }
 
     // Only runs the first time that the puzzle is completed.
