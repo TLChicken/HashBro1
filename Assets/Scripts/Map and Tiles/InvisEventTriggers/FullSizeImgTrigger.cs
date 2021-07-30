@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FullSizeImgTrigger : InvisEventTrigger {
     public Sprite hbEnterImg;
+    public bool displayMessageInHFPanel = false;
 
     // Start is called before the first frame update
     protected override void Start() {
@@ -20,7 +21,10 @@ public class FullSizeImgTrigger : InvisEventTrigger {
         UI_OtherInHF otherUIMgr = LevelMasterSingleton.LM.getCurrOtherUIHFMgr();
         otherUIMgr.setFullScreenImg(hbEnterImg);
         otherUIMgr.showFullScreenImg();
-        LevelMasterSingleton.LM.hashFunctionMgr.changeAndShowMsgForSeconds("Congratulations!!!", "You have travelled the furthest to the right that is possible in the current game.", 20);
+        if (displayMessageInHFPanel) {
+            LevelMasterSingleton.LM.hashFunctionMgr.changeAndShowMsgForSeconds("Congratulations!!!", "You have travelled the furthest to the right that is possible in the current game.", 20);
+
+        }
 
     }
 
