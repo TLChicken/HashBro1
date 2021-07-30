@@ -7430,5 +7430,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: LvlSelBtnContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 7926898437774346434, guid: 1da8698621874ec44a4c69c2fa074284, type: 3}
+      propertyPath: m_Text
+      value: Tutorial
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1da8698621874ec44a4c69c2fa074284, type: 3}
