@@ -22,6 +22,11 @@ public class ButtonEventTrigger : InvisEventTrigger, PuzzlePieceInterface {
             StopCoroutine(buttonDeactivateDelayCoroutine);
             coroutineRunning = false;
         }
+
+        if (isActivated) {
+            return;
+        }
+
         isActivated = true;
         buttonAnimation.SetBool("buttonDepressed", true);
 
