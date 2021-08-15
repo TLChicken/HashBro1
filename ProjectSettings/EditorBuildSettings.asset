@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Finished Levels/Level 9.unity
     guid: cec7bd22e015fd94e8ea90eb1a62ac2b
+  - enabled: 1
+    path: Assets/Scenes/Finished Levels/Level 10.unity
+    guid: fb0d906de32da11499869096a2ef6c69
   - enabled: 0
     path: Assets/Scenes/SampleLevel2.unity
     guid: 942d598c15a6bc34dad38930ae72669e

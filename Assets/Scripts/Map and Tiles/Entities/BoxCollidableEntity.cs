@@ -104,8 +104,8 @@ public class BoxCollidableEntity : CollidableEntity, PuzzlePieceInterface {
 
 
     public void changeColor(Material colorMaterial) {
-        Color changeToThisColor = colorMaterial.color;
-        boxDestFloorSquareImg.color = changeToThisColor;
+        // Color changeToThisColor = colorMaterial.color;
+        // boxDestFloorSquareImg.color = changeToThisColor;
     }
 
 }
