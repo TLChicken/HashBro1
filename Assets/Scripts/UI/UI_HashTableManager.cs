@@ -99,6 +99,10 @@ public class UI_HashTableManager : MonoBehaviour {
         HTScrollExtenderPanel.transform.SetParent(gridLayoutObj.transform, false);
 
         LevelMasterSingleton.LM.GetStatusInfoController().setHexAvailAmt(totalHexItemsInLvl);
+
+        //In case there are no HT slots
+        LevelMasterSingleton.LM.checkAnswersNow();
+
     }
 
     // Update is called once per frame

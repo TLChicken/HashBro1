@@ -133,8 +133,7 @@ public class LevelMasterSingleton : MonoBehaviour {
 
         updateOtherControllersInLvlList();
 
-        //In case there are no Hash Table slots for this level
-        this.checkAnswersNow();
+
 
     }
 
