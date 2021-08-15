@@ -22,13 +22,18 @@ public class SettingsMenu : MonoBehaviour {
         resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
 
-        int currentResolutionIndex = 0;
+        int currentResolutionIndex = -1;
+        int amtOfIndexToRm = 0;
 
         for (int i = 0; i < resolutions.Length; i++) {
             string option = resolutions[i].width + " x " + resolutions[i].height;
 
-            if (!options.Contains(option)) {
+            if (!options.Contains(option) && ((resolutions[i].width / 16).Equals(resolutions[i].height / 9))) {
                 options.Add(option);
+            } else {
+                if (currentResolutionIndex == -1) {
+                    amtOfIndexToRm = amtOfIndexToRm + 1;
+                }
             }
 
             // comparison to update the resolution at the start
@@ -39,7 +44,8 @@ public class SettingsMenu : MonoBehaviour {
         }
 
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.value = currentResolutionIndex - amtOfIndexToRm >= 0 ? currentResolutionIndex - amtOfIndexToRm : 0;
+        Debug.Log("Resolution Dropdown Chosen Index at: " + resolutionDropdown.value);
         resolutionDropdown.RefreshShownValue();
 
         if (GameMgrSingleton.GM != null) {
