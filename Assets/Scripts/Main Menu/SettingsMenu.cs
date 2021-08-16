@@ -11,6 +11,9 @@ public class SettingsMenu : MonoBehaviour {
     Resolution[] resolutions;
 
     [SerializeField]
+    private int amtOfIndexToRmOVERALL = 0;
+
+    [SerializeField]
     private Slider volSlider;
 
     /* Once game starts, obtain list of possible resolutions based on computer model.
@@ -34,6 +37,7 @@ public class SettingsMenu : MonoBehaviour {
                 if (currentResolutionIndex == -1) {
                     amtOfIndexToRm = amtOfIndexToRm + 1;
                 }
+                this.amtOfIndexToRmOVERALL = this.amtOfIndexToRmOVERALL + 1;
             }
 
             // comparison to update the resolution at the start
@@ -62,7 +66,7 @@ public class SettingsMenu : MonoBehaviour {
     }
 
     public void SetResolution(int resolutionIndex) {
-        Resolution resolution = resolutions[resolutionIndex];
+        Resolution resolution = resolutions[resolutionIndex + this.amtOfIndexToRmOVERALL];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
     public void SetVolume(float volume) {
